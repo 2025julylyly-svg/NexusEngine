@@ -10,7 +10,9 @@ Library/VectorDataStruct/VECTOR/InvalidInputError.cpp
 Library/STRING/Library/String/Error/IndexOutofReangeError/IndexOutofrange.cpp
 Library/STRING/Library/String/MAIN/String.cpp
 Library/QUEUE/Library/QueueFiles/Errors/IsEmptyQueueError.cpp
-Library/MapingData/MAP/NotFoundKeyError.cpp)
+Library/MapingData/MAP/NotFoundKeyError.cpp
+        Engine/Input/InputManager.h
+        Engine/Input/InputManager.cpp)
 target_include_directories(NexusEngine PRIVATE
 Library/MapingData/MAP
 Library/VectorDataStruct/VECTOR
