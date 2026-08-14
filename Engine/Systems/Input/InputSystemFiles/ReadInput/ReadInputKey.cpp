@@ -1,6 +1,6 @@
-#include "InputManager.h"
+#include "ReadInputKey.h"
 
-ReadInputManager::ReadInputManager() {
+ReadInput::ReadInput() {
     FileEventKey = open( "/dev/input/event7", O_RDONLY | O_NONBLOCK );
     if (FileEventKey == -1) {
         std::cout << "Error: can not open '/dev/input/event7'" << std::endl;
@@ -9,7 +9,7 @@ ReadInputManager::ReadInputManager() {
     }
 }
 
-std::optional<input_event> ReadInputManager::GetKeyInputEvent() {
+std::optional<input_event> ReadInput::GetKeyInputEvent() {
     input_event key{};
     if (read (FileEventKey, &key, sizeof(key)) != sizeof(key)) {
         return std::nullopt;
@@ -17,7 +17,7 @@ std::optional<input_event> ReadInputManager::GetKeyInputEvent() {
     return key;
 }
 
-ReadInputManager::~ReadInputManager() {
+ReadInput::~ReadInput() {
     if (FileEventKey != -1) {
         close( FileEventKey );
     }

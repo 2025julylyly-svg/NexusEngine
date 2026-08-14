@@ -2,12 +2,12 @@
  * Nexus Game Engine *
  *********************/
 #include <iostream>
-#include "Engine/Systems/Input/InputSystemFiles/ReadInput/InputManager.h"
+#include "Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h"
 #define NE() std::cerr << "*********************\n" << "* Nexus Game Engine *\n" << "*********************" << std::endl;
 
 int main() {
     NE();
-    ReadInputManager input;
+    ReadInput input;
     while (true) {
         std::optional<input_event> key = input.GetKeyInputEvent();
         if (key.has_value()) {

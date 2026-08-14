@@ -9,14 +9,14 @@
 #include <unistd.h>
 #include <linux/input.h>
 #include "../../InputError/CantReadKeyError.h"
-class ReadInputManager
+class ReadInput
 {
 private:
     int FileEventKey;
 public:
-    ReadInputManager();
+    ReadInput();
     [[nodiscard]] std::optional<input_event> GetKeyInputEvent();
-    ~ReadInputManager();
+    ~ReadInput();
 };
 /*
  * 1 = esc
