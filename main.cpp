@@ -9,8 +9,8 @@ int main() {
     NE();
     ReadInput input;
     while (true) {
-        if (input.IsKeyPressed( 30 )) {
-            std::cout << "A Pressed" << std::endl;
+        if (input.IsKeyReleased( 30 )) {
+            std::cout << "Key Released" << std::endl;
         }
     }
     return 0;
