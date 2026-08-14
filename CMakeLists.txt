@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 4.3)
 project(NexusEngine)
 
-set(CMAKE_CXX_STANDARD 26)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(
         NexusEngine main.cpp
@@ -23,3 +24,4 @@ target_include_directories(NexusEngine PRIVATE
         Library/VectorDataStruct/VECTOR
         Library/STRING/Library/String/MAIN
         Library/QUEUE/Library/QueueFiles/MAIN)
+target_link_libraries(NexusEngine PRIVATE sfml-graphics sfml-window sfml-system)
