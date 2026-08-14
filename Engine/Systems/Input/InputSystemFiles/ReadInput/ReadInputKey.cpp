@@ -7,6 +7,9 @@ ReadInput::ReadInput() {
         perror( "open" );
         exit( 0 );
     }
+    for (unsigned int i = 1; i <= 125; ++i) {
+        KeyState[i] = false;
+    }
 }
 
 std::optional<input_event> ReadInput::GetKeyInputEvent() {
@@ -14,7 +17,18 @@ std::optional<input_event> ReadInput::GetKeyInputEvent() {
     if (read (FileEventKey, &key, sizeof(key)) != sizeof(key)) {
         return std::nullopt;
     }
+    KeyState[key.code] = key.value != 0;
     return key;
+}
+
+bool ReadInput::IsKeyPressed(unsigned short int KeyCode) {
+    std::optional<input_event> key = this->GetKeyInputEvent();
+    if (key.has_value()) {
+        return KeyState[key.value().code];
+    }
+    else {
+        return false;
+    }
 }
 
 ReadInput::~ReadInput() {

@@ -13,9 +13,11 @@ class ReadInput
 {
 private:
     int FileEventKey;
+    Mapping::Map<unsigned short int, bool> KeyState;
 public:
     ReadInput();
     [[nodiscard]] std::optional<input_event> GetKeyInputEvent();
+    bool IsKeyPressed(unsigned short int);
     ~ReadInput();
 };
 /*
