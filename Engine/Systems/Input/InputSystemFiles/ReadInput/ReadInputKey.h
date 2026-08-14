@@ -18,6 +18,8 @@ public:
     ReadInput();
     [[nodiscard]] std::optional<input_event> GetKeyInputEvent();
     short int IsKeyPressed();
+    short int IsKeyHeld();
+    short int IsKeyReleased();
     bool IsKeyPressed(unsigned short int);
     bool IsKeyHeld(unsigned short int);
     ~ReadInput();

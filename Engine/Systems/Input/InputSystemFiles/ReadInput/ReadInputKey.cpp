@@ -13,18 +13,43 @@ ReadInput::ReadInput() {
 }
 
 std::optional<input_event> ReadInput::GetKeyInputEvent() {
-    input_event key{};
-    if (read (FileEventKey, &key, sizeof(key)) != sizeof(key)) {
+    input_event key {};
+    if (read( FileEventKey, &key, sizeof(key) ) != sizeof(key)) {
         return std::nullopt;
     }
     KeyState[key.code] = static_cast<bool>(key.value != 0);
     return key;
 }
 
+// This function gives you the keycode of the pressed key.
 short int ReadInput::IsKeyPressed() {
     std::optional<input_event> key = this->GetKeyInputEvent();
     if (key.has_value()) {
         if (key.value().value == 1) {
+            return static_cast<short int>(key.value().code);
+        }
+        return -1;
+    }
+    return -1;
+}
+
+// This function gives you the keycode of the Helded key
+short int ReadInput::IsKeyHeld() {
+    std::optional<input_event> key = this->GetKeyInputEvent();
+    if (key.has_value()) {
+        if (key.value().value == 2) {
+            return static_cast<short int>(key.value().code);
+        }
+        return -1;
+    }
+    return -1;
+}
+
+// This function gives you the keycode of the Released key
+short int ReadInput::IsKeyReleased() {
+    std::optional<input_event> key = this->GetKeyInputEvent();
+    if (key.has_value()) {
+        if (key.value().value == 0) {
             return static_cast<short int>(key.value().code);
         }
         return -1;
@@ -53,6 +78,7 @@ bool ReadInput::IsKeyHeld(unsigned short int KeyCode) {
     }
     return false;
 }
+
 ReadInput::~ReadInput() {
     if (FileEventKey != -1) {
         close( FileEventKey );

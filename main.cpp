@@ -12,6 +12,9 @@ int main() {
     ReadInput input;
     while (true) {
         if (const short int key = input.IsKeyPressed(); key != -1) {
+            if (key == 1) {
+                break;
+            }
             std::cout << "Key pressed: " << key << std::endl;
         }
         std::cout << "Hello" << std::endl;
