@@ -21,7 +21,7 @@ std::optional<input_event> ReadInput::GetKeyInputEvent() {
     return key;
 }
 
-// This function gives you the keycode of the pressed key.
+// This function gives you the keycode of the Pressed key.
 short int ReadInput::IsKeyPressed() {
     std::optional<input_event> key = this->GetKeyInputEvent();
     if (key.has_value()) {
