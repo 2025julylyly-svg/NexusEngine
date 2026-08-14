@@ -4,7 +4,7 @@
 class Circle final
 {
 private:
-    sf::CircleShape circle;;
+    sf::CircleShape circle;
     float Speed;
 public:
     explicit Circle(float /* X : position */, float /* Y : position */);

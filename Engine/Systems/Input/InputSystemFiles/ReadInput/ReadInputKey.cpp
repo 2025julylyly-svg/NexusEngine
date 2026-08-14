@@ -33,7 +33,7 @@ short int ReadInput::IsKeyPressed() {
     return -1;
 }
 
-// This function gives you the keycode of the Helded key
+// This function gives you the keycode of the Held key
 short int ReadInput::IsKeyHeld() {
     std::optional<input_event> key = this->GetKeyInputEvent();
     if (key.has_value()) {
