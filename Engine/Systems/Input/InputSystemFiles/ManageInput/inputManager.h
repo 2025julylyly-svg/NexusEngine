@@ -1,4 +1,2 @@
 #pragma once
-class InputManager
-{
-};
+#include "map.h"

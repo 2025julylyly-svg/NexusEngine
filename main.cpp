@@ -13,6 +13,9 @@ int main() {
         if (key.has_value()) {
             if (key.value().type == EV_KEY) {
                 if (key.value().value == 1) {
+                    if (key.value().code == 1) {
+                        break;
+                    }
                     std::cout << "Key Pressed: " << key.value().code << std::endl;
                 }
             }
