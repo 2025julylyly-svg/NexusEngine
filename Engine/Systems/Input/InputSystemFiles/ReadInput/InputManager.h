@@ -3,22 +3,20 @@
 #include <fcntl.h>
 #include <optional>
 #include <map.h>
+#include <Vector.h>
 #include <cstdio>
 #include <iostream>
 #include <unistd.h>
 #include <linux/input.h>
-#include "../InputError/CantReadKeyError.h"
-class InputManager
+#include "../../InputError/CantReadKeyError.h"
+class ReadInputManager
 {
 private:
     int FileEventKey;
-    Mapping::Map<unsigned int, bool> KeyState; // true : pressed, false : released
 public:
-    InputManager();
-    [[nodiscard]] bool GetKeyState(const unsigned int&);
-    [[nodiscard]] bool GetKeyState(const unsigned int&&);
-    [[nodiscard]] bool GetKeyState(input_event);
-    ~InputManager();
+    ReadInputManager();
+    [[nodiscard]] std::optional<input_event> GetKeyInputEvent();
+    ~ReadInputManager();
 };
 /*
  * 1 = esc
@@ -56,4 +54,17 @@ public:
  * 38 = l
  * 39 = ;
  * 40 = '
+ * 41 = `
+ * 42 = left shift
+ * 43 = z
+ * 44 = x
+ * 45 = c
+ * 46 = v
+ * 47 = b
+ * 48 = n
+ * 49 = m
+ * 50 = ,
+ * 51 = .
+ * 52 = /
+ * 53 = right shift
  */
