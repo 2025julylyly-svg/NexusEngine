@@ -24,11 +24,12 @@ std::optional<input_event> ReadInput::GetKeyInputEvent() {
 bool ReadInput::IsKeyPressed(unsigned short int KeyCode) {
     std::optional<input_event> key = this->GetKeyInputEvent();
     if (key.has_value()) {
-        return KeyState[key.value().code];
-    }
-    else {
+        if (key.value().value == 1) {
+            return KeyState[KeyCode];
+        }
         return false;
     }
+    return false;
 }
 
 ReadInput::~ReadInput() {
