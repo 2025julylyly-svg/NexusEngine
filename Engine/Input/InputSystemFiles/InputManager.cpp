@@ -8,12 +8,12 @@ InputManager::InputManager() {
         exit(0);
     }
 }
-unsigned int InputManager::GetKeyPressed() const {
+input_event InputManager::GetKeyPressed() const {
     input_event key{};
     if (read( FileEventKey, &key, sizeof(key) ) != sizeof(key)) {
-        return -1;
+        throw CantReadKeyError("can not read key");
     }
-    return key.code;
+    return key;
 }
 
 InputManager::~InputManager() {

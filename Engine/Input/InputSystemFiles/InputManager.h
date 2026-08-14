@@ -5,14 +5,14 @@
 #include <iostream>
 #include <unistd.h>
 #include <linux/input.h>
+#include "../InputError/CantReadKeyError.h"
 class InputManager
 {
 private:
     int FileEventKey;
 public:
     InputManager();
-    bool IsPressed(input_event);
-    [[nodiscard]] unsigned int GetKeyPressed() const;
+    [[nodiscard]] input_event GetKeyPressed() const;
     ~InputManager();
 };
 /*

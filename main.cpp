@@ -12,13 +12,21 @@ int main() {
     int y = 75;
     bool pause = false;
     while (true) {
-        if (input.GetKeyPressed() == 1) {
-            pause = !pause;
+        try {
+            input_event key = input.GetKeyPressed();
+            if (key.type == EV_KEY) {
+                if (key.code == BTN_LEFT) {
+                    std::cout << "Left Key Pressed" << std::endl;
+                }
+            }
         }
-        if (pause) {
-            continue;
+        catch (const CantReadKeyError& e) {
+            std::cerr << e.what() << std::endl;
         }
-        std::cout << "~" << std::endl;
+        catch (const std::exception& e) {
+            std::cerr << e.what() << std::endl;
+        }
+        std::cout << "Press any key to continue..." << std::endl;
     }
     return 0;
 }
