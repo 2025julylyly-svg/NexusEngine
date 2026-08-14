@@ -13,6 +13,7 @@ private:
     int FileEventKey;
 public:
     InputManager();
+    [[nodiscard]] std::optional<input_event> GetKeyReleased() const;
     [[nodiscard]] std::optional<input_event> GetKeyPressed() const;
     ~InputManager();
 };

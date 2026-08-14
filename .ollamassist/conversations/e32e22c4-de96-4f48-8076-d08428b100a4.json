@@ -2,7 +2,7 @@
   "id" : "e32e22c4-de96-4f48-8076-d08428b100a4",
   "title" : "[Agent] create a input system for 2D gane engine (name of my...",
   "createdAt" : 1786650517311,
-  "updatedAt" : 1786668226142,
+  "updatedAt" : 1786669994256,
   "messages" : [ {
     "role" : "USER",
     "content" : "[Agent] create a input system for 2D gane engine (name of my game engine is nexus)",
@@ -27,5 +27,17 @@
     "role" : "ASSISTANT",
     "content" : "Discovering relevant files...\nGenerating plan...",
     "timestamp" : 1786668226142
+  }, {
+    "role" : "USER",
+    "content" : "[Agent] how can i che ",
+    "timestamp" : 1786669940322
+  }, {
+    "role" : "USER",
+    "content" : "[Agent] how can i check to pressed key on linux?",
+    "timestamp" : 1786669972541
+  }, {
+    "role" : "ASSISTANT",
+    "content" : "Discovering relevant files...\nGenerating plan...\nTo check which key is pressed on Linux, you can use tools like `xev` or `showkey`. Here's how you can use them:\n\n1. **Using `xev`:**\n   - Open a terminal.\n   - Run the command: `xev`\n   - A small window will appear. Press any key on your keyboard, and you'll see detailed information about the key event in the terminal output.\n\n2. **Using `showkey`:**\n   - Open a terminal.\n   - Run the command: `sudo showkey`\n   - Follow the instructions to capture key events. This will display the scan codes and key values for the keys you press.",
+    "timestamp" : 1786669994256
   } ]
 }

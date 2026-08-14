@@ -9,23 +9,39 @@ int main() {
     NE();
     InputManager input;
     while (true) {
-        try {
-            if (std::optional<input_event> key = input.GetKeyPressed(); key.has_value()) {
-                if (key.value().type == EV_KEY) {
-                    if (key.value().code == KEY_A) {
-                        std::cout << "Key Pressed: " << key.value().code << "   " << "State: " << key.value().value << std::endl;
-                    }
+        std::optional<input_event> DownKey = input.GetKeyPressed();
+        std::optional<input_event> UpKey = input.GetKeyReleased();
+        if (DownKey.has_value()) {
+            if (DownKey.value().type == EV_KEY) {
+                if (DownKey.value().code == KEY_W) {
+                    std::cout << "Pressed W" << std::endl;
+                }
+                else if (DownKey.value().code == KEY_S) {
+                    std::cout << "Pressed S" << std::endl;
+                }
+                else if (DownKey.value().code == KEY_A) {
+                    std::cout << "Pressed A" << std::endl;
+                }
+                else if (DownKey.value().code == KEY_D) {
+                    std::cout << "Pressed D" << std::endl;
                 }
             }
-            else {
-                std::cout << "Press any key to continue..." << std::endl;
+        }
+        if (UpKey.has_value()) {
+            if (UpKey.value().type == EV_KEY) {
+                if (UpKey.value().code == KEY_W) {
+                    std::cout << "Released W" << std::endl;
+                }
+                else if (UpKey.value().code == KEY_S) {
+                    std::cout << "Released S" << std::endl;
+                }
+                else if (UpKey.value().code == KEY_A) {
+                    std::cout << "Released A" << std::endl;
+                }
+                else if (UpKey.value().code == KEY_D) {
+                    std::cout << "Released D" << std::endl;
+                }
             }
-        }
-        catch (const CantReadKeyError& e) {
-            std::cerr << e.what() << std::endl;
-        }
-        catch (const std::exception& e) {
-            std::cerr << e.what() << std::endl;
         }
     }
     return 0;
