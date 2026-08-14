@@ -21,9 +21,11 @@ void Circle::SetColor(uint8_t r, uint8_t g, uint8_t b, float state) {
 void Circle::SetRadius(float Radius) {
     circle.setRadius( Radius );
 }
+
 void Circle::SetPos(float x, float y) {
     circle.setPosition( { x, y } );
 }
+
 void Circle::MoveUp() {
     this->circle.setPosition( { this->circle.getPosition().x, this->circle.getPosition().y - this->Speed } );
 }

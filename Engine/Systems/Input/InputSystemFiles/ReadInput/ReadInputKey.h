@@ -9,21 +9,28 @@
 #include <unistd.h>
 #include <linux/input.h>
 #include "../../InputError/CantReadKeyError.h"
+
 class ReadInput
 {
 private:
     int FileEventKey;
     Mapping::Map<unsigned short int, bool> KeyPressed;
     Mapping::Map<unsigned short int, bool> KeyHeld;
+    Mapping::Map<unsigned short int, bool> KeyReleased;
+
 public:
     ReadInput();
     void GetKeyInputEvent();
     bool IsKeyPressed(unsigned short int);
     bool IsKeyHeld(unsigned short int);
-    short int GetKeyPressed();
+    bool IsKeyReleased(unsigned short int);
+    unsigned short int GetKeyPressed();
+    unsigned short int GetKeyHeld();
+    unsigned short int GetKeyReleased();
     void Reset();
     ~ReadInput();
 };
+
 /*
  * 1 = esc
  * 2 = number 1
@@ -62,15 +69,19 @@ public:
  * 40 = '
  * 41 = `
  * 42 = left shift
- * 43 = z
- * 44 = x
- * 45 = c
- * 46 = v
- * 47 = b
- * 48 = n
- * 49 = m
- * 50 = ,
- * 51 = .
- * 52 = /
- * 53 = right shift
+ * 43 = \
+ * 44 = z
+ * 45 = x
+ * 46 = c
+ * 47 = v
+ * 48 = b
+ * 49 = n
+ * 50 = m
+ * 51 = ,
+ * 52 = .
+ * 53 = /
+ * 54 = right shift
+ * 55 = *
+ * 56 = left alt
+ * 57 = space
  */

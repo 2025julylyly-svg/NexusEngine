@@ -9,6 +9,8 @@ ReadInput::ReadInput() {
     }
     for (unsigned int i = 1; i <= 125; ++i) {
         KeyPressed[i] = false;
+        KeyHeld[i] = false;
+        KeyReleased[i] = false;
     }
 }
 
@@ -17,7 +19,15 @@ void ReadInput::GetKeyInputEvent() {
     if (read( FileEventKey, &key, sizeof(key) ) != sizeof(key)) {
         return;
     }
-    KeyPressed[key.code] = static_cast<bool>(key.value != 0);
+    if (key.value == 0) {
+        KeyPressed[key.code] = false;
+        KeyHeld[key.code] = false;
+        KeyReleased[key.code] = true;
+    } else if (key.value == 1) {
+        KeyPressed[key.code] = true;
+    } else if (key.value == 2) {
+        KeyHeld[key.code] = true;
+    }
 }
 
 bool ReadInput::IsKeyPressed(unsigned short int KeyCode) {
@@ -25,12 +35,45 @@ bool ReadInput::IsKeyPressed(unsigned short int KeyCode) {
 }
 
 bool ReadInput::IsKeyHeld(unsigned short int KeyCode) {
-    return KeyPressed[KeyCode];
+    return KeyHeld[KeyCode];
+}
+
+bool ReadInput::IsKeyReleased(unsigned short int KeyCode) {
+    return KeyReleased[KeyCode];
+}
+
+unsigned short int ReadInput::GetKeyPressed() {
+    for (unsigned short int i = 1; i <= 125; ++i) {
+        if (KeyPressed[i]) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+unsigned short int ReadInput::GetKeyHeld() {
+    for (unsigned short int i = 1; i <= 125; ++i) {
+        if (KeyHeld[i]) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+unsigned short int ReadInput::GetKeyReleased() {
+    for (unsigned short int i = 1; i <= 125; ++i) {
+        if (KeyReleased[i]) {
+            return i;
+        }
+    }
+    return 0;
 }
 
 void ReadInput::Reset() {
     for (unsigned int i = 1; i <= 125; ++i) {
         KeyPressed[i] = false;
+        KeyHeld[i] = false;
+        KeyReleased[i] = false;
     }
 }
 
