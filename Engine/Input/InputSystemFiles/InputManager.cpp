@@ -9,26 +9,16 @@ InputManager::InputManager() {
     }
 }
 
-std::optional<input_event> InputManager::GetKeyReleased() const {
-    input_event key{};
-    if (read( FileEventKey, &key, sizeof(key) ) != sizeof(key)) {
-        return std::nullopt;
-    }
-    if (key.value == 0) {
-        return key;
-    }
-    return std::nullopt;
+bool InputManager::GetKeyState(const unsigned int& KeyCode) {
+    return KeyState[KeyCode];
 }
 
-std::optional<input_event> InputManager::GetKeyPressed() const {
-    input_event key{};
-    if (read( FileEventKey, &key, sizeof(key) ) != sizeof(key)) {
-        return std::nullopt;
-    }
-    if (key.value == 1) {
-        return key;
-    }
-    return std::nullopt;
+bool InputManager::GetKeyState(const unsigned int&& KeyCode) {
+    return KeyState[KeyCode];
+}
+
+bool InputManager::GetKeyState(input_event key) {
+    return KeyState[key.code];
 }
 
 InputManager::~InputManager() {

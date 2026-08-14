@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <fcntl.h>
 #include <optional>
+#include <map.h>
 #include <cstdio>
 #include <iostream>
 #include <unistd.h>
@@ -11,10 +12,12 @@ class InputManager
 {
 private:
     int FileEventKey;
+    Mapping::Map<unsigned int, bool> KeyState; // true : pressed, false : released
 public:
     InputManager();
-    [[nodiscard]] std::optional<input_event> GetKeyReleased() const;
-    [[nodiscard]] std::optional<input_event> GetKeyPressed() const;
+    [[nodiscard]] bool GetKeyState(const unsigned int&);
+    [[nodiscard]] bool GetKeyState(const unsigned int&&);
+    [[nodiscard]] bool GetKeyState(input_event);
     ~InputManager();
 };
 /*

@@ -10,7 +10,6 @@ int main() {
     InputManager input;
     while (true) {
         std::optional<input_event> DownKey = input.GetKeyPressed();
-        std::optional<input_event> UpKey = input.GetKeyReleased();
         if (DownKey.has_value()) {
             if (DownKey.value().type == EV_KEY) {
                 if (DownKey.value().code == KEY_W) {
@@ -27,6 +26,7 @@ int main() {
                 }
             }
         }
+        std::optional<input_event> UpKey = input.GetKeyReleased();
         if (UpKey.has_value()) {
             if (UpKey.value().type == EV_KEY) {
                 if (UpKey.value().code == KEY_W) {
