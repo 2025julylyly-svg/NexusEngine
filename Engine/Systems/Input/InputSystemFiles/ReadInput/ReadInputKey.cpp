@@ -21,6 +21,17 @@ std::optional<input_event> ReadInput::GetKeyInputEvent() {
     return key;
 }
 
+short int ReadInput::IsKeyPressed() {
+    std::optional<input_event> key = this->GetKeyInputEvent();
+    if (key.has_value()) {
+        if (key.value().value == 1) {
+            return static_cast<short int>(key.value().code);
+        }
+        return -1;
+    }
+    return -1;
+}
+
 bool ReadInput::IsKeyPressed(unsigned short int KeyCode) {
     std::optional<input_event> key = this->GetKeyInputEvent();
     if (key.has_value()) {

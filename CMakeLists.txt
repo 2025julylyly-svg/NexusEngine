@@ -15,9 +15,7 @@ add_executable(
         Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h
         Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.cpp
         Engine/Systems/Input/InputError/CantReadKeyError.h
-        Engine/Systems/Input/InputError/CantReadKeyError.cpp
-        Engine/Systems/Input/InputSystemFiles/ManageInput/inputManager.h
-        Engine/Systems/Input/InputSystemFiles/ManageInput/inputManager.cpp)
+        Engine/Systems/Input/InputError/CantReadKeyError.cpp)
 target_include_directories(NexusEngine PRIVATE
         Library/MapingData/MAP
         Library/VectorDataStruct/VECTOR
