@@ -8,12 +8,20 @@ InputManager::InputManager() {
         exit(0);
     }
 }
-input_event InputManager::GetKeyPressed() const {
+std::optional<input_event> InputManager::GetKeyPressed() const {
     input_event key{};
-    if (read( FileEventKey, &key, sizeof(key) ) != sizeof(key)) {
-        throw CantReadKeyError("can not read key");
+    if (const ssize_t result = read( FileEventKey, &key, sizeof(key) ); result == -1) {
+        if (errno == EAGAIN || errno == EWOULDBLOCK) {
+            return std::nullopt;
+        }
+        else {
+            throw CantReadKeyError("can not read key");
+        }
     }
-    return key;
+    else if (result == sizeof(key)) {
+        return key;
+    }
+    return std::nullopt;
 }
 
 InputManager::~InputManager() {

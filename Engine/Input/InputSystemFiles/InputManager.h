@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdlib>
 #include <fcntl.h>
+#include <optional>
 #include <cstdio>
 #include <iostream>
 #include <unistd.h>
@@ -12,7 +13,7 @@ private:
     int FileEventKey;
 public:
     InputManager();
-    [[nodiscard]] input_event GetKeyPressed() const;
+    [[nodiscard]] std::optional<input_event> GetKeyPressed() const;
     ~InputManager();
 };
 /*

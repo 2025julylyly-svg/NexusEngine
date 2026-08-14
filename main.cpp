@@ -8,16 +8,17 @@
 int main() {
     NE();
     InputManager input;
-    int x = 120;
-    int y = 75;
-    bool pause = false;
     while (true) {
         try {
-            input_event key = input.GetKeyPressed();
-            if (key.type == EV_KEY) {
-                if (key.code == BTN_LEFT) {
-                    std::cout << "Left Key Pressed" << std::endl;
+            if (std::optional<input_event> key = input.GetKeyPressed(); key.has_value()) {
+                if (key.value().type == EV_KEY) {
+                    if (key.value().code == KEY_A) {
+                        std::cout << "Key Pressed: " << key.value().code << "   " << "State: " << key.value().value << std::endl;
+                    }
                 }
+            }
+            else {
+                std::cout << "Press any key to continue..." << std::endl;
             }
         }
         catch (const CantReadKeyError& e) {
@@ -26,7 +27,6 @@ int main() {
         catch (const std::exception& e) {
             std::cerr << e.what() << std::endl;
         }
-        std::cout << "Press any key to continue..." << std::endl;
     }
     return 0;
 }
