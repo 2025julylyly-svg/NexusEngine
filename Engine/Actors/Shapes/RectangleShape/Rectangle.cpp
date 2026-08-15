@@ -14,17 +14,25 @@ Rectangle::Rectangle(
 }
 
 void Rectangle::MoveUp() {
-    shape.setPosition( { shape.getPosition().x, shape.getPosition().y - this->Speed } );
+    if (shape.getPosition().y - this->Speed >= this->MinPosY) {
+        shape.setPosition( { shape.getPosition().x, shape.getPosition().y - this->Speed } );
+    }
 }
 
 void Rectangle::MoveDown() {
-    shape.setPosition( { shape.getPosition().x, shape.getPosition().y + this->Speed } );
+    if (shape.getPosition().y + this->Speed <= this->MaxPosY) {
+        shape.setPosition( { shape.getPosition().x, shape.getPosition().y + this->Speed } );
+    }
 }
 
 void Rectangle::MoveLeft() {
-    shape.setPosition( { shape.getPosition().x - this->Speed, shape.getPosition().y } );
+    if (shape.getPosition().x - this->Speed >= this->MinPosX) {
+        shape.setPosition( { shape.getPosition().x - this->Speed, shape.getPosition().y } );
+    }
 }
 
 void Rectangle::MoveRight() {
-    shape.setPosition( { shape.getPosition().x + this->Speed, shape.getPosition().y } );
+    if (shape.getPosition().x + this->Speed <= this->MaxPosX) {
+        shape.setPosition( { shape.getPosition().x + this->Speed, shape.getPosition().y } );
+    }
 }
