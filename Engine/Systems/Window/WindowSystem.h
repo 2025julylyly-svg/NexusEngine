@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-class WindowSystem
+class WindowSystem final : public sf::RenderWindow
 {
 private:
     sf::RenderWindow window;
