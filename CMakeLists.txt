@@ -13,6 +13,8 @@ add_executable(
         Library/STRING/Library/String/MAIN/String.cpp
         Library/QUEUE/Library/QueueFiles/Errors/IsEmptyQueueError.cpp
         Library/MapingData/MAP/NotFoundKeyError.cpp
+        Library/MapingData/MAP/NotFoundKeyError.h
+        Library/MapingData/MAP/map.h
         Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h
         Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.cpp
         Engine/Controls/Error/InputError/CantReadKeyError.h

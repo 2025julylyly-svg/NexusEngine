@@ -2,7 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Library/MapingData" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Library/MapingData" vcs="" />
     <mapping directory="$PROJECT_DIR$/Library/QUEUE" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Library/STRING" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Library/VectorDataStruct" vcs="Git" />

@@ -21,8 +21,11 @@ private:
 public:
     ReadInput();
     void GetKeyInputEvent();
+    bool IsKeyPressed(const unsigned short int&&);
     bool IsKeyPressed(const unsigned short int&);
+    bool IsKeyHeld(const unsigned short int&&);
     bool IsKeyHeld(const unsigned short int&);
+    bool IsKeyReleased(const unsigned short int&&);
     bool IsKeyReleased(const unsigned short int&);
     unsigned short int GetKeyPressed();
     unsigned short int GetKeyHeld();

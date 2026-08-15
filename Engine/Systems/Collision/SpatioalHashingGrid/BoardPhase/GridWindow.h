@@ -9,7 +9,7 @@ private:
     float WidthScreen, HeightScreen;
     Mapping::Map<std::string, Vector<sf::Shape>> StateOfShapes;
 public:
-    explicit GridWindow(float,float,Vector<sf::Shape>);
+    explicit GridWindow(float,float,const Vector<sf::Shape>&);
     void Reset();
     void Update();
 };
