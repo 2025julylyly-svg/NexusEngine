@@ -11,5 +11,6 @@ private:
 public:
     explicit GridWindow(float,float,const Vector<sf::Shape>&);
     void Reset();
+    void Rebase();
     void Update();
 };
