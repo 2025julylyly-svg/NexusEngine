@@ -30,15 +30,15 @@ void ReadInput::GetKeyInputEvent() {
     }
 }
 
-bool ReadInput::IsKeyPressed(const unsigned short int KeyCode) {
+bool ReadInput::IsKeyPressed(const unsigned short int& KeyCode) {
     return KeyPressed[KeyCode];
 }
 
-bool ReadInput::IsKeyHeld(const unsigned short int KeyCode) {
+bool ReadInput::IsKeyHeld(const unsigned short int& KeyCode) {
     return KeyHeld[KeyCode];
 }
 
-bool ReadInput::IsKeyReleased(const unsigned short int KeyCode) {
+bool ReadInput::IsKeyReleased(const unsigned short int& KeyCode) {
     return KeyReleased[KeyCode];
 }
 
