@@ -12,6 +12,7 @@ add_executable(
         Library/STRING/Library/String/Error/IndexOutofReangeError/IndexOutofrange.cpp
         Library/STRING/Library/String/MAIN/String.cpp
         Library/QUEUE/Library/QueueFiles/Errors/IsEmptyQueueError.cpp
+        Library/MapingData/MAP/NotFoundKeyError.cpp
         Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h
         Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.cpp
         Engine/Controls/Error/InputError/CantReadKeyError.h
