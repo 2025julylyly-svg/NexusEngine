@@ -15,43 +15,44 @@ ReadInput::ReadInput() {
 }
 
 void ReadInput::GetKeyInputEvent() {
+    std::cout << "ReadInput::GetKeyInputEvent" << std::endl;
     input_event key {};
-    if (read( FileEventKey, &key, sizeof(key) ) != sizeof(key)) {
-        return;
+    try{
+        if (read( FileEventKey, &key, sizeof(key) ) != sizeof(key)) {
+            throw CantReadKeyError("Can not read key");
+        }
+        std::cout << "hello" << std::endl;
+        if (key.value == 0) {
+            KeyPressed[key.code] = false;
+            KeyHeld[key.code] = false;
+            KeyReleased[key.code] = true;
+            return;
+        } else if (key.value == 1) {
+            KeyPressed[key.code] = true;
+            return;
+        } else if (key.value == 2) {
+            KeyHeld[key.code] = true;
+            return;
+        }
     }
-    if (key.value == 0) {
-        KeyPressed[key.code] = false;
-        KeyHeld[key.code] = false;
-        KeyReleased[key.code] = true;
-    } else if (key.value == 1) {
-        KeyPressed[key.code] = true;
-    } else if (key.value == 2) {
-        KeyHeld[key.code] = true;
+    catch (const CantReadKeyError& e) {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cout << "Error: " << e.what() << std::endl;
     }
 }
 
-bool ReadInput::IsKeyPressed(const unsigned short int&& KeyCode) {
-    return KeyPressed[KeyCode];
+bool ReadInput::IsKeyPressed(const unsigned short int KeyCode) {
+    return KeyPressed[KeyCode - 1];
 }
 
-bool ReadInput::IsKeyHeld(const unsigned short int&& KeyCode) {
-    return KeyHeld[KeyCode];
+bool ReadInput::IsKeyHeld(const unsigned short int KeyCode) {
+    return KeyHeld[KeyCode - 1];
 }
 
-bool ReadInput::IsKeyReleased(const unsigned short int&& KeyCode) {
-    return KeyReleased[KeyCode];
-}
-
-bool ReadInput::IsKeyPressed(const unsigned short int& KeyCode) {
-    return KeyPressed[KeyCode];
-}
-
-bool ReadInput::IsKeyHeld(const unsigned short int& KeyCode) {
-    return KeyHeld[KeyCode];
-}
-
-bool ReadInput::IsKeyReleased(const unsigned short int& KeyCode) {
-    return KeyReleased[KeyCode];
+bool ReadInput::IsKeyReleased(const unsigned short int KeyCode) {
+    return KeyReleased[KeyCode - 1];
 }
 
 unsigned short int ReadInput::GetKeyPressed() {

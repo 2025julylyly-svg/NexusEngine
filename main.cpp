@@ -16,12 +16,12 @@ int main() {
     ReadInput input;
     while (true) {
         input.GetKeyInputEvent();
-        if (input.IsKeyPressed( 1 )) {
-            std::cout << "Key pressed: " << "Escape" << std::endl;
+        if (input.GetKeyPressed() == 30) {
+            std::cout << "KeyPressed" << std::endl;
         }
-        input.Reset();
         std::cout << "---------------------" << std::endl;
         std::this_thread::sleep_for( std::chrono::milliseconds(1000) );
+        input.Reset();
     }
     return 0;
 }
