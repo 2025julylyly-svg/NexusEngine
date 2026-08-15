@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class Circle final
+class Circle final : public sf::CircleShape
 {
 private:
     sf::CircleShape circle;
@@ -10,9 +10,6 @@ private:
 public:
     explicit Circle(float /* X : position */, float /* Y : position */);
     void SetSpeed(float);
-    void SetColor(uint8_t, uint8_t, uint8_t, float /* state : without outliner if state == 0 */);
-    void SetRadius(float);
-    void SetPos(float, float);
     void MoveUp();
     void MoveDown();
     void MoveLeft();
