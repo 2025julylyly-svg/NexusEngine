@@ -1,13 +1,13 @@
 #include "ReadInputKey.h"
 
 ReadInput::ReadInput() {
-    FileEventKey = open( "/dev/input/event7", O_RDONLY | O_NONBLOCK );
+    FileEventKey = open( "/dev/input/event4", O_RDONLY | O_NONBLOCK );
     if (FileEventKey == -1) {
         std::cout << "Error: can not open '/dev/input/event7'" << std::endl;
         perror( "open" );
         exit( 0 );
     }
-    for (unsigned int i = 1; i <= 125; ++i) {
+    for (unsigned int i = 1; i <= 240; ++i) {
         KeyPressed[i] = false;
         KeyHeld[i] = false;
         KeyReleased[i] = false;
@@ -15,48 +15,39 @@ ReadInput::ReadInput() {
 }
 
 void ReadInput::GetKeyInputEvent() {
-    std::cout << "ReadInput::GetKeyInputEvent" << std::endl;
     input_event key {};
-    try{
-        if (read( FileEventKey, &key, sizeof(key) ) != sizeof(key)) {
-            throw CantReadKeyError("Can not read key");
-        }
-        std::cout << "hello" << std::endl;
-        if (key.value == 0) {
-            KeyPressed[key.code] = false;
-            KeyHeld[key.code] = false;
-            KeyReleased[key.code] = true;
-            return;
-        } else if (key.value == 1) {
-            KeyPressed[key.code] = true;
-            return;
-        } else if (key.value == 2) {
-            KeyHeld[key.code] = true;
-            return;
-        }
+    if (read( FileEventKey, &key, sizeof(key) ) != sizeof(key)) {
+        return;
     }
-    catch (const CantReadKeyError& e) {
-        std::cout << "Error: " << e.what() << std::endl;
-    }
-    catch (const std::exception& e) {
-        std::cout << "Error: " << e.what() << std::endl;
+    if (key.value == 0) {
+        KeyPressed[key.code] = false;
+        KeyHeld[key.code] = false;
+        KeyReleased[key.code] = true;
+        return;
+    } else if (key.value == 1) {
+        KeyPressed[key.code] = true;
+        return;
+    } else if (key.value == 2) {
+        KeyHeld[key.code] = true;
+        return;
     }
 }
 
+
 bool ReadInput::IsKeyPressed(const unsigned short int KeyCode) {
-    return KeyPressed[KeyCode - 1];
+    return KeyPressed[KeyCode];
 }
 
 bool ReadInput::IsKeyHeld(const unsigned short int KeyCode) {
-    return KeyHeld[KeyCode - 1];
+    return KeyHeld[KeyCode];
 }
 
 bool ReadInput::IsKeyReleased(const unsigned short int KeyCode) {
-    return KeyReleased[KeyCode - 1];
+    return KeyReleased[KeyCode];
 }
 
 unsigned short int ReadInput::GetKeyPressed() {
-    for (unsigned short int i = 1; i <= 125; ++i) {
+    for (unsigned short int i = 1; i <= 240; ++i) {
         if (KeyPressed[i]) {
             return i;
         }
@@ -65,7 +56,7 @@ unsigned short int ReadInput::GetKeyPressed() {
 }
 
 unsigned short int ReadInput::GetKeyHeld() {
-    for (unsigned short int i = 1; i <= 125; ++i) {
+    for (unsigned short int i = 1; i <= 240; ++i) {
         if (KeyHeld[i]) {
             return i;
         }
@@ -74,7 +65,7 @@ unsigned short int ReadInput::GetKeyHeld() {
 }
 
 unsigned short int ReadInput::GetKeyReleased() {
-    for (unsigned short int i = 1; i <= 125; ++i) {
+    for (unsigned short int i = 1; i <= 240; ++i) {
         if (KeyReleased[i]) {
             return i;
         }
@@ -83,7 +74,7 @@ unsigned short int ReadInput::GetKeyReleased() {
 }
 
 void ReadInput::Reset() {
-    for (unsigned int i = 1; i <= 125; ++i) {
+    for (unsigned int i = 1; i <= 240; ++i) {
         KeyPressed[i] = false;
         KeyHeld[i] = false;
         KeyReleased[i] = false;
