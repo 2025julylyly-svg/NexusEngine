@@ -8,7 +8,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <linux/input.h>
-#include "../../InputError/CantReadKeyError.h"
+#include "../../../Engine/Controls/Error/InputError/CantReadKeyError.h"
 
 class ReadInput
 {

@@ -15,13 +15,15 @@ add_executable(
         Library/MapingData/MAP/NotFoundKeyError.cpp
         Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h
         Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.cpp
-        Engine/Systems/Input/InputError/CantReadKeyError.h
-        Engine/Systems/Input/InputError/CantReadKeyError.cpp
+        Engine/Controls/Error/InputError/CantReadKeyError.h
+        Engine/Controls/Error/InputError/CantReadKeyError.cpp
         Engine/Objects/Shapes/CircleShape/Circle.h
         Engine/Objects/Shapes/CircleShape/Circle.cpp)
+
 target_include_directories(NexusEngine PRIVATE
         Library/MapingData/MAP
         Library/VectorDataStruct/VECTOR
         Library/STRING/Library/String/MAIN
         Library/QUEUE/Library/QueueFiles/MAIN)
+
 target_link_libraries(NexusEngine PRIVATE sfml-graphics sfml-window sfml-system)
