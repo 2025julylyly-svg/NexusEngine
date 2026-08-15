@@ -1,6 +1,13 @@
 #include "Rectangle.h"
 
-Rectangle::Rectangle(float x, float y, float Width, float Height) : Speed( 0.0f ), MaxPosX( -1.f ), MaxPosY( -1.f ), MinPosX( -1.f ), MinPosY( -1.f ) {
+Rectangle::Rectangle(
+    float x, float y,
+    float Width, float Height,
+    const float Max_X = -1.f, const float Max_Y = -1.f, const float Min_X = -1.f, const float Min_Y = -1.f) :
+    Speed( 0.0f ),
+    MaxPosX( Max_X ), MaxPosY( Max_Y ),
+    MinPosX( Min_X ), MinPosY( Min_Y ) {
+
     shape.setPosition( { x, y } );
     shape.setSize( { Width, Height } );
     shape.setFillColor( sf::Color::White );

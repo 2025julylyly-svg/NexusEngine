@@ -9,7 +9,7 @@ private:
     float MaxPosX, MaxPosY;
     float MinPosX, MinPosY;
 public:
-    explicit Rectangle(float, float, float, float);
+    explicit Rectangle(float, float, float, float, float, float, float, float);
     void MoveUp();
     void MoveDown();
     void MoveLeft();
