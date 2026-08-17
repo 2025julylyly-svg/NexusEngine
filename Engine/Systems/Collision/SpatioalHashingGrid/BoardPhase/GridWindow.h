@@ -1,17 +1,14 @@
 #pragma once
 #include <map.h>
 #include <Vector.h>
-#include <vector>
 #include <SFML/Graphics.hpp>
 
-class GridWindow final
+class CreateShapeOnGridWindow final
 {
 private:
-    float WidthScreen, HeightScreen;
-    Vector<Vector<sf::Shape*>> state;
+    int WidthScreen, HeightScreen;
+    Mapping::Map<sf::Shape*, Vector<sf::Shape*>> ShapeAndShapesOnAsideShape;
+
 public:
-    explicit GridWindow(float,float);
-    void Reset();
-    void Rebase();
-    void Update();
+    explicit CreateShapeOnGridWindow(int, int);
 };
