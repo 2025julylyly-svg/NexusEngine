@@ -7,8 +7,13 @@ class CreateShapeOnGridWindow final
 {
 private:
     int WidthScreen, HeightScreen;
+    Vector<Vector<float>> Cells;
     Mapping::Map<sf::Shape*, Vector<sf::Shape*>> ShapeAndShapesOnAsideShape;
 
 public:
     explicit CreateShapeOnGridWindow(int, int);
+    explicit CreateShapeOnGridWindow(const Vector<sf::Shape*>&);
+    void Set_Cells(int, int);
+    void Set_ShapeAndShapesOnAsideShape(const Vector<sf::Shape*>&);
+    void Update_ShapeAndShapesOnAsideShape();
 };
