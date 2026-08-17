@@ -1,0 +1,3 @@
+/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir
+/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/edit_cache.dir
+/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/rebuild_cache.dir

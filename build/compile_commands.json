@@ -1,0 +1,86 @@
+[
+{
+  "directory": "/home/Develepment/CLionProjects/NexusEngine/build",
+  "command": "/usr/bin/clang++ -I/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP -I/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR -I/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN -I/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN -g -std=gnu++26 @CMakeFiles/NexusEngine.dir/main.cpp.o.modmap -o CMakeFiles/NexusEngine.dir/main.cpp.o -c /home/Develepment/CLionProjects/NexusEngine/main.cpp",
+  "file": "/home/Develepment/CLionProjects/NexusEngine/main.cpp",
+  "output": "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir/main.cpp.o"
+},
+{
+  "directory": "/home/Develepment/CLionProjects/NexusEngine/build",
+  "command": "/usr/bin/clang++ -I/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP -I/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR -I/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN -I/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN -g -std=gnu++26 @CMakeFiles/NexusEngine.dir/Library/VectorDataStruct/VECTOR/EmptySnakeBodyDataStructError.cpp.o.modmap -o CMakeFiles/NexusEngine.dir/Library/VectorDataStruct/VECTOR/EmptySnakeBodyDataStructError.cpp.o -c /home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR/EmptySnakeBodyDataStructError.cpp",
+  "file": "/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR/EmptySnakeBodyDataStructError.cpp",
+  "output": "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir/Library/VectorDataStruct/VECTOR/EmptySnakeBodyDataStructError.cpp.o"
+},
+{
+  "directory": "/home/Develepment/CLionProjects/NexusEngine/build",
+  "command": "/usr/bin/clang++ -I/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP -I/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR -I/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN -I/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN -g -std=gnu++26 @CMakeFiles/NexusEngine.dir/Library/VectorDataStruct/VECTOR/NotFoundElementError.cpp.o.modmap -o CMakeFiles/NexusEngine.dir/Library/VectorDataStruct/VECTOR/NotFoundElementError.cpp.o -c /home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR/NotFoundElementError.cpp",
+  "file": "/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR/NotFoundElementError.cpp",
+  "output": "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir/Library/VectorDataStruct/VECTOR/NotFoundElementError.cpp.o"
+},
+{
+  "directory": "/home/Develepment/CLionProjects/NexusEngine/build",
+  "command": "/usr/bin/clang++ -I/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP -I/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR -I/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN -I/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN -g -std=gnu++26 @CMakeFiles/NexusEngine.dir/Library/VectorDataStruct/VECTOR/InvalidInputError.cpp.o.modmap -o CMakeFiles/NexusEngine.dir/Library/VectorDataStruct/VECTOR/InvalidInputError.cpp.o -c /home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR/InvalidInputError.cpp",
+  "file": "/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR/InvalidInputError.cpp",
+  "output": "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir/Library/VectorDataStruct/VECTOR/InvalidInputError.cpp.o"
+},
+{
+  "directory": "/home/Develepment/CLionProjects/NexusEngine/build",
+  "command": "/usr/bin/clang++ -I/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP -I/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR -I/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN -I/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN -g -std=gnu++26 @CMakeFiles/NexusEngine.dir/Library/STRING/Library/String/Error/IndexOutofReangeError/IndexOutofrange.cpp.o.modmap -o CMakeFiles/NexusEngine.dir/Library/STRING/Library/String/Error/IndexOutofReangeError/IndexOutofrange.cpp.o -c /home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/Error/IndexOutofReangeError/IndexOutofrange.cpp",
+  "file": "/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/Error/IndexOutofReangeError/IndexOutofrange.cpp",
+  "output": "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir/Library/STRING/Library/String/Error/IndexOutofReangeError/IndexOutofrange.cpp.o"
+},
+{
+  "directory": "/home/Develepment/CLionProjects/NexusEngine/build",
+  "command": "/usr/bin/clang++ -I/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP -I/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR -I/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN -I/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN -g -std=gnu++26 @CMakeFiles/NexusEngine.dir/Library/STRING/Library/String/MAIN/String.cpp.o.modmap -o CMakeFiles/NexusEngine.dir/Library/STRING/Library/String/MAIN/String.cpp.o -c /home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN/String.cpp",
+  "file": "/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN/String.cpp",
+  "output": "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir/Library/STRING/Library/String/MAIN/String.cpp.o"
+},
+{
+  "directory": "/home/Develepment/CLionProjects/NexusEngine/build",
+  "command": "/usr/bin/clang++ -I/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP -I/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR -I/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN -I/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN -g -std=gnu++26 @CMakeFiles/NexusEngine.dir/Library/QUEUE/Library/QueueFiles/Errors/IsEmptyQueueError.cpp.o.modmap -o CMakeFiles/NexusEngine.dir/Library/QUEUE/Library/QueueFiles/Errors/IsEmptyQueueError.cpp.o -c /home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/Errors/IsEmptyQueueError.cpp",
+  "file": "/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/Errors/IsEmptyQueueError.cpp",
+  "output": "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir/Library/QUEUE/Library/QueueFiles/Errors/IsEmptyQueueError.cpp.o"
+},
+{
+  "directory": "/home/Develepment/CLionProjects/NexusEngine/build",
+  "command": "/usr/bin/clang++ -I/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP -I/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR -I/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN -I/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN -g -std=gnu++26 @CMakeFiles/NexusEngine.dir/Library/MapingData/MAP/NotFoundKeyError.cpp.o.modmap -o CMakeFiles/NexusEngine.dir/Library/MapingData/MAP/NotFoundKeyError.cpp.o -c /home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP/NotFoundKeyError.cpp",
+  "file": "/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP/NotFoundKeyError.cpp",
+  "output": "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir/Library/MapingData/MAP/NotFoundKeyError.cpp.o"
+},
+{
+  "directory": "/home/Develepment/CLionProjects/NexusEngine/build",
+  "command": "/usr/bin/clang++ -I/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP -I/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR -I/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN -I/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN -g -std=gnu++26 @CMakeFiles/NexusEngine.dir/Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.cpp.o.modmap -o CMakeFiles/NexusEngine.dir/Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.cpp.o -c /home/Develepment/CLionProjects/NexusEngine/Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.cpp",
+  "file": "/home/Develepment/CLionProjects/NexusEngine/Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.cpp",
+  "output": "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir/Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.cpp.o"
+},
+{
+  "directory": "/home/Develepment/CLionProjects/NexusEngine/build",
+  "command": "/usr/bin/clang++ -I/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP -I/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR -I/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN -I/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN -g -std=gnu++26 @CMakeFiles/NexusEngine.dir/Engine/Controls/Error/InputError/CantReadKeyError.cpp.o.modmap -o CMakeFiles/NexusEngine.dir/Engine/Controls/Error/InputError/CantReadKeyError.cpp.o -c /home/Develepment/CLionProjects/NexusEngine/Engine/Controls/Error/InputError/CantReadKeyError.cpp",
+  "file": "/home/Develepment/CLionProjects/NexusEngine/Engine/Controls/Error/InputError/CantReadKeyError.cpp",
+  "output": "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir/Engine/Controls/Error/InputError/CantReadKeyError.cpp.o"
+},
+{
+  "directory": "/home/Develepment/CLionProjects/NexusEngine/build",
+  "command": "/usr/bin/clang++ -I/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP -I/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR -I/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN -I/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN -g -std=gnu++26 @CMakeFiles/NexusEngine.dir/Engine/Actors/Shapes/CircleShape/Circle.cpp.o.modmap -o CMakeFiles/NexusEngine.dir/Engine/Actors/Shapes/CircleShape/Circle.cpp.o -c /home/Develepment/CLionProjects/NexusEngine/Engine/Actors/Shapes/CircleShape/Circle.cpp",
+  "file": "/home/Develepment/CLionProjects/NexusEngine/Engine/Actors/Shapes/CircleShape/Circle.cpp",
+  "output": "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir/Engine/Actors/Shapes/CircleShape/Circle.cpp.o"
+},
+{
+  "directory": "/home/Develepment/CLionProjects/NexusEngine/build",
+  "command": "/usr/bin/clang++ -I/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP -I/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR -I/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN -I/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN -g -std=gnu++26 @CMakeFiles/NexusEngine.dir/Engine/Systems/Window/WindowSystem.cpp.o.modmap -o CMakeFiles/NexusEngine.dir/Engine/Systems/Window/WindowSystem.cpp.o -c /home/Develepment/CLionProjects/NexusEngine/Engine/Systems/Window/WindowSystem.cpp",
+  "file": "/home/Develepment/CLionProjects/NexusEngine/Engine/Systems/Window/WindowSystem.cpp",
+  "output": "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir/Engine/Systems/Window/WindowSystem.cpp.o"
+},
+{
+  "directory": "/home/Develepment/CLionProjects/NexusEngine/build",
+  "command": "/usr/bin/clang++ -I/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP -I/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR -I/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN -I/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN -g -std=gnu++26 @CMakeFiles/NexusEngine.dir/Engine/Actors/Shapes/RectangleShape/Rectangle.cpp.o.modmap -o CMakeFiles/NexusEngine.dir/Engine/Actors/Shapes/RectangleShape/Rectangle.cpp.o -c /home/Develepment/CLionProjects/NexusEngine/Engine/Actors/Shapes/RectangleShape/Rectangle.cpp",
+  "file": "/home/Develepment/CLionProjects/NexusEngine/Engine/Actors/Shapes/RectangleShape/Rectangle.cpp",
+  "output": "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir/Engine/Actors/Shapes/RectangleShape/Rectangle.cpp.o"
+},
+{
+  "directory": "/home/Develepment/CLionProjects/NexusEngine/build",
+  "command": "/usr/bin/clang++ -I/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP -I/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR -I/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN -I/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN -g -std=gnu++26 @CMakeFiles/NexusEngine.dir/Engine/Systems/Collision/SpatioalHashingGrid/BoardPhase/GridWindow.cpp.o.modmap -o CMakeFiles/NexusEngine.dir/Engine/Systems/Collision/SpatioalHashingGrid/BoardPhase/GridWindow.cpp.o -c /home/Develepment/CLionProjects/NexusEngine/Engine/Systems/Collision/SpatioalHashingGrid/BoardPhase/GridWindow.cpp",
+  "file": "/home/Develepment/CLionProjects/NexusEngine/Engine/Systems/Collision/SpatioalHashingGrid/BoardPhase/GridWindow.cpp",
+  "output": "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir/Engine/Systems/Collision/SpatioalHashingGrid/BoardPhase/GridWindow.cpp.o"
+}
+]

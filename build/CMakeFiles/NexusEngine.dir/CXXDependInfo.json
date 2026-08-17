@@ -1,0 +1,98 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "GNU",
+	"compiler-id" : "Clang",
+	"compiler-simulate-id" : "",
+	"config" : "Debug",
+	"cxx-modules" : {},
+	"database-info" : null,
+	"dir-cur-bld" : "/home/Develepment/CLionProjects/NexusEngine/build",
+	"dir-cur-src" : "/home/Develepment/CLionProjects/NexusEngine",
+	"dir-top-bld" : "/home/Develepment/CLionProjects/NexusEngine/build",
+	"dir-top-src" : "/home/Develepment/CLionProjects/NexusEngine",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : 
+	[
+		"/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP",
+		"/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR",
+		"/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN",
+		"/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/MAIN"
+	],
+	"language" : "CXX",
+	"linked-target-dirs" : [],
+	"module-dir" : "/home/Develepment/CLionProjects/NexusEngine/build/CMakeFiles/NexusEngine.dir",
+	"sources" : 
+	{
+		"CMakeFiles/NexusEngine.dir/Engine/Actors/Shapes/CircleShape/Circle.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/Develepment/CLionProjects/NexusEngine/Engine/Actors/Shapes/CircleShape/Circle.cpp"
+		},
+		"CMakeFiles/NexusEngine.dir/Engine/Actors/Shapes/RectangleShape/Rectangle.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/Develepment/CLionProjects/NexusEngine/Engine/Actors/Shapes/RectangleShape/Rectangle.cpp"
+		},
+		"CMakeFiles/NexusEngine.dir/Engine/Controls/Error/InputError/CantReadKeyError.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/Develepment/CLionProjects/NexusEngine/Engine/Controls/Error/InputError/CantReadKeyError.cpp"
+		},
+		"CMakeFiles/NexusEngine.dir/Engine/Systems/Collision/SpatioalHashingGrid/BoardPhase/GridWindow.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/Develepment/CLionProjects/NexusEngine/Engine/Systems/Collision/SpatioalHashingGrid/BoardPhase/GridWindow.cpp"
+		},
+		"CMakeFiles/NexusEngine.dir/Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/Develepment/CLionProjects/NexusEngine/Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.cpp"
+		},
+		"CMakeFiles/NexusEngine.dir/Engine/Systems/Window/WindowSystem.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/Develepment/CLionProjects/NexusEngine/Engine/Systems/Window/WindowSystem.cpp"
+		},
+		"CMakeFiles/NexusEngine.dir/Library/MapingData/MAP/NotFoundKeyError.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/Develepment/CLionProjects/NexusEngine/Library/MapingData/MAP/NotFoundKeyError.cpp"
+		},
+		"CMakeFiles/NexusEngine.dir/Library/QUEUE/Library/QueueFiles/Errors/IsEmptyQueueError.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/Develepment/CLionProjects/NexusEngine/Library/QUEUE/Library/QueueFiles/Errors/IsEmptyQueueError.cpp"
+		},
+		"CMakeFiles/NexusEngine.dir/Library/STRING/Library/String/Error/IndexOutofReangeError/IndexOutofrange.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/Error/IndexOutofReangeError/IndexOutofrange.cpp"
+		},
+		"CMakeFiles/NexusEngine.dir/Library/STRING/Library/String/MAIN/String.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/Develepment/CLionProjects/NexusEngine/Library/STRING/Library/String/MAIN/String.cpp"
+		},
+		"CMakeFiles/NexusEngine.dir/Library/VectorDataStruct/VECTOR/EmptySnakeBodyDataStructError.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR/EmptySnakeBodyDataStructError.cpp"
+		},
+		"CMakeFiles/NexusEngine.dir/Library/VectorDataStruct/VECTOR/InvalidInputError.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR/InvalidInputError.cpp"
+		},
+		"CMakeFiles/NexusEngine.dir/Library/VectorDataStruct/VECTOR/NotFoundElementError.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/Develepment/CLionProjects/NexusEngine/Library/VectorDataStruct/VECTOR/NotFoundElementError.cpp"
+		},
+		"CMakeFiles/NexusEngine.dir/main.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/Develepment/CLionProjects/NexusEngine/main.cpp"
+		}
+	}
+}

@@ -3,12 +3,14 @@
  *********************/
 #include <iostream>
 #include <thread>
-#include <map.h>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-
 #include "Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h"
-#define NE() std::clog << "*********************\n" << "* Nexus Game Engine *\n" << "*********************" << std::endl;
+#define NE() std::cout << R"(
+ _   _   _____  __  __ _   _ ____
+| \ | | | ____| \ \/ /| | | / ___|
+|  \| | |  _|    \  / | | | \___ \
+| |\  | | |___   /  \ | |_| |___) |
+|_| \_| |_____| /_/\_\ \___/|____/
+)";
 
 int main() {
     NE();
