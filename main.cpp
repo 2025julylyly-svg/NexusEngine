@@ -4,13 +4,20 @@
 #include <iostream>
 #include <thread>
 #include <unordered_map>
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Shape.hpp>
+#include <SFML/Window/VideoMode.hpp>
 #include "Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h"
 #define NE() std::cout << R"(
- _   _   _____  __  __ _   _ ____
-| \ | | | ____| \ \/ /| | | / ___|
-|  \| | |  _|    \  / | | | \___ \
-| |\  | | |___   /  \ | |_| |___) |
-|_| \_| |_____| /_/\_\ \___/|____/
+ /$$   /$$
+| $$$ | $$
+| $$$$| $$  /$$$$$$  /$$   /$$ /$$   /$$  /$$$$$$$
+| $$ $$ $$ /$$__  $$|  $$ /$$/| $$  | $$ /$$_____/
+| $$  $$$$| $$$$$$$$ \  $$$$/ | $$  | $$|  $$$$$$
+| $$\  $$$| $$_____/  >$$  $$ | $$  | $$ \____  $$
+| $$ \  $$|  $$$$$$$ /$$/\  $$|  $$$$$$/ /$$$$$$$/
+|__/  \__/ \_______/|__/  \__/ \______/ |_______/
 )" << std::endl;
 
 int main() {

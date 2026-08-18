@@ -1,4 +1,5 @@
 #pragma once
+#include <Vector.h>
 #include <SFML/Graphics.hpp>
 
 class Circle final : public sf::CircleShape

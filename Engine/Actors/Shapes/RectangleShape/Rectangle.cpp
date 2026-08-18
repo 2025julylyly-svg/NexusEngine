@@ -8,9 +8,23 @@ Rectangle::Rectangle(
     MaxPosX( Max_X ), MaxPosY( Max_Y ),
     MinPosX( Min_X ), MinPosY( Min_Y ) {
 
+    WidthRectShape = Width; HeightRectShape = Height;
     shape.setPosition( { x, y } );
     shape.setSize( { Width, Height } );
     shape.setFillColor( sf::Color::White );
+}
+
+void Rectangle::SetPointPositions() {
+    const float X_posShape = shape.getPosition().x;
+    const float Y_posShape = shape.getPosition().y;
+    PointPositions.Append( {X_posShape, Y_posShape} );
+    PointPositions.Append( {X_posShape + WidthRectShape, Y_posShape} );
+    PointPositions.Append( {X_posShape, Y_posShape + HeightRectShape} );
+    PointPositions.Append( {X_posShape + WidthRectShape, Y_posShape + HeightRectShape} );
+}
+
+const Vector<Rectangle::pos>& Rectangle::GetPointPositions() const {
+    return PointPositions;
 }
 
 void Rectangle::MoveUp() {
