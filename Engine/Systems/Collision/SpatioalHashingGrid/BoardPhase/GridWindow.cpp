@@ -1,21 +1,21 @@
 #include "GridWindow.h"
 
-CreateShapeOnGridWindow::CreateShapeOnGridWindow(const int W, const int H) : WidthScreen(W), HeightScreen(H) {
-    this->Set_Cells( W, H );
+CreateGridWindow::CreateGridWindow(const int WS /* width screen */, const int HS /* height screen */) {
+    WidthScreen = WS;
+    HeightScreen = HS;
+    this->InitializeCells();
 }
 
-const Vector<Vector<float>>& CreateShapeOnGridWindow::GetPointPositions(sf::Shape* shape) {
-    Vector<Vector<float>> points;
-    std::size_t PointsOfShapeNumber = shape->getPointCount();
-}
-
-void CreateShapeOnGridWindow::Set_Cells(const int width, const int height) {
-    for (int y = 0; y < height; y += 20) {
-        this->Cells.Append( Vector<Vector<float>>() );
-        for (int x = 0; x < width; x += 20) {
-            Cells[y].Append( Vector<float>{static_cast<float>(x), static_cast<float>(y)} );
-        }
+void CreateGridWindow::InitializeCells() {
+    for (int y = 0; y < HeightScreen; y += 20) {
+        cells.Append( Vector<cell>() );
     }
 }
 
-void CreateShapeOnGridWindow::Set_ShapeAndShapesOnAsideShape(const Vector<sf::Shape*>& shapes) {}
+void CreateGridWindow::AddShape(sf::Shape* shape) const {
+    for (int point = 0; point < shape->getPointCount(); ++point) {
+        const float X = (shape->getPoint( static_cast<std::size_t>(point) ).x);
+        const float Y = (shape->getPoint( static_cast<std::size_t>(point) ).y);
+        cells[static_cast<int>(Y) / 20][static_cast<int>(X) / 20].shapes.Append( { .x = X, .y = Y, .PTR_TO_SHAPE = shape } );
+    }
+}
