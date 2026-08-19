@@ -16,6 +16,6 @@ void CreateGridWindow::AddShape(sf::Shape* shape) const {
     for (int point = 0; point < shape->getPointCount(); ++point) {
         const float X = (shape->getPoint( static_cast<std::size_t>(point) ).x);
         const float Y = (shape->getPoint( static_cast<std::size_t>(point) ).y);
-        cells[static_cast<int>(Y) / 20][static_cast<int>(X) / 20].shapes.Append( { .x = X, .y = Y, .PTR_TO_SHAPE = shape } );
+        cells[static_cast<int>(Y) / 20].Append( cell( X, Y, shape ) );
     }
 }
