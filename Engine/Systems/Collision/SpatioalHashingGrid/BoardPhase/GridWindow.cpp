@@ -7,15 +7,23 @@ CreateGridWindow::CreateGridWindow(const int WS /* width screen */, const int HS
 }
 
 void CreateGridWindow::InitializeCells() {
-    for (int y = 0; y < HeightScreen; y += 20) {
+    for (int y = 0; y < HeightScreen; y += CELL_SIZE) {
         cells.Append( Vector<cell>() );
     }
 }
 
-void CreateGridWindow::AddShape(sf::Shape* shape) const {
+void CreateGridWindow::AddShape(sf::Shape* shape) {
     for (int point = 0; point < shape->getPointCount(); ++point) {
         const float X = (shape->getPoint( static_cast<std::size_t>(point) ).x);
         const float Y = (shape->getPoint( static_cast<std::size_t>(point) ).y);
-        cells[static_cast<int>(Y) / 20].Append( cell( X, Y, shape ) );
+        cells[static_cast<int>(Y) / CELL_SIZE].Append( cell( X, Y, shape ) );
     }
+}
+
+bool CreateGridWindow::find() {
+
+}
+
+void CreateGridWindow::Update(const Vector<sf::Shape*>&) {
+
 }

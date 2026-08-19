@@ -17,8 +17,8 @@ add_executable(
         Library/MapingData/MAP/map.h
         Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h
         Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.cpp
-        Engine/Controls/Error/InputError/CantReadKeyError.h
-        Engine/Controls/Error/InputError/CantReadKeyError.cpp
+        Engine/Systems/Input/InputSystemFiles/InputError/CantReadKeyError.h
+        Engine/Systems/Input/InputSystemFiles/InputError/CantReadKeyError.cpp
         Engine/Actors/Shapes/CircleShape/Circle.h
         Engine/Actors/Shapes/CircleShape/Circle.cpp
         Engine/Systems/Window/WindowSystem.cpp
@@ -27,12 +27,15 @@ add_executable(
         Engine/Actors/Shapes/RectangleShape/Rectangle.h
         Engine/Systems/Collision/SpatioalHashingGrid/BoardPhase/GridWindow.cpp
         Engine/Systems/Collision/SpatioalHashingGrid/BoardPhase/GridWindow.h
+        EngineLibrary/VectorPosition/VecPos.cpp
+        EngineLibrary/VectorPosition/VecPos.h
 )
 
 target_include_directories(NexusEngine PRIVATE
         Library/MapingData/MAP
         Library/VectorDataStruct/VECTOR
         Library/STRING/Library/String/MAIN
-        Library/QUEUE/Library/QueueFiles/MAIN)
+        Library/QUEUE/Library/QueueFiles/MAIN
+        EngineLibrary/VectorPosition)
 
 target_link_libraries(NexusEngine PRIVATE sfml-graphics sfml-window sfml-system)

@@ -11,6 +11,7 @@
 #include <SFML/Window/VideoMode.hpp>
 #include "Engine/Systems/Collision/SpatioalHashingGrid/BoardPhase/GridWindow.h"
 #include "Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h"
+#include "VecPos.h"
 #define NE() std::cout << R"(
  /$$   /$$
 | $$$ | $$
@@ -24,6 +25,5 @@
 
 int main() {
     NE();
-    std::cout << "Nothing to do." << std::endl;
     return 0;
 }

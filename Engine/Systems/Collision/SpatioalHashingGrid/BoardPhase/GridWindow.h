@@ -25,13 +25,16 @@ private: // structures
     };
 
 private: // data
+    const int CELL_SIZE = 20;
     int WidthScreen, HeightScreen;
     Vector<Vector<cell>> cells;
 
 private: // private functions
     void InitializeCells();
+    bool find();
 
 public:
     explicit CreateGridWindow(int, int);
-    void AddShape(sf::Shape*) const;
+    void AddShape(sf::Shape*);
+    void Update(const Vector<sf::Shape*>&);
 };
