@@ -64,7 +64,7 @@ namespace Mapping {
     class Iterator;
 
     template<typename KeyType, typename ValueType>
-    class Map
+    class HashMap
     {
     private:
         bool KeyIsClass = Mapping::is_class<int>();
@@ -149,7 +149,7 @@ namespace Mapping {
         friend class Iterator<KeyType, ValueType>;
 
         // Default Constructor
-        Map() noexcept {
+        HashMap() noexcept {
             BucketCounter = 1;
             KeyCounter = 0;
             MAP = new bucket*[BucketCounter];
@@ -157,7 +157,7 @@ namespace Mapping {
         }
 
         // Initialisation Constructor
-        explicit Map(const std::size_t& SetBucketCounter) noexcept {
+        explicit HashMap(const std::size_t& SetBucketCounter) noexcept {
             KeyCounter = 0;
             BucketCounter = SetBucketCounter;
             MAP = new bucket*[BucketCounter];
@@ -165,7 +165,7 @@ namespace Mapping {
         }
 
         // Copy Constructor
-        Map(const Map& other) noexcept {
+        HashMap(const HashMap& other) noexcept {
             BucketCounter = other.BucketCounter;
             KeyCounter = other.KeyCounter;
             MAP = new bucket*[BucketCounter];
@@ -180,7 +180,7 @@ namespace Mapping {
         }
 
         // Move Constructor
-        Map(Map&& other) noexcept {
+        HashMap(HashMap&& other) noexcept {
             this->BucketCounter = other.BucketCounter;
             this->KeyCounter = other.KeyCounter;
             delete [] MAP;
@@ -227,15 +227,18 @@ namespace Mapping {
             }
             else {
                 const std::size_t newBucketCounter = BucketCounter * 2;
+                std::size_t BucketNumber = 0;
+                std::size_t KeyNumber = 0;
                 auto** newMap = new bucket*[newBucketCounter] {};
                 for (std::size_t i = 0; i < BucketCounter; ++i) {
                     bucket* current = MAP[i];
                     while (current != nullptr) {
                         bucket* next = current->next;
-                        const std::size_t newIndex = (KeyCounter % 5) == 0 ? BucketCounter + 1 : BucketCounter;
+                        const std::size_t newIndex = (KeyNumber % 5) == 0 ? ++BucketNumber : BucketNumber;
                         current->next = newMap[newIndex];
                         newMap[newIndex] = current;
                         current = next;
+                        ++KeyNumber;
                     }
                 }
                 delete[] MAP;
@@ -285,7 +288,7 @@ namespace Mapping {
             return newBucket->Data.second;
         }
 
-        ~Map() {
+        ~HashMap() {
             this->FreeStorageSpace();
         }
     };
@@ -296,7 +299,7 @@ namespace Mapping {
     private:
         using Reference = std::pair<Key, Value>&;
         using Pointer = std::pair<Key, Value>*;
-        using bucket = Map<Key, Value>::bucket;
+        using bucket = HashMap<Key, Value>::bucket;
         using bucket_ptr_ptr = bucket**;
         using bucket_ptr = bucket*;
 
@@ -315,7 +318,7 @@ namespace Mapping {
         }
 
     public:
-        Iterator(Map<Key, Value>* map, const std::size_t startIndex) noexcept {
+        Iterator(HashMap<Key, Value>* map, const std::size_t startIndex) noexcept {
             BuckNumber = map->BucketCounter;
             Bucks = map->MAP;
             CurrentBucketIndex = startIndex;
@@ -329,7 +332,7 @@ namespace Mapping {
             }
         }
 
-        Iterator(Map<Key, Value>* map, bool /*isEnd*/) noexcept {
+        Iterator(HashMap<Key, Value>* map, bool /*isEnd*/) noexcept {
             BuckNumber = map->BucketCounter;
             Bucks = map->MAP;
             CurrentBucketIndex = BuckNumber;

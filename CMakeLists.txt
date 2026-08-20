@@ -14,7 +14,7 @@ add_executable(
         Library/QUEUE/Library/QueueFiles/Errors/IsEmptyQueueError.cpp
         Library/MappingData/MAP/NotFoundKeyError.cpp
         Library/MappingData/MAP/NotFoundKeyError.h
-        Library/MappingData/MAP/map.h
+        Library/MappingData/MAP/HashMap.h
         Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h
         Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.cpp
         Engine/Systems/Input/InputSystemFiles/InputError/CantReadKeyError.h
@@ -31,6 +31,7 @@ add_executable(
         EngineLibrary/VectorPosition/VecPos.h
         Engine/Actors/Shapes/Shape/Shape.cpp
         Engine/Actors/Shapes/Shape/Shape.h
+        Library/MapWithoutHashData/MAIN/Map.h
 )
 
 target_include_directories(NexusEngine PRIVATE

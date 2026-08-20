@@ -1,22 +1,22 @@
 #pragma once
-#include <cstdlib>
-#include <fcntl.h>
-#include <optional>
-#include <map.h>
+#include <HashMap.h>
 #include <Vector.h>
 #include <cstdio>
+#include <cstdlib>
+#include <fcntl.h>
 #include <iostream>
-#include <unistd.h>
 #include <linux/input.h>
+#include <optional>
+#include <unistd.h>
 #include "../../../Engine/Systems/Input/InputSystemFiles/InputError/CantReadKeyError.h"
 
 class ReadInput
 {
 private:
     int FileEventKey;
-    Mapping::Map<unsigned short int, bool> KeyPressed;
-    Mapping::Map<unsigned short int, bool> KeyHeld;
-    Mapping::Map<unsigned short int, bool> KeyReleased;
+    Mapping::HashMap<unsigned short int, bool> KeyPressed;
+    Mapping::HashMap<unsigned short int, bool> KeyHeld;
+    Mapping::HashMap<unsigned short int, bool> KeyReleased;
 
 public:
     ReadInput();

@@ -1,7 +1,15 @@
 {
   "id" : "49d90b8c-2e93-4973-8df6-1b81bf7c048f",
-  "title" : "New conversation",
+  "title" : "hello",
   "createdAt" : 1787227866008,
-  "updatedAt" : 1787227866008,
-  "messages" : [ ]
+  "updatedAt" : 1787243569034,
+  "messages" : [ {
+    "role" : "USER",
+    "content" : "hello",
+    "timestamp" : 1787243556107
+  }, {
+    "role" : "ASSISTANT",
+    "content" : "Hi, I'm OllamAssist, how can I help you?\nMy capabilities include:\n- Code Analysis/Explanation\n- Implementation Writing\n- File Creation in Workspace\n- Technical Documentation\n- Test Case Generation",
+    "timestamp" : 1787243569034
+  } ]
 }
