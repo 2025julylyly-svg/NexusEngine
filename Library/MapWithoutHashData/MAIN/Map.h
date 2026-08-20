@@ -70,10 +70,10 @@ public:
         return map;
     }
     Box* end() {
-        return map[BoxCounter];
+        return map + BoxCounter;
     }
     const Box* end() const {
-        return map[BoxCounter];
+        return map + BoxCounter;
     }
     // in this function delete all data if input argument <= BoxCounter
     void Reserve(const std::size_t& NewSize) {
@@ -107,7 +107,8 @@ public:
             return map[find].value;
         }
         map[BoxCounter].key = KeyInput;
-        map[BoxCounter++].value = Value{};
+        map[BoxCounter].value = Value{};
+        return map[BoxCounter++].value;
     }
     ~Map() {
         delete[] map;

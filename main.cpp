@@ -7,11 +7,12 @@
 #include <SFML/Graphics/Shape.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <iostream>
-#include <thread>
 #include <map>
+#include <thread>
 #include <unordered_map>
 #include "Engine/Systems/Collision/SpatialHashingGrid/BoardPhase/GridWindow.h"
 #include "Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h"
+#include "Library/MapWithoutHashData/MAIN/Map.h"
 #include "VecPos.h"
 #define NE() std::cout << R"(
  /$$   /$$
@@ -26,6 +27,5 @@
 
 int main() {
     NE();
-    std::cout << "Hello" << std::endl;
     return 0;
 }
