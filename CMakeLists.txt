@@ -39,6 +39,7 @@ target_include_directories(NexusEngine PRIVATE
         Library/VectorDataStruct/VECTOR
         Library/STRING/Library/String/MAIN
         Library/QUEUE/Library/QueueFiles/MAIN
-        EngineLibrary/VectorPosition)
+        EngineLibrary/VectorPosition
+        Library/MapWithoutHashData/MAIN)
 
 target_link_libraries(NexusEngine PRIVATE sfml-graphics sfml-window sfml-system)

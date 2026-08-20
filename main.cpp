@@ -7,9 +7,7 @@
 #include <SFML/Graphics/Shape.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <iostream>
-#include <map>
 #include <thread>
-#include <unordered_map>
 #include "Engine/Systems/Collision/SpatialHashingGrid/BoardPhase/GridWindow.h"
 #include "Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h"
 #include "Library/MapWithoutHashData/MAIN/Map.h"

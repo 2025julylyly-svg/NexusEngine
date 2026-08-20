@@ -1,7 +1,8 @@
 #pragma once
+#include "../Shape/Shape.h"
 #include <SFML/Graphics.hpp>
 #include <Vector.h>
-class Rectangle final : public sf::RectangleShape
+class Rectangle : public sf::RectangleShape, public Shape
 {
 private:
     struct pos
