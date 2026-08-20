@@ -26,5 +26,6 @@
 
 int main() {
     NE();
+    std::cout << "Hello" << std::endl;
     return 0;
 }
