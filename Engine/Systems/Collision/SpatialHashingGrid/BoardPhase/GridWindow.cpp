@@ -37,9 +37,5 @@ void CreateGridWindow::AddShape(Shape* shape) {
 }
 
 void CreateGridWindow::Update(const Vector<Shape*>& shapes) {
-    if (const Vector<Vector<cell>> NewGrid = this->CreateGrid(shapes); NewGrid == cells) {
-        return;
-    } else {
-        cells = NewGrid;
-    }
+    cells = CreateGrid( shapes );
 }
