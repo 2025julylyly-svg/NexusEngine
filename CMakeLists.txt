@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.3)
 project(NexusEngine)
 
-set(CMAKE_CXX_STANDARD 26)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(
@@ -9,12 +9,12 @@ add_executable(
         Library/VectorDataStruct/VECTOR/EmptySnakeBodyDataStructError.cpp
         Library/VectorDataStruct/VECTOR/NotFoundElementError.cpp
         Library/VectorDataStruct/VECTOR/InvalidInputError.cpp
-        Library/STRING/Library/String/Error/IndexOutofReangeError/IndexOutofrange.cpp
+        Library/STRING/Library/String/Error/IndexOutofRangeError/IndexOutofrange.cpp
         Library/STRING/Library/String/MAIN/String.cpp
         Library/QUEUE/Library/QueueFiles/Errors/IsEmptyQueueError.cpp
-        Library/MapingData/MAP/NotFoundKeyError.cpp
-        Library/MapingData/MAP/NotFoundKeyError.h
-        Library/MapingData/MAP/map.h
+        Library/MappingData/MAP/NotFoundKeyError.cpp
+        Library/MappingData/MAP/NotFoundKeyError.h
+        Library/MappingData/MAP/map.h
         Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h
         Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.cpp
         Engine/Systems/Input/InputSystemFiles/InputError/CantReadKeyError.h
@@ -25,14 +25,16 @@ add_executable(
         Engine/Systems/Window/WindowSystem.h
         Engine/Actors/Shapes/RectangleShape/Rectangle.cpp
         Engine/Actors/Shapes/RectangleShape/Rectangle.h
-        Engine/Systems/Collision/SpatioalHashingGrid/BoardPhase/GridWindow.cpp
-        Engine/Systems/Collision/SpatioalHashingGrid/BoardPhase/GridWindow.h
+        Engine/Systems/Collision/SpatialHashingGrid/BoardPhase/GridWindow.cpp
+        Engine/Systems/Collision/SpatialHashingGrid/BoardPhase/GridWindow.h
         EngineLibrary/VectorPosition/VecPos.cpp
         EngineLibrary/VectorPosition/VecPos.h
+        Engine/Actors/Shapes/Shape/Shape.cpp
+        Engine/Actors/Shapes/Shape/Shape.h
 )
 
 target_include_directories(NexusEngine PRIVATE
-        Library/MapingData/MAP
+        Library/MappingData/MAP
         Library/VectorDataStruct/VECTOR
         Library/STRING/Library/String/MAIN
         Library/QUEUE/Library/QueueFiles/MAIN

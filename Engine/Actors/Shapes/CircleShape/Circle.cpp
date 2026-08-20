@@ -8,6 +8,10 @@ void Circle::SetSpeed(float speed) {
     Speed = speed;
 }
 
+float Circle::GetSpeed() const {
+    return Speed;
+}
+
 void Circle::MoveUp() {
     this->circle.setPosition( { this->circle.getPosition().x, this->circle.getPosition().y - this->Speed } );
 }

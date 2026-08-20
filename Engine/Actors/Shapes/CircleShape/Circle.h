@@ -1,8 +1,9 @@
 #pragma once
 #include <Vector.h>
 #include <SFML/Graphics.hpp>
+#include "../../Engine/Actors/Shapes/Shape/Shape.h"
 
-class Circle final : public sf::CircleShape
+class Circle : public sf::CircleShape, public Shape
 {
 private:
     sf::CircleShape circle;
@@ -10,9 +11,10 @@ private:
 
 public:
     explicit Circle(float /* X : position */, float /* Y : position */);
-    void SetSpeed(float);
-    void MoveUp();
-    void MoveDown();
-    void MoveLeft();
-    void MoveRight();
+    void SetSpeed(float) override;
+    float GetSpeed() const override;
+    void MoveUp() override;
+    void MoveDown() override;
+    void MoveLeft() override;
+    void MoveRight() override;
 };

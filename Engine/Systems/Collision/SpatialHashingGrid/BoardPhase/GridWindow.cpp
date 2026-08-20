@@ -12,7 +12,7 @@ void CreateGridWindow::InitializeCells() {
     }
 }
 
-void CreateGridWindow::AddShape(sf::Shape* shape) {
+void CreateGridWindow::AddShape(Shape* shape) {
     for (int point = 0; point < shape->getPointCount(); ++point) {
         const float X = (shape->getPoint( static_cast<std::size_t>(point) ).x);
         const float Y = (shape->getPoint( static_cast<std::size_t>(point) ).y);
@@ -20,10 +20,5 @@ void CreateGridWindow::AddShape(sf::Shape* shape) {
     }
 }
 
-bool CreateGridWindow::find() {
-
-}
-
-void CreateGridWindow::Update(const Vector<sf::Shape*>&) {
-
+void CreateGridWindow::Update(Shape* shape) {
 }

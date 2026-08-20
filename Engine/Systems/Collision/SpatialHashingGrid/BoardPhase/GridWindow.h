@@ -2,7 +2,7 @@
 #include <fcntl.h>
 #include <map.h>
 #include <Vector.h>
-#include <SFML/Graphics.hpp>
+#include "../../../../Actors/Shapes/Shape/Shape.h"
 
 class CreateGridWindow final
 {
@@ -11,7 +11,7 @@ private: // structures
     {
         float x;
         float y;
-        sf::Shape* PTR_TO_SHAPE;
+        Shape* PTR_TO_SHAPE;
     };
 
     struct cell
@@ -19,11 +19,14 @@ private: // structures
         Vector<shape> shapes;
         cell() = default;
 
-        cell(const float x, const float y, sf::Shape* ptr) {
+        cell(const float x, const float y, Shape* ptr) {
             shapes.Append( { .x = x, .y = y, .PTR_TO_SHAPE = ptr } );
         }
     };
 
+private: // enumeration
+    // MU = Move Up, MD = Move Down, ML = Move Left, MR = Move Right
+    enum MoveDirection { MU, MD, ML, MR };
 private: // data
     const int CELL_SIZE = 20;
     int WidthScreen, HeightScreen;
@@ -31,10 +34,9 @@ private: // data
 
 private: // private functions
     void InitializeCells();
-    bool find();
 
 public:
     explicit CreateGridWindow(int, int);
-    void AddShape(sf::Shape*);
-    void Update(const Vector<sf::Shape*>&);
+    void AddShape(Shape*);
+    void Update(Shape*);
 };

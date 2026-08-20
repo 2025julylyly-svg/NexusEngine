@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <exception>
+#include <smmintrin.h>
 #include <stdexcept>
 #include <type_traits>
 #include <string>
@@ -8,13 +9,21 @@
 #include "NotFoundKeyError.h"
 #include "String.h"
 #define PRIME 5091
-
 namespace Mapping {
+    template<typename type>
+    bool is_class() {
+        if constexpr (std::is_integral_v<type> or std::is_floating_point_v<type> or std::is_same_v<type, std::string> or std::is_same_v<type, String>) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     template<typename key>
     class HashKey final
     {
     public:
-        std::size_t Hash(const key& KEY) noexcept {
+        long int Hash(const key& KEY) noexcept {
             if constexpr (std::is_integral_v<key> or std::is_floating_point_v<key>) {
                 std::size_t sum = 0;
                 constexpr int PrimeNumbers[] = { 1009, 1013, 1019, 1021, 1031, 1033, 1039 };
@@ -24,7 +33,7 @@ namespace Mapping {
                     sum = sum + PrimeNumbers[index] + KEY;
                     index = (index + 1) % Length;
                 }
-                return sum % PRIME;
+                return static_cast<long int>(sum) % PRIME;
             } else if constexpr (std::is_same_v<key, std::string>) {
                 std::size_t sum = 0;
                 constexpr int PrimeNumbers[] = { 1009, 1013, 1019, 1021, 1031, 1033, 1039 };
@@ -34,7 +43,7 @@ namespace Mapping {
                     sum = ((sum + PrimeNumbers[index]) * PrimeNumbers[index]) + KEY[i];
                     index = (index + 1) % Length;
                 }
-                return sum % PRIME;
+                return static_cast<long int>(sum) % PRIME;
             } else if (std::is_same_v<key, String>) {
                 std::size_t sum = 0;
                 constexpr int PrimeNumbers[] = { 1009, 1013, 1019, 1021, 1031, 1033, 1039 };
@@ -44,9 +53,9 @@ namespace Mapping {
                     sum = ((sum + PrimeNumbers[index]) * PrimeNumbers[index]) + KEY[i];
                     index = (index + 1) % Length;
                 }
-                return sum % PRIME;
+                return static_cast<long int>(sum) % PRIME;
             } else {
-                return static_cast<std::size_t>(0);
+                return -1;
             }
         }
     };
@@ -58,13 +67,15 @@ namespace Mapping {
     class Map
     {
     private:
+        bool KeyIsClass = Mapping::is_class<int>();
+
         struct bucket
         {
             std::pair<KeyType, ValueType> Data;
             bucket* next;
         };
 
-        HashKey<KeyType> hash;
+        Mapping::HashKey<KeyType> hash;
         bucket** MAP = nullptr;
         bucket** AuxiliaryMAP = nullptr;
         std::size_t KeyCounter;
@@ -108,10 +119,10 @@ namespace Mapping {
                     temp = temp->next;
                     delete temp2;
                 }
-                delete temp;
             }
             delete[] MAP;
             MAP = nullptr;
+            AuxiliaryMAP = nullptr;
         }
 
         void AppointmentFromMapToAuxiliaryMAP() {
@@ -189,22 +200,75 @@ namespace Mapping {
             return Iterator<KeyType, ValueType>( this, true );
         }
 
+        void Clear() noexcept {
+            this->FreeStorageSpace();
+            MAP = new bucket*[BucketCounter];
+            this->init();
+            KeyCounter = 0;
+        }
+
         void Rehash() {
-            const std::size_t newBucketCounter = BucketCounter * 2;
-            auto** newMap = new bucket*[newBucketCounter] {};
-            for (std::size_t i = 0; i < BucketCounter; ++i) {
-                bucket* current = MAP[i];
-                while (current != nullptr) {
-                    bucket* next = current->next;
-                    const std::size_t newIndex = hash.Hash( current->Data.first ) % newBucketCounter;
-                    current->next = newMap[newIndex];
-                    newMap[newIndex] = current;
-                    current = next;
+            if (! KeyIsClass) {
+                const std::size_t newBucketCounter = BucketCounter * 2;
+                auto** newMap = new bucket*[newBucketCounter] {};
+                for (std::size_t i = 0; i < BucketCounter; ++i) {
+                    bucket* current = MAP[i];
+                    while (current != nullptr) {
+                        bucket* next = current->next;
+                        const std::size_t newIndex = hash.Hash( current->Data.first ) % newBucketCounter;
+                        current->next = newMap[newIndex];
+                        newMap[newIndex] = current;
+                        current = next;
+                    }
                 }
+                delete[] MAP;
+                MAP = newMap;
+                BucketCounter = newBucketCounter;
             }
-            delete[] MAP;
-            MAP = newMap;
-            BucketCounter = newBucketCounter;
+            else {
+                const std::size_t newBucketCounter = BucketCounter * 2;
+                auto** newMap = new bucket*[newBucketCounter] {};
+                for (std::size_t i = 0; i < BucketCounter; ++i) {
+                    bucket* current = MAP[i];
+                    while (current != nullptr) {
+                        bucket* next = current->next;
+                        const std::size_t newIndex = (KeyCounter % 5) == 0 ? BucketCounter + 1 : BucketCounter;
+                        current->next = newMap[newIndex];
+                        newMap[newIndex] = current;
+                        current = next;
+                    }
+                }
+                delete[] MAP;
+                MAP = newMap;
+                BucketCounter = newBucketCounter;
+            }
+        }
+
+        void KeyCreateWithDefaultValue(const KeyType& key) {
+            if (KeyCounter >= BucketCounter) {
+                this->Rehash();
+            }
+            if (bucket* found = Find( key ); found != nullptr) {
+                return;
+            }
+            auto* New = new bucket { { *key, ValueType {} }, nullptr };
+            const std::size_t BucketIndex = hash.Hash( key ) % BucketCounter;
+            InsertDataToBucket( MAP, BucketIndex, New );
+            ++KeyCounter;
+        }
+
+        ValueType& operator[](const KeyType* key) {
+            if (KeyCounter >= BucketCounter) {
+                this->Rehash();
+            }
+            if (bucket* found = Find( *key ); found != nullptr) {
+                return found->Data.second;
+            }
+            auto* New = new bucket { { *key, ValueType {} }, nullptr };
+            const std::size_t BucketIndex = hash.Hash( *key ) % BucketCounter;
+            InsertDataToBucket( MAP, BucketIndex, New );
+            ++KeyCounter;
+            return New->Data.second;
         }
 
         ValueType& operator[](const KeyType& key) {
@@ -232,7 +296,7 @@ namespace Mapping {
     private:
         using Reference = std::pair<Key, Value>&;
         using Pointer = std::pair<Key, Value>*;
-        using bucket = typename Map<Key, Value>::bucket;
+        using bucket = Map<Key, Value>::bucket;
         using bucket_ptr_ptr = bucket**;
         using bucket_ptr = bucket*;
 
@@ -251,7 +315,7 @@ namespace Mapping {
         }
 
     public:
-        Iterator(Map<Key, Value>* map, std::size_t startIndex) noexcept {
+        Iterator(Map<Key, Value>* map, const std::size_t startIndex) noexcept {
             BuckNumber = map->BucketCounter;
             Bucks = map->MAP;
             CurrentBucketIndex = startIndex;
