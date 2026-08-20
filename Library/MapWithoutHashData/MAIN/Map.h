@@ -38,4 +38,14 @@ public:
         this->BoxCounter = other.BoxCounter;
         map = new Box[Capacity];
     }
+    // Move Constructor
+    explicit Map(Map&& other) {
+        this->Capacity = other.Capacity;
+        this->BoxCounter = other.BoxCounter;
+        this->map = other.map;
+        ////////////////////////////////////
+        other.Capacity = 0;
+        other.BoxCounter = 0;
+        delete[] other.map;
+    }
 };
