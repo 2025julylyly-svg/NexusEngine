@@ -1,10 +1,10 @@
 #pragma once
 #include <HashMap.h>
+#include <Map.h>
+#include <VecPos.h>
 #include <Vector.h>
 #include <fcntl.h>
 #include "../../../../Actors/Shapes/Shape/Shape.h"
-#include <Map.h>
-#include <VecPos.h>
 
 class CreateGridWindow final
 {
@@ -25,24 +25,32 @@ private: // structures
         cell() = default;
 
         cell(const float x, const float y, Shape* ptr) {
-            shapes.Append( { .x = x, .y = y, .PTR_TO_SHAPE = ptr } );
+            shapes.Append({ .x = x, .y = y, .PTR_TO_SHAPE = ptr });
         }
         bool operator==(const cell& other) const {
-            return shapes.operator==( other.shapes );
+            return shapes.operator==(other.shapes);
         }
     };
 
 private: // enumeration
     // MU = Move Up, MD = Move Down, ML = Move Left, MR = Move Right
-    enum MoveDirection { MU, MD, ML, MR };
+    enum MoveDirection
+    {
+        MU,
+        MD,
+        ML,
+        MR
+    };
+
 private: // data
     const int CELL_SIZE = 20;
     int WidthScreen, HeightScreen;
     Vector<Vector<cell>> cells;
 
 private: // private functions
-    [[nodiscard]] Vector<Vector<cell>> CreateGrid(const Vector<Shape*>&) const;
-    void init(Vector<Vector<cell>>&) const;
+    [[nodiscard]] Vector<Vector<cell>> CreateGrid(const Vector<Shape*>&);
+    void init(Vector<Vector<cell>>&);
+    [[nodiscard]] bool IsPointOutOfBounds(const VecPos&) const;
 
 public:
     explicit CreateGridWindow(int, int);

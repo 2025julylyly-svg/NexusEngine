@@ -5,7 +5,7 @@ CreateGridWindow::CreateGridWindow(const int WS /* width screen */, const int HS
     HeightScreen = HS;
     this->init(cells);
 }
-void CreateGridWindow::init(Vector<Vector<cell>>& other) const {
+void CreateGridWindow::init(Vector<Vector<cell>>& other) {
     if (other.Size() != 0) {
         return;
     }
@@ -16,14 +16,26 @@ void CreateGridWindow::init(Vector<Vector<cell>>& other) const {
         }
     }
 }
-Vector<Vector<CreateGridWindow::cell>> CreateGridWindow::CreateGrid(const Vector<Shape*>& shapes) const {
+bool CreateGridWindow::IsPointOutOfBounds(const VecPos& point) const {
+    if (*point.x < 0) {
+        return true;
+    } else if (*point.x > static_cast<float>(WidthScreen)) {
+        return true;
+    } else if (*point.y < 0) {
+        return true;
+    } else if (*point.y > static_cast<float>(HeightScreen)) {
+        return true;
+    }
+    return false;
+}
+Vector<Vector<CreateGridWindow::cell>> CreateGridWindow::CreateGrid(const Vector<Shape*>& shapes) {
     Vector<Vector<cell>> GRID;
     init(GRID);
     for (Shape* shape : shapes) {
         for (int point = 0; point < shape->getPointCount(); ++point) {
             const float X = shape->getPoint(static_cast<std::size_t>(point)).x;
             const float Y = shape->getPoint(static_cast<std::size_t>(point)).y;
-            GRID[static_cast<int>(Y) / CELL_SIZE][static_cast<int>(X) / CELL_SIZE].shapes.Append( { .x = X, .y = Y, .PTR_TO_SHAPE = shape } );
+            GRID[static_cast<int>(Y) / CELL_SIZE][static_cast<int>(X) / CELL_SIZE].shapes.Append({ .x = X, .y = Y, .PTR_TO_SHAPE = shape });
         }
     }
     return GRID;
@@ -32,10 +44,13 @@ void CreateGridWindow::AddShape(Shape* shape) {
     for (int point = 0; point < shape->getPointCount(); ++point) {
         const float X = (shape->getPoint(static_cast<std::size_t>(point)).x);
         const float Y = (shape->getPoint(static_cast<std::size_t>(point)).y);
-        cells[static_cast<int>(Y) / CELL_SIZE][static_cast<int>(X) / CELL_SIZE].shapes.Append( { .x = X, .y = Y, .PTR_TO_SHAPE = shape } );
+        if (this->IsPointOutOfBounds(VecPos(X, Y))) {
+            continue;
+        }
+        cells[static_cast<int>(Y) / CELL_SIZE][static_cast<int>(X) / CELL_SIZE].shapes.Append({ .x = X, .y = Y, .PTR_TO_SHAPE = shape });
     }
 }
 
 void CreateGridWindow::Update(const Vector<Shape*>& shapes) {
-    cells = CreateGrid( shapes );
+    cells = CreateGrid(shapes);
 }
