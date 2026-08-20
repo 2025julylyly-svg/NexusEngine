@@ -1,14 +1,15 @@
 /*********************
  * Nexus Game Engine *
  *********************/
-#include <iostream>
-#include <thread>
-#include <unordered_map>
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Shape.hpp>
 #include <SFML/Window/VideoMode.hpp>
+#include <iostream>
+#include <thread>
+#include <map>
+#include <unordered_map>
 #include "Engine/Systems/Collision/SpatialHashingGrid/BoardPhase/GridWindow.h"
 #include "Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h"
 #include "VecPos.h"
