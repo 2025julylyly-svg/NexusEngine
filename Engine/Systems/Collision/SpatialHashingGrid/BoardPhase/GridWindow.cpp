@@ -12,7 +12,7 @@ void CreateGridWindow::init(Vector<Vector<cell>>& other) const {
     for (int y = 0; y < HeightScreen; y += CELL_SIZE) {
         other.Append(Vector<cell>());
         for (int x = 0; x < WidthScreen; x += CELL_SIZE) {
-            other[y].Append(cell());
+            other[y % CELL_SIZE].Append(cell());
         }
     }
 }
