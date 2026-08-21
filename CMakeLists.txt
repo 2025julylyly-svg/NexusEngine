@@ -33,6 +33,8 @@ add_executable(
         Engine/Actors/Shapes/Shape/Shape.h
         Library/MapWithoutHashData/MAIN/Map.h
         Library/Set/Set.h
+        Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckColl.cpp
+        Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckColl.h
 )
 
 target_include_directories(NexusEngine PRIVATE

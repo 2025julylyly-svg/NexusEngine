@@ -56,7 +56,7 @@ Vector<Vector<CreateGridWindow::cell>> CreateGridWindow::CreateGrid(const Vector
         //////////////////////////////////////////////
         MinCol = std::max(0, MinCol);
         MaxCol = std::min(MaxCol, MaxColIndex);
-        MinRow = std::max(0, MaxRow);
+        MinRow = std::max(0, MinRow);
         MaxRow = std::min(MaxRow, MaxRowIndex);
         //////////////////////////////////////////////
         if (MinCol > MaxCol || MinRow > MaxRow)
