@@ -35,6 +35,7 @@ add_executable(
         Library/Set/Set.h
         Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckColl.cpp
         Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckColl.h
+        Library/HashSet/Hash_Set.h
 )
 
 target_include_directories(NexusEngine PRIVATE

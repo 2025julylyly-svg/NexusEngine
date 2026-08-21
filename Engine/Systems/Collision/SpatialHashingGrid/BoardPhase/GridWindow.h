@@ -30,16 +30,6 @@ private: // structures
         }
     };
 
-private: // enumeration
-    // MU = Move Up, MD = Move Down, ML = Move Left, MR = Move Right
-    enum MoveDirection
-    {
-        MU,
-        MD,
-        ML,
-        MR
-    };
-
 private: // data
     const int CELL_SIZE = 10;
     int WidthScreen, HeightScreen;
@@ -56,5 +46,6 @@ private: // private functions
 public:
     explicit CreateGridWindow(int, int);
     void AddShape(Shape*);
+    Vector<Shape*> Query(Shape* );
     void Update(const Vector<Shape*>&);
 };

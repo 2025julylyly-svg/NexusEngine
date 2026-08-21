@@ -95,7 +95,11 @@ void CreateGridWindow::AddShape(Shape* shape) {
         return;
     this->SetToCells(MinCol, MaxCol, MinRow, MaxRow, shape);
 }
-
+Vector<Shape*> CreateGridWindow::Query(Shape* shape) {
+    Vector<Shape*> Final;
+    if (!shape)
+        return Final;
+}
 void CreateGridWindow::Update(const Vector<Shape*>& shapes) {
     cells = CreateGrid(shapes);
 }
