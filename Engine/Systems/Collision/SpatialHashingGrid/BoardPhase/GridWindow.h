@@ -51,6 +51,7 @@ private: // private functions
     [[nodiscard]] bool IsPointOutOfBounds(const VecPos&) const;
     static void SetGlobalBounds(float&, float&, float&, float&, const sf::FloatRect&);
     static void SetToGrid(Vector<Vector<cell>>&,const int&, const int&, const int&, const int&, Shape*);
+    void SetToCells(const int&, const int&, const int&, const int&, Shape*);
 
 public:
     explicit CreateGridWindow(int, int);
