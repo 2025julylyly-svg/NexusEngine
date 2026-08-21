@@ -32,6 +32,7 @@ add_executable(
         Engine/Actors/Shapes/Shape/Shape.cpp
         Engine/Actors/Shapes/Shape/Shape.h
         Library/MapWithoutHashData/MAIN/Map.h
+        Library/Set/Set.h
 )
 
 target_include_directories(NexusEngine PRIVATE
@@ -40,6 +41,7 @@ target_include_directories(NexusEngine PRIVATE
         Library/STRING/Library/String/MAIN
         Library/QUEUE/Library/QueueFiles/MAIN
         EngineLibrary/VectorPosition
-        Library/MapWithoutHashData/MAIN)
+        Library/MapWithoutHashData/MAIN
+        Library/Set)
 
 target_link_libraries(NexusEngine PRIVATE sfml-graphics sfml-window sfml-system)

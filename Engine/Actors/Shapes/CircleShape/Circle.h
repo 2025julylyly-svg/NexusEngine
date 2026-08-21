@@ -7,9 +7,10 @@ class Circle : public sf::CircleShape, public Shape
 {
 private:
     sf::CircleShape circle;
-    float Speed;
+    float Speed{};
 
 public:
+    explicit Circle();
     explicit Circle(float /* X : position */, float /* Y : position */);
     void SetSpeed(float) override;
     float GetSpeed() const override;

@@ -1,5 +1,5 @@
 #include "Circle.h"
-
+Circle::Circle() = default;
 Circle::Circle(float x, float y) : Speed( 1.f ) {
     circle.setPosition( { x, y } );
 }
