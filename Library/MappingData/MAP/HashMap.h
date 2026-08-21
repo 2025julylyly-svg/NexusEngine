@@ -1,10 +1,10 @@
 #pragma once
-#include <iostream>
 #include <exception>
+#include <iostream>
 #include <smmintrin.h>
 #include <stdexcept>
-#include <type_traits>
 #include <string>
+#include <type_traits>
 #include <unordered_set>
 #include "NotFoundKeyError.h"
 #include "String.h"
@@ -144,7 +144,6 @@ namespace Mapping {
             return nullptr;
         }
 
-    public:
         // class Iterator friend this class
         friend class Iterator<KeyType, ValueType>;
 
@@ -247,6 +246,10 @@ namespace Mapping {
             }
         }
 
+        void Remove(const KeyType& KeyTarget) {
+            if (bucket* FoundResult = this->Find( KeyTarget ); FoundResult != nullptr) {
+            }
+        }
         void KeyCreateWithDefaultValue(const KeyType& key) {
             if (KeyCounter >= BucketCounter) {
                 this->Rehash();

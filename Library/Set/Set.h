@@ -17,11 +17,13 @@ private:
             for (int i = 0; i < size; ++i) {
                 NEW_STORAGE[i] = set[i];
             }
+            return;
         } else {
             bool found = false;
             for (std::size_t i = 0; i < size; ++i) {
                 if (i == static_cast<std::size_t>(without)) {
                     found = true;
+                    continue;
                 }
                 if (!found) {
                     NEW_STORAGE[i] = set[i];
@@ -29,6 +31,7 @@ private:
                     NEW_STORAGE[i - 1] = set[i];
                 }
             }
+            return;
         }
     }
 
