@@ -27,7 +27,7 @@ namespace Mapping {
             if constexpr (std::is_integral_v<key> or std::is_floating_point_v<key>) {
                 std::size_t sum = 0;
                 constexpr int PrimeNumbers[] = { 1009, 1013, 1019, 1021, 1031, 1033, 1039 };
-                constexpr int Length = sizeof(PrimeNumbers) / sizeof( int );
+                constexpr int Length = sizeof(PrimeNumbers) / sizeof(int);
                 int index = 0;
                 for (std::size_t i = 0; i < 10; ++i) {
                     sum = sum + PrimeNumbers[index] + KEY;
@@ -37,7 +37,7 @@ namespace Mapping {
             } else if constexpr (std::is_same_v<key, std::string>) {
                 std::size_t sum = 0;
                 constexpr int PrimeNumbers[] = { 1009, 1013, 1019, 1021, 1031, 1033, 1039 };
-                constexpr int Length = sizeof(PrimeNumbers) / sizeof( int );
+                constexpr int Length = sizeof(PrimeNumbers) / sizeof(int);
                 int index = 0;
                 for (std::size_t i = 0; KEY[i]; ++i) {
                     sum = ((sum + PrimeNumbers[index]) * PrimeNumbers[index]) + KEY[i];
@@ -47,7 +47,7 @@ namespace Mapping {
             } else if (std::is_same_v<key, String>) {
                 std::size_t sum = 0;
                 constexpr int PrimeNumbers[] = { 1009, 1013, 1019, 1021, 1031, 1033, 1039 };
-                constexpr int Length = sizeof(PrimeNumbers) / sizeof( int );
+                constexpr int Length = sizeof(PrimeNumbers) / sizeof(int);
                 int index = 0;
                 for (int i = 0; i < KEY.Length(); ++i) {
                     sum = ((sum + PrimeNumbers[index]) * PrimeNumbers[index]) + KEY[i];
@@ -105,7 +105,8 @@ namespace Mapping {
             for (int i = 0; i < BucketCounter; ++i) {
                 bucket* temp = MAP[i];
                 while (temp != nullptr) {
-                    if (const std::size_t BucketNumber = hash.Hash( temp->Data.first ) % (BucketCounter * 2); BucketNumber != 0) this->InsertDataToBucket( MAP, BucketNumber, temp );
+                    if (const std::size_t BucketNumber = hash.Hash(temp->Data.first) % (BucketCounter * 2); BucketNumber != 0)
+                        this->InsertDataToBucket(MAP, BucketNumber, temp);
                     temp = temp->next;
                 }
             }
@@ -131,7 +132,7 @@ namespace Mapping {
 
     public:
         bucket* Find(const KeyType& key) noexcept {
-            bucket* temp = MAP[hash.Hash( key ) % BucketCounter];
+            bucket* temp = MAP[hash.Hash(key) % BucketCounter];
             if (temp == nullptr) {
                 return nullptr;
             }
@@ -182,7 +183,7 @@ namespace Mapping {
         HashMap(HashMap&& other) noexcept {
             this->BucketCounter = other.BucketCounter;
             this->KeyCounter = other.KeyCounter;
-            delete [] MAP;
+            delete[] MAP;
             this->MAP = other.MAP;
             this->AuxiliaryMAP = other.AuxiliaryMAP;
             other.BucketCounter = 0;
@@ -192,11 +193,11 @@ namespace Mapping {
         }
 
         Iterator<KeyType, ValueType> begin() {
-            return Iterator<KeyType, ValueType>( this, static_cast<std::size_t>(0) );
+            return Iterator<KeyType, ValueType>(this, static_cast<std::size_t>(0));
         }
 
         Iterator<KeyType, ValueType> end() {
-            return Iterator<KeyType, ValueType>( this, true );
+            return Iterator<KeyType, ValueType>(this, true);
         }
 
         void Clear() noexcept {
@@ -207,14 +208,14 @@ namespace Mapping {
         }
 
         void Rehash() {
-            if (! KeyIsClass) {
+            if (!KeyIsClass) {
                 const std::size_t newBucketCounter = BucketCounter * 2;
-                auto** newMap = new bucket*[newBucketCounter] {};
+                auto** newMap = new bucket* [newBucketCounter] {};
                 for (std::size_t i = 0; i < BucketCounter; ++i) {
                     bucket* current = MAP[i];
                     while (current != nullptr) {
                         bucket* next = current->next;
-                        const std::size_t newIndex = hash.Hash( current->Data.first ) % newBucketCounter;
+                        const std::size_t newIndex = hash.Hash(current->Data.first) % newBucketCounter;
                         current->next = newMap[newIndex];
                         newMap[newIndex] = current;
                         current = next;
@@ -223,12 +224,11 @@ namespace Mapping {
                 delete[] MAP;
                 MAP = newMap;
                 BucketCounter = newBucketCounter;
-            }
-            else {
+            } else {
                 const std::size_t newBucketCounter = BucketCounter * 2;
                 std::size_t BucketNumber = 0;
                 std::size_t KeyNumber = 0;
-                auto** newMap = new bucket*[newBucketCounter] {};
+                auto** newMap = new bucket* [newBucketCounter] {};
                 for (std::size_t i = 0; i < BucketCounter; ++i) {
                     bucket* current = MAP[i];
                     while (current != nullptr) {
@@ -247,19 +247,19 @@ namespace Mapping {
         }
 
         void Remove(const KeyType& KeyTarget) {
-            if (bucket* FoundResult = this->Find( KeyTarget ); FoundResult != nullptr) {
+            if (bucket* FoundResult = this->Find(KeyTarget); FoundResult != nullptr) {
             }
         }
         void KeyCreateWithDefaultValue(const KeyType& key) {
             if (KeyCounter >= BucketCounter) {
                 this->Rehash();
             }
-            if (bucket* found = Find( key ); found != nullptr) {
+            if (bucket* found = Find(key); found != nullptr) {
                 return;
             }
-            auto* New = new bucket { { *key, ValueType {} }, nullptr };
-            const std::size_t BucketIndex = hash.Hash( key ) % BucketCounter;
-            InsertDataToBucket( MAP, BucketIndex, New );
+            auto* New = new bucket{ { *key, ValueType{} }, nullptr };
+            const std::size_t BucketIndex = hash.Hash(key) % BucketCounter;
+            InsertDataToBucket(MAP, BucketIndex, New);
             ++KeyCounter;
         }
 
@@ -267,12 +267,12 @@ namespace Mapping {
             if (KeyCounter >= BucketCounter) {
                 this->Rehash();
             }
-            if (bucket* found = Find( *key ); found != nullptr) {
+            if (bucket* found = Find(*key); found != nullptr) {
                 return found->Data.second;
             }
-            auto* New = new bucket { { *key, ValueType {} }, nullptr };
-            const std::size_t BucketIndex = hash.Hash( *key ) % BucketCounter;
-            InsertDataToBucket( MAP, BucketIndex, New );
+            auto* New = new bucket{ { *key, ValueType{} }, nullptr };
+            const std::size_t BucketIndex = hash.Hash(*key) % BucketCounter;
+            InsertDataToBucket(MAP, BucketIndex, New);
             ++KeyCounter;
             return New->Data.second;
         }
@@ -281,12 +281,12 @@ namespace Mapping {
             if (KeyCounter >= BucketCounter) {
                 Rehash();
             }
-            if (bucket* found = Find( key ); found != nullptr) {
+            if (bucket* found = Find(key); found != nullptr) {
                 return found->Data.second;
             }
-            auto* newBucket = new bucket { { key, ValueType {} }, nullptr };
-            const std::size_t bucketNumber = hash.Hash( key ) % BucketCounter;
-            InsertDataToBucket( MAP, bucketNumber, newBucket );
+            auto* newBucket = new bucket{ { key, ValueType{} }, nullptr };
+            const std::size_t bucketNumber = hash.Hash(key) % BucketCounter;
+            InsertDataToBucket(MAP, bucketNumber, newBucket);
             ++KeyCounter;
             return newBucket->Data.second;
         }
@@ -351,15 +351,16 @@ namespace Mapping {
         }
 
         bool operator==(const Iterator& other) const noexcept {
-            return this->CurrentNode == other.CurrentNode;
+            return this->CurrentNode == other.CurrentNode && other.BuckNumber == this->BuckNumber;
         }
 
         bool operator!=(const Iterator& other) const noexcept {
-            return this->CurrentNode != other.CurrentNode;
+            return this->CurrentNode != other.CurrentNode && other.BuckNumber != this->BuckNumber;
         }
 
         Iterator& operator=(const Iterator& other) {
-            if (this == &other) return *this;
+            if (this == &other)
+                return *this;
             this->BuckNumber = other.BuckNumber;
             this->CurrentBucketIndex = other.CurrentBucketIndex;
             this->CurrentNode = other.CurrentNode;
@@ -376,4 +377,4 @@ namespace Mapping {
             return *this;
         }
     };
-}
+} // namespace Mapping

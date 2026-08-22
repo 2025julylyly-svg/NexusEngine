@@ -1,22 +1,24 @@
 #pragma once
 #include <String.h>
+#include <algorithm>
 #include <cmath>
 #include <cstddef>
 #include <initializer_list>
 #include <string>
 #include <typeinfo>
 #define PRIME_NUMBER 7691
-using HashNumber = long long int;
-using Size = unsigned long int;
 namespace {
+    using HashNumber = long long int;
+    using USize = unsigned long int;
+    using BuckNumber = unsigned int;
     template<typename data>
     HashNumber hash(const data& Data) {
-        constexpr int prime[10] = {53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+        constexpr int prime[10] = { 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 };
         constexpr short int len = 10;
         int index = 0;
         if constexpr (std::is_integral_v<data> || std::is_floating_point_v<data>) {
             HashNumber result = 0;
-            const int LoopNumber = static_cast<int>(sqrt( Data ));
+            const int LoopNumber = static_cast<int>(sqrt(Data));
             for (int i = 0; i < LoopNumber; ++i) {
                 result += prime[index] + Data + 7;
                 index = (index + 1) % len;
@@ -33,7 +35,9 @@ namespace {
             return -1;
         }
     }
-}
+} // namespace
+template<typename V>
+class Iterator;
 template<typename elem>
 class HashSet
 {
@@ -47,17 +51,24 @@ private: // bucket
 
 private: // data
     Bucket** set = nullptr;
-    Size size{};
-    Size capacity{};
+    USize size{};
+    USize BucketCounter{};
+    bool SetIsNull = true;
+    friend class Iterator<elem>;
 
 private: // functions
-    void inti_set() {
-        for (Size i = 0; i < capacity; ++i) {
+    static void init(Bucket** target, const USize& SIZE) {
+        for (USize i = 0; i < SIZE; ++i) {
+            target[i] = nullptr;
+        }
+    }
+    void init_set() {
+        for (USize i = 0; i < BucketCounter; ++i) {
             set[i] = nullptr;
         }
     }
     void FreeSet() {
-        for (Size i = 0; i < capacity; ++i) {
+        for (USize i = 0; i < BucketCounter; ++i) {
             Bucket* temp = set[i];
             while (temp != nullptr) {
                 const Bucket* Delete = temp;
@@ -67,56 +78,193 @@ private: // functions
         }
         delete[] set;
         set = nullptr;
+        SetIsNull = true;
     }
-    void CopyToSet(Bucket** NewSet, const Size& SizeSet) {
-        if (set == nullptr) {
-            set = new Bucket*[SizeSet];
+    void CopyToSet(Bucket** NewSet) {
+        if (SetIsNull) {
+            set = new Bucket*[BucketCounter];
         }
-        for (Size buck = 0; buck < SizeSet; ++buck) {
+        for (USize buck = 0; buck < BucketCounter; ++buck) {
             Bucket* temp = NewSet[buck];
             while (temp != nullptr) {
-                Bucket* New = new Bucket{temp->Val, temp->next};
-                this->InsertToSet( set, SizeSet, New );
+                auto* New = new Bucket{ .Val = temp->Val, .next = temp->next };
+                const HashNumber& BCK_NMB = hash<elem>(New->Val) % BucketCounter;
+                this->InsertToSet(set, BCK_NMB, New);
                 temp = temp->next;
             }
         }
     }
-    void InsertToSet(Bucket** target_set, const Size& bucket_number, Bucket* New) {
+    void InsertToSet(Bucket** target_set, const USize& bucket_number, Bucket* New) {
         Bucket* temp = target_set[bucket_number];
         while (temp->next != nullptr) {
             temp = temp->next;
         }
         temp->next = New;
     }
+    void MoveTo(Bucket** target) {
+        for (USize buck = 0; buck < BucketCounter; ++buck) {
+            Bucket* temp = set[buck];
+            while (temp != nullptr) {
+                const HashNumber Buc_Num = hash<elem>(temp->Val) % (BucketCounter * 2);
+                InsertToSet(target, Buc_Num, temp);
+                temp = temp->next;
+            }
+        }
+    }
+    [[nodiscard]] bool Empty() const {
+        return size == 0;
+    }
+    [[nodiscard]] bool NeedToHash() const {
+        return size >= BucketCounter;
+    }
 
 public:
     explicit HashSet() {
         size = 0;
-        capacity = 5;
-        set = new Bucket*[capacity];
-        this->inti_set();
+        BucketCounter = 5;
+        set = new Bucket*[BucketCounter];
+        this->init_set();
     }
     explicit HashSet(const std::initializer_list<elem>& list) {
         size = list.size();
-        capacity = size <= 1 ? 5 : size * 2;
-        set = new Bucket*[capacity];
-        inti_set();
+        BucketCounter = size <= 1 ? 5 : size * 2;
+        set = new Bucket*[BucketCounter];
+        init_set();
     }
     explicit HashSet(const HashSet& other) {
         size = other.size;
-        capacity = other.capacity;
-        this->CopyToSet( other.set, size );
+        BucketCounter = other.BucketCounter;
+        this->CopyToSet(other.set);
     }
     explicit HashSet(HashSet&& other) noexcept {
         size = other.size;
-        capacity = other.capacity;
+        BucketCounter = other.BucketCounter;
         set = other.set;
         //////////////////////////
         other.size = 0;
-        other.capacity = 2;
+        other.BucketCounter = 2;
         other.FreeSet();
     }
+    Iterator<elem> begin() {
+        return Iterator<elem>(this, 0);
+    }
+    Iterator<elem> end() {
+        return Iterator<elem>(this, true);
+    }
+    void ReHashing() {
+        if (Empty()) {
+            return;
+        }
+        const USize NewBucketCounter = BucketCounter * 2;
+        auto** AuxiliarySet = new Bucket*[NewBucketCounter];
+        init(AuxiliarySet, NewBucketCounter);
+        for (USize i = 0; i < BucketCounter; ++i) {
+            MoveTo(AuxiliarySet, NewBucketCounter);
+        }
+        this->FreeSet();
+        set = AuxiliarySet;
+        BucketCounter = NewBucketCounter;
+    }
+    void Add(const elem& target) {
+        if (NeedToHash()) {
+            this->ReHashing();
+        }
+        const BuckNumber BCK_NMB = hash<elem>(target) % BucketCounter;
+        auto* New = new Bucket{ .Val = target, .next = nullptr };
+        this->InsertToSet(set, BCK_NMB, New);
+        SetIsNull = false;
+    }
+    void Remove(const elem& target);
+    HashSet& operator=(const std::initializer_list<elem>& list) {
+        size = list.size();
+        BucketCounter = size <= 1 ? 5 : size * 2;
+        if (SetIsNull) {
+            FreeSet();
+        }
+        set = new Bucket*[BucketCounter];
+        this->init_set();
+        for (const elem& item : list) {
+        }
+    }
+    bool operator==(const HashSet&) const;
+    bool operator==(const std::initializer_list<elem>& list) const;
     ~HashSet() {
         this->FreeSet();
     }
 }; // class HashSet
+namespace {
+    template<typename V>
+    class Iterator
+    {
+    private:
+        using Reference = HashSet<V>::Bucket&;
+        using bucket = HashSet<V>::Bucket;
+        using Pointer = bucket*;
+        using bucket_ptr_ptr = bucket**;
+
+    private:
+        USize BuckNumber;
+        USize CurrentBuckNumber;
+        Pointer CurrentNode;
+        bucket_ptr_ptr Buckets;
+
+    private:
+        void JumpToNextBucket() {
+            ++CurrentBuckNumber;
+            while (CurrentBuckNumber < BuckNumber && Buckets[CurrentBuckNumber] == nullptr) {
+                ++CurrentBuckNumber;
+            }
+            CurrentNode = (CurrentBuckNumber < BuckNumber) ? Buckets[CurrentBuckNumber] : nullptr;
+        }
+
+    public:
+        Iterator(HashSet<V>* sh_set, const USize& start_index) {
+            CurrentBuckNumber = start_index;
+            Buckets = sh_set->set;
+            BuckNumber = sh_set->BucketCounter;
+            CurrentNode = nullptr;
+            while (CurrentBuckNumber < BuckNumber) {
+                if (Buckets[CurrentBuckNumber] != nullptr) {
+                    CurrentNode = Buckets[CurrentBuckNumber];
+                    break;
+                }
+                ++CurrentBuckNumber;
+            }
+        }
+        Iterator(HashSet<V>* sh_set, bool /*isEnd*/) noexcept {
+            BuckNumber = sh_set->BucketCounter;
+            CurrentBuckNumber = BuckNumber;
+            Buckets = sh_set->set;
+            CurrentNode = nullptr;
+        }
+        Reference operator*() noexcept {
+            return CurrentNode->next;
+        }
+        Pointer operator->() const noexcept {
+            return &(CurrentNode->Val);
+        }
+        bool operator==(const Iterator& other) const {
+            return CurrentNode == other.CurrentNode && BuckNumber == other.BuckNumber;
+        }
+        bool operator!=(const Iterator& other) const {
+            return CurrentNode != other.CurrentNode && CurrentBuckNumber != other.BuckNumber;
+        }
+        Iterator& operator=(const Iterator& other) {
+            if (&other == this)
+                return *this;
+            this->BuckNumber = other.BuckNumber;
+            this->Buckets = other.Buckets;
+            this->CurrentNode = other.CurrentNode;
+            this->CurrentBuckNumber = other.CurrentBuckNumber;
+            return *this;
+        }
+        Iterator& operator++() {
+            if (CurrentNode->next != nullptr) {
+                CurrentNode = CurrentNode->next;
+            } else {
+                this->JumpToNextBucket();
+            }
+            return *this;
+        }
+    };
+} // namespace
