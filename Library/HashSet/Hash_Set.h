@@ -46,7 +46,10 @@ private: // bucket
     {
     public:
         elem Val;
+    private:
         Bucket* next;
+        friend class HashSet;
+        friend class Iterator<elem>;
     };
 
 private: // data
@@ -238,10 +241,10 @@ public:
         CurrentNode = nullptr;
     }
     Reference operator*() noexcept {
-        return *CurrentNode;
+        return CurrentNode->Val;
     }
     Pointer operator->() const noexcept {
-        return CurrentNode;
+        return &(CurrentNode->Val);
     }
     bool operator==(const Iterator& other) const {
         return CurrentNode == other.CurrentNode && BuckNumber == other.BuckNumber;
