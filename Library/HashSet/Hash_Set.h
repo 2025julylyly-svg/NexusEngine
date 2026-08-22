@@ -146,7 +146,7 @@ public:
         other.FreeSet();
     }
     Iterator<elem> begin() {
-        return Iterator<elem>(this, 0);
+        return Iterator<elem>(this, static_cast<USize>(0));
     }
     Iterator<elem> end() {
         return Iterator<elem>(this, true);
@@ -173,6 +173,7 @@ public:
         auto* New = new Bucket{ .Val = target, .next = nullptr };
         this->InsertToSet(set, BCK_NMB, New);
         SetIsNull = false;
+        ++size;
     }
     void Remove(const elem& target);
     HashSet& operator=(const std::initializer_list<elem>& list) {
@@ -192,79 +193,77 @@ public:
         this->FreeSet();
     }
 }; // class HashSet
-namespace {
-    template<typename V>
-    class Iterator
-    {
-    private:
-        using Reference = HashSet<V>::Bucket&;
-        using bucket = HashSet<V>::Bucket;
-        using Pointer = bucket*;
-        using bucket_ptr_ptr = bucket**;
+template<typename V>
+class Iterator
+{
+private:
+    using Reference = HashSet<V>::Bucket&;
+    using bucket = HashSet<V>::Bucket;
+    using Pointer = bucket*;
+    using bucket_ptr_ptr = bucket**;
 
-    private:
-        USize BuckNumber;
-        USize CurrentBuckNumber;
-        Pointer CurrentNode;
-        bucket_ptr_ptr Buckets;
+private:
+    USize BuckNumber;
+    USize CurrentBuckNumber;
+    Pointer CurrentNode;
+    bucket_ptr_ptr Buckets;
 
-    private:
-        void JumpToNextBucket() {
+private:
+    void JumpToNextBucket() {
+        ++CurrentBuckNumber;
+        while (CurrentBuckNumber < BuckNumber && Buckets[CurrentBuckNumber] == nullptr) {
             ++CurrentBuckNumber;
-            while (CurrentBuckNumber < BuckNumber && Buckets[CurrentBuckNumber] == nullptr) {
-                ++CurrentBuckNumber;
-            }
-            CurrentNode = (CurrentBuckNumber < BuckNumber) ? Buckets[CurrentBuckNumber] : nullptr;
         }
+        CurrentNode = (CurrentBuckNumber < BuckNumber) ? Buckets[CurrentBuckNumber] : nullptr;
+    }
 
-    public:
-        Iterator(HashSet<V>* sh_set, const USize& start_index) {
-            CurrentBuckNumber = start_index;
-            Buckets = sh_set->set;
-            BuckNumber = sh_set->BucketCounter;
-            CurrentNode = nullptr;
-            while (CurrentBuckNumber < BuckNumber) {
-                if (Buckets[CurrentBuckNumber] != nullptr) {
-                    CurrentNode = Buckets[CurrentBuckNumber];
-                    break;
-                }
-                ++CurrentBuckNumber;
+public:
+    Iterator(HashSet<V>* sh_set, const USize& start_index) {
+        CurrentBuckNumber = start_index;
+        Buckets = sh_set->set;
+        BuckNumber = sh_set->BucketCounter;
+        CurrentNode = nullptr;
+        while (CurrentBuckNumber < BuckNumber) {
+            if (Buckets[CurrentBuckNumber] != nullptr) {
+                CurrentNode = Buckets[CurrentBuckNumber];
+                break;
             }
+            ++CurrentBuckNumber;
         }
-        Iterator(HashSet<V>* sh_set, bool /*isEnd*/) noexcept {
-            BuckNumber = sh_set->BucketCounter;
-            CurrentBuckNumber = BuckNumber;
-            Buckets = sh_set->set;
-            CurrentNode = nullptr;
-        }
-        Reference operator*() noexcept {
-            return CurrentNode->next;
-        }
-        Pointer operator->() const noexcept {
-            return &(CurrentNode->Val);
-        }
-        bool operator==(const Iterator& other) const {
-            return CurrentNode == other.CurrentNode && BuckNumber == other.BuckNumber;
-        }
-        bool operator!=(const Iterator& other) const {
-            return CurrentNode != other.CurrentNode && CurrentBuckNumber != other.BuckNumber;
-        }
-        Iterator& operator=(const Iterator& other) {
-            if (&other == this)
-                return *this;
-            this->BuckNumber = other.BuckNumber;
-            this->Buckets = other.Buckets;
-            this->CurrentNode = other.CurrentNode;
-            this->CurrentBuckNumber = other.CurrentBuckNumber;
+    }
+    Iterator(HashSet<V>* sh_set, bool /*isEnd*/) noexcept {
+        BuckNumber = sh_set->BucketCounter;
+        CurrentBuckNumber = BuckNumber;
+        Buckets = sh_set->set;
+        CurrentNode = nullptr;
+    }
+    Reference operator*() noexcept {
+        return *CurrentNode;
+    }
+    Pointer operator->() const noexcept {
+        return CurrentNode;
+    }
+    bool operator==(const Iterator& other) const {
+        return CurrentNode == other.CurrentNode && BuckNumber == other.BuckNumber;
+    }
+    bool operator!=(const Iterator& other) const {
+        return CurrentNode != other.CurrentNode && CurrentBuckNumber != other.BuckNumber;
+    }
+    Iterator& operator=(const Iterator& other) {
+        if (&other == this)
             return *this;
+        this->BuckNumber = other.BuckNumber;
+        this->Buckets = other.Buckets;
+        this->CurrentNode = other.CurrentNode;
+        this->CurrentBuckNumber = other.CurrentBuckNumber;
+        return *this;
+    }
+    Iterator& operator++() {
+        if (CurrentNode->next != nullptr) {
+            CurrentNode = CurrentNode->next;
+        } else {
+            this->JumpToNextBucket();
         }
-        Iterator& operator++() {
-            if (CurrentNode->next != nullptr) {
-                CurrentNode = CurrentNode->next;
-            } else {
-                this->JumpToNextBucket();
-            }
-            return *this;
-        }
-    };
-} // namespace
+        return *this;
+    }
+};
