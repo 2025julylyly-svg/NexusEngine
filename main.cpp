@@ -13,6 +13,7 @@
 #include "Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h"
 #include "Library/MapWithoutHashData/MAIN/Map.h"
 #include "Set.h"
+#include "Library/HashSet/Hash_Set.h"
 #include "VecPos.h"
 #define NE() std::cout << R"(
  /$$   /$$|
@@ -26,6 +27,9 @@
 )" << std::endl;
 int main() {
     NE();
-    sf::CircleShape circle;
+    HashSet<int> s{1,2,3};
+    for (const auto& it : s) {
+
+    }
     return 0;
 }
