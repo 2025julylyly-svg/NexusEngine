@@ -200,9 +200,10 @@ template<typename V>
 class Iterator
 {
 private:
-    using Reference = HashSet<V>::Bucket&;
+    using Reference = V&;
+    using Pointer = V*;
     using bucket = HashSet<V>::Bucket;
-    using Pointer = bucket*;
+    using bucket_ptr = bucket*;
     using bucket_ptr_ptr = bucket**;
 
 private:
@@ -247,10 +248,10 @@ public:
         return &(CurrentNode->Val);
     }
     bool operator==(const Iterator& other) const {
-        return CurrentNode == other.CurrentNode && BuckNumber == other.BuckNumber;
+        return *this == other;
     }
     bool operator!=(const Iterator& other) const {
-        return CurrentNode != other.CurrentNode && CurrentBuckNumber != other.BuckNumber;
+        return !(*this == other);
     }
     Iterator& operator=(const Iterator& other) {
         if (&other == this)

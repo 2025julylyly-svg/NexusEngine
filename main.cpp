@@ -28,6 +28,8 @@
 int main() {
     NE();
     HashSet<int> s{1,2,3};
-    for
+    for (const auto& it : s) {
+
+    }
     return 0;
 }
