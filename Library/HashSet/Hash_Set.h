@@ -46,10 +46,7 @@ private: // bucket
     {
     public:
         elem Val;
-    private:
         Bucket* next;
-        friend class HashSet;
-        friend class Iterator<elem>;
     };
 
 private: // data
@@ -83,15 +80,25 @@ private: // functions
         set = nullptr;
         SetIsNull = true;
     }
-    void CopyToSet(Bucket** NewSet) {
-        if (SetIsNull) {
-            set = new Bucket*[BucketCounter];
+    void CopyToSet(const std::initializer_list<elem>& list) {
+        for (const elem& it : list) {
+            auto* New = new Bucket{ .Val = it, .next = nullptr };
+            const HashNumber& hash_number = hash<elem>( it ) % BucketCounter;
+            if (hash_number == -1) {
+                continue;
+            }
+            this->InsertToSet( set, hash_number, New );
         }
+    }
+    void CopyToSet(Bucket** NewSet) {
         for (USize buck = 0; buck < BucketCounter; ++buck) {
             Bucket* temp = NewSet[buck];
             while (temp != nullptr) {
                 auto* New = new Bucket{ .Val = temp->Val, .next = temp->next };
                 const HashNumber& BCK_NMB = hash<elem>(New->Val) % BucketCounter;
+                if (BCK_NMB == -1) {
+                    continue;
+                }
                 this->InsertToSet(set, BCK_NMB, New);
                 temp = temp->next;
             }
@@ -99,6 +106,10 @@ private: // functions
     }
     void InsertToSet(Bucket** target_set, const USize& bucket_number, Bucket* New) {
         Bucket* temp = target_set[bucket_number];
+        if (temp == nullptr) {
+            temp = New;
+            return;
+        }
         while (temp->next != nullptr) {
             temp = temp->next;
         }
@@ -133,6 +144,7 @@ public:
         BucketCounter = size <= 1 ? 5 : size * 2;
         set = new Bucket*[BucketCounter];
         init_set();
+        this->CopyToSet( list );
     }
     explicit HashSet(const HashSet& other) {
         size = other.size;
@@ -173,7 +185,7 @@ public:
             this->ReHashing();
         }
         const BuckNumber BCK_NMB = hash<elem>(target) % BucketCounter;
-        auto* New = new Bucket{ .Val = target, .next = nullptr };
+        auto* New = new Bucket(target, nullptr);
         this->InsertToSet(set, BCK_NMB, New);
         SetIsNull = false;
         ++size;
@@ -247,11 +259,11 @@ public:
     Pointer operator->() const noexcept {
         return &(CurrentNode->Val);
     }
-    bool operator==(const Iterator& other) const {
-        return *this == other;
+    bool operator==( Iterator& other) const {
+        return this->CurrentNode == other.CurrentNode;
     }
-    bool operator!=(const Iterator& other) const {
-        return !(*this == other);
+    bool operator!=( Iterator& other) const {
+        return this->CurrentNode != other.CurrentNode;
     }
     Iterator& operator=(const Iterator& other) {
         if (&other == this)
