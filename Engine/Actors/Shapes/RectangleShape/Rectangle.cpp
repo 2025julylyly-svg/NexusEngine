@@ -1,5 +1,5 @@
 #include "Rectangle.h"
-
+Rectangle::Rectangle() = default;
 Rectangle::Rectangle(
     float x, float y,
     float Width, float Height,
@@ -26,7 +26,9 @@ void Rectangle::SetPointPositions() {
 const Vector<Rectangle::pos>& Rectangle::GetPointPositions() const {
     return PointPositions;
 }
-
+void Rectangle::SetSpeed(const float speed) {
+    Speed = speed;
+}
 void Rectangle::MoveUp() {
     if (shape.getPosition().y - this->Speed >= this->MinPosY) {
         shape.setPosition( { shape.getPosition().x, shape.getPosition().y - this->Speed } );
@@ -49,4 +51,10 @@ void Rectangle::MoveRight() {
     if (shape.getPosition().x + this->Speed <= this->MaxPosX) {
         shape.setPosition( { shape.getPosition().x + this->Speed, shape.getPosition().y } );
     }
+}
+bool Rectangle::operator==(ABS_SHAPE* abs_shape) const {
+    if (!abs_shape) {
+        return false;
+    }
+    return this == abs_shape;
 }

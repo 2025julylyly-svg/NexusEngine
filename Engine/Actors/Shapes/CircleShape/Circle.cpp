@@ -1,10 +1,10 @@
 #include "Circle.h"
 Circle::Circle() = default;
-Circle::Circle(float x, float y) : Speed( 1.f ) {
-    circle.setPosition( { x, y } );
+Circle::Circle(float x, float y) : Speed(1.f) {
+    circle.setPosition({ x, y });
 }
 
-void Circle::SetSpeed(float speed) {
+void Circle::SetSpeed(const float speed) {
     Speed = speed;
 }
 
@@ -13,17 +13,23 @@ float Circle::GetSpeed() const {
 }
 
 void Circle::MoveUp() {
-    this->circle.setPosition( { this->circle.getPosition().x, this->circle.getPosition().y - this->Speed } );
+    this->circle.setPosition({ this->circle.getPosition().x, this->circle.getPosition().y - this->Speed });
 }
 
 void Circle::MoveDown() {
-    this->circle.setPosition( { this->circle.getPosition().x, this->circle.getPosition().y + this->Speed } );
+    this->circle.setPosition({ this->circle.getPosition().x, this->circle.getPosition().y + this->Speed });
 }
 
 void Circle::MoveLeft() {
-    this->circle.setPosition( { this->circle.getPosition().x - this->Speed, this->circle.getPosition().y } );
+    this->circle.setPosition({ this->circle.getPosition().x - this->Speed, this->circle.getPosition().y });
 }
 
 void Circle::MoveRight() {
-    this->circle.setPosition( { this->circle.getPosition().x + this->Speed, this->circle.getPosition().y } );
+    this->circle.setPosition({ this->circle.getPosition().x + this->Speed, this->circle.getPosition().y });
+}
+bool Circle::operator==(ABS_SHAPE* shape) const {
+    if (!shape) {
+        return false;
+    }
+    return this == shape;
 }

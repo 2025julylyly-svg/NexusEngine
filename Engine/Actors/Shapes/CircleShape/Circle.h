@@ -1,9 +1,9 @@
 #pragma once
 #include <Vector.h>
 #include <SFML/Graphics.hpp>
-#include "../../Engine/Actors/Shapes/Shape/Shape.h"
+#include "../Shape/Shape.h"
 
-class Circle : public sf::CircleShape, public Shape
+class Circle : public sf::CircleShape, public ABS_SHAPE
 {
 private:
     sf::CircleShape circle;
@@ -18,4 +18,5 @@ public:
     void MoveDown() override;
     void MoveLeft() override;
     void MoveRight() override;
+    bool operator==(ABS_SHAPE*) const override;
 };
