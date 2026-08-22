@@ -56,7 +56,7 @@ Vector<Vector<CreateGridWindow::cell>> CreateGridWindow::CreateGrid(const Vector
         //////////////////////////////////////////////
         MinCol = std::max(0, MinCol);
         MaxCol = std::min(MaxCol, MaxColIndex);
-        MinRow = std::max(0, MaxRow);
+        MinRow = std::max(0, MinRow);
         MaxRow = std::min(MaxRow, MaxRowIndex);
         //////////////////////////////////////////////
         if (MinCol > MaxCol || MinRow > MaxRow)
@@ -95,7 +95,11 @@ void CreateGridWindow::AddShape(Shape* shape) {
         return;
     this->SetToCells(MinCol, MaxCol, MinRow, MaxRow, shape);
 }
-
+Vector<Shape*> CreateGridWindow::Query(Shape* shape) {
+    Vector<Shape*> Final;
+    if (!shape)
+        return Final;
+}
 void CreateGridWindow::Update(const Vector<Shape*>& shapes) {
     cells = CreateGrid(shapes);
 }
