@@ -3,6 +3,8 @@
 #include <cstddef>
 #include <initializer_list>
 #include <typeinfo>
+
+#include "../../Engine/Actors/Shapes/Shape/Shape.h"
 template<typename elem> // elem : Element
 class Set
 {
@@ -34,6 +36,11 @@ private:
             return;
         }
     }
+    void init() {
+        for (std::size_t i = size; i < capacity; ++i) {
+            set[i] = elem{};
+        }
+    }
 
 public:
     // init
@@ -47,26 +54,32 @@ public:
         size = list.size();
         capacity = size == 0 ? 3 : size * 2;
         set = new elem[capacity];
+        int counter = 0;
+        for (const elem& it : list) {
+            if (auto found = std::find(begin(), end(), it); found == end()) {
+                set[counter++] = it;
+            }
+        }
+        std::sort( set, set + size );
     }
     // copy
     explicit Set(const Set& other) {
         this->Copy(other);
     }
-    explicit Set(Set&& other) noexcept {
+    Set(Set&& other) noexcept {
         size = other.size;
         capacity = other.capacity;
         set = other.set;
         ///////////////////////////
         other.size = 0;
         other.capacity = 0;
-        delete[] other.set;
         other.set = nullptr;
     }
     elem* begin() {
-        return set;
+        return set + 0;
     }
     const elem* begin() const {
-        return set;
+        return set + 0;
     }
     elem* end() {
         return set + size;
@@ -97,7 +110,7 @@ public:
         if (this->IsFull()) {
             this->Resize();
         }
-        auto it = std::find( this->begin(), this->end(), AddElem);
+        auto it = std::find(this->begin(), this->end(), AddElem);
         if (it == this->end()) {
             set[size++] = AddElem;
             std::sort(set, set + size);

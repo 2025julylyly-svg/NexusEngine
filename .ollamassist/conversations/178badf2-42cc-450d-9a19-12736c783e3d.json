@@ -1,0 +1,15 @@
+{
+  "id" : "178badf2-42cc-450d-9a19-12736c783e3d",
+  "title" : "hello",
+  "createdAt" : 1787421888022,
+  "updatedAt" : 1787421906055,
+  "messages" : [ {
+    "role" : "USER",
+    "content" : "hello",
+    "timestamp" : 1787421891550
+  }, {
+    "role" : "ASSISTANT",
+    "content" : "Hi, I'm OllamAssist, how can I help you?\nMy capabilities include:\n- Code Analysis/Explanation\n- Implementation Writing\n- File Creation in Workspace\n- Technical Documentation\n- Test Case Generation",
+    "timestamp" : 1787421906055
+  } ]
+}
