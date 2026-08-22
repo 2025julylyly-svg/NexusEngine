@@ -10,7 +10,7 @@
 namespace {
     using HashNumber = long long int;
     using USize = unsigned long int;
-    using BuckNumber = unsigned int;
+    using BuckNumber = int;
     template<typename data>
     HashNumber hash(const data& Data) {
         constexpr int prime[10] = { 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 };
@@ -53,6 +53,10 @@ private: // Classes
     public:
         Bucket* prev;
         Bucket* current;
+        HashNumber BCK_NUM;
+        bool operator==(const FindTarget& other) {
+            return prev == other.prev && current == other.current;
+        }
     };
 
 private: // data
@@ -172,17 +176,22 @@ public:
     Iterator<elem> end() {
         return Iterator<elem>(this, true);
     }
-    Bucket* Found(const elem& target) {
-        for (USize buck = 0; buck < BucketCounter; ++buck) {
-            const Bucket* temp = set[buck];
-            while (temp != nullptr) {
-                if (temp->Val == target) {
-                    return temp;
-                }
-                temp = temp->next;
-            }
+    FindTarget Found(const elem& target) {
+        const BuckNumber& hash_number = hash<elem>(target) % BucketCounter;
+        Bucket* temp = set[hash_number];
+        if (temp == nullptr) {
+            return FindTarget{ .prev = nullptr, .current = nullptr, .BCK_NUM = -1 };
         }
-        return nullptr;
+        if (temp->Val == target) {
+            return FindTarget{ .prev = nullptr, .current = temp, .BCK_NUM = hash_number };
+        }
+        while (temp->next->next != nullptr) {
+            if (temp->next->Val == target) {
+                return FindTarget{ .prev = temp, .current = temp->next, .BCK_NUM = hash_number };
+            }
+            temp = temp->next;
+        }
+        return FindTarget{ .prev = nullptr, .current = nullptr, .BCK_NUM = -1 };
     }
     void ReHashing() {
         if (Empty()) {
@@ -209,7 +218,15 @@ public:
         ++size;
     }
     void Remove(const elem& target) {
-        if (Bucket* result = this->Found(target); result != nullptr) {
+        if (FindTarget result = this->Found(target); !(result == FindTarget{ .prev = nullptr, .current = nullptr })) {
+            if (result.prev == nullptr) {
+                set[result.BCK_NUM] = result.current->next;
+                delete result.current;
+                return;
+            }
+            result.prev->next = result.current->next;
+            delete result.current;
+            --size;
         }
     }
     HashSet& operator=(const std::initializer_list<elem>& list) {
