@@ -27,9 +27,6 @@
 )" << std::endl;
 int main() {
     NE();
-    HashSet<int> s{1,2,3};
-    for (const auto& it : s) {
-        std::cout << it << std::endl;
-    }
+
     return 0;
 }
