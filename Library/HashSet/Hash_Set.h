@@ -209,7 +209,7 @@ private:
 private:
     USize BuckNumber;
     USize CurrentBuckNumber;
-    Pointer CurrentNode;
+    bucket_ptr CurrentNode;
     bucket_ptr_ptr Buckets;
 
 private:
