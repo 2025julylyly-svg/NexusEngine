@@ -1,4 +1,8 @@
 #include "CheckColl.h"
+CheckColl::CheckColl() : CGW( 900,900 ) {
+    assert( false );
+}
+
 CheckColl::CheckColl(const int& WIDTH, const int& HEIGHT) : CGW(WIDTH, HEIGHT) {}
 
 Set<sf::Shape*> CheckColl::Filter(const Set<sf::Shape*>& shapes, const CheckColl::Shape_Type& target_shape_enum) {

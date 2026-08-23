@@ -3,6 +3,7 @@
 #include "../../Engine/Actors/Shapes/PolygonShape/Polygon.h"
 #include "../../Engine/Actors/Shapes/RectangleShape/Rectangle.h"
 #include "../BoardPhase/GridWindow.h"
+
 class CheckColl
 {
 private:
@@ -19,6 +20,7 @@ private: // functions
     static Set<sf::Shape*> Filter(const Set<sf::Shape*>&, const Shape_Type&);
 
 public:
+    explicit CheckColl();
     explicit CheckColl(const int&, const int&);
     Set<sf::Shape*> CircleCircle(sf::Shape*);
     Set<sf::Shape*> CircleRectangle(sf::Shape*);
