@@ -28,11 +28,5 @@ public:
     void SetMaxPosY(const float&);
     void SetMinPosX(const float&);
     void SetMinPosY(const float&);
-    void SetRadius(const float& r);
-    void SetPointCount(const std::size_t&);
-    ULI GetPointCount() const;
-    sf::Vector2f GetGeometricCenter() const;
-    sf::Vector2f GetPoint(const std::size_t&) const;
-    float GetRadius() const;
     bool operator==(sf::Shape*) const;
 };

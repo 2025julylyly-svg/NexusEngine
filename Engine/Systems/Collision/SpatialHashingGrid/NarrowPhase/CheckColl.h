@@ -19,7 +19,7 @@ private: // functions
     static Set<sf::Shape*> Filter(const Set<sf::Shape*>&, const Shape_Type&);
 
 public:
-    CheckColl();
+    explicit CheckColl(const int&, const int&);
     Set<sf::Shape*> CircleCircle(sf::Shape*);
     Set<sf::Shape*> CircleRectangle(sf::Shape*);
     Set<sf::Shape*> CirclePolygon(sf::Shape*);

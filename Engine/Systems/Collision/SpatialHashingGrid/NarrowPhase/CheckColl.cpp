@@ -1,5 +1,6 @@
 #include "CheckColl.h"
-CheckColl::CheckColl() : CGW(900,900) {}
+CheckColl::CheckColl(const int& WIDTH, const int& HEIGHT) : CGW(WIDTH, HEIGHT) {}
+
 Set<sf::Shape*> CheckColl::Filter(const Set<sf::Shape*>& shapes, const CheckColl::Shape_Type& target_shape_enum) {
     Set<sf::Shape*> clean;
     if (target_shape_enum == Shape_Type::Shape) {
@@ -21,13 +22,15 @@ Set<sf::Shape*> CheckColl::CircleCircle(sf::Shape* target_shape) {
     const Set<sf::Shape*> CirclesAsideCircle = CheckColl::Filter(CGW.Query(target_shape), Shape_Type::Circle);
     Set<sf::Shape*> ShapeCollide;
     for (auto& SHAPE : CirclesAsideCircle) {
-        const float distance_x = std::abs(dynamic_cast<Circle*>(target_shape)->getPosition().x - dynamic_cast<Circle*>(SHAPE)->getPosition().x);
-        const float distance_y = std::abs(dynamic_cast<Circle*>(target_shape)->getPosition().y - dynamic_cast<Circle*>(SHAPE)->getPosition().y);
+        const float distance_x = std::abs(
+            dynamic_cast<Circle*>(target_shape)->getPosition().x - dynamic_cast<Circle*>(SHAPE)->getPosition().x);
+        const float distance_y = std::abs(
+            dynamic_cast<Circle*>(target_shape)->getPosition().y - dynamic_cast<Circle*>(SHAPE)->getPosition().y);
         const float DISTANCE = (distance_x * distance_x) + (distance_y * distance_y);
-        const float R1 = dynamic_cast<Circle*>(target_shape)->GetRadius();
-        const float R2 = dynamic_cast<Circle*>(SHAPE)->GetRadius();
+        const float R1       = dynamic_cast<Circle*>(target_shape)->getRadius();
+        const float R2       = dynamic_cast<Circle*>(SHAPE)->getRadius();
         if (const float R_SUM = (R1 + R2) * (R1 + R2); DISTANCE <= R_SUM) {
-            ShapeCollide.Add( SHAPE );
+            ShapeCollide.Add(SHAPE);
         }
     }
     return ShapeCollide;

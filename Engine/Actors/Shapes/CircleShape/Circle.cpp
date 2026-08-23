@@ -19,35 +19,11 @@ Circle::Circle(const float& x, const float& y, const float& max_pos_x, const flo
 }
 Circle::Circle(const Circle* target_circle) : Radius( 5 ) {
     this->Speed = target_circle->Speed;
-    this->SetRadius( target_circle->GetRadius() );
+    this->setRadius( target_circle->getRadius() );
     this->MaxPosX = target_circle->MaxPosX;
     this->MaxPosY = target_circle->MaxPosY;
     this->MinPosX = target_circle->MinPosX;
     this->MinPosY = target_circle->MinPosY;
-}
-void Circle::SetRadius(const float& r) {
-    Radius = r;
-    circle.setRadius(r);
-}
-
-float Circle::GetRadius() const {
-    return Radius;
-}
-
-void Circle::SetPointCount(const std::size_t& point_count) {
-    circle.setPointCount(point_count);
-}
-
-sf::Vector2f Circle::GetGeometricCenter() const {
-    return circle.getGeometricCenter();
-}
-
-Circle::ULI Circle::GetPointCount() const {
-    return static_cast<ULI>(circle.getPointCount());
-}
-
-sf::Vector2f Circle::GetPoint(const std::size_t& point_index) const {
-    return circle.getPoint(point_index);
 }
 
 void Circle::SetMaxPosX(const float& max_pos) {
