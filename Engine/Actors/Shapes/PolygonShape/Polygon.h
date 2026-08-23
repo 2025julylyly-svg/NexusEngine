@@ -1,6 +1,6 @@
 #pragma once
-#include <cstdlib>
 #include <SFML/Graphics.hpp>
+#include <cstdlib>
 class Polygon final : public sf::ConvexShape
 {
 private:
@@ -9,9 +9,10 @@ private:
     float MaxPosX, MaxPosY;
     float MinPosX, MinPosY;
     bool CanMoveUp() const;
-    bool CanMoveDown()const;
+    bool CanMoveDown() const;
     bool CanMoveLeft() const;
     bool CanMoveRight() const;
+
 public:
     Polygon();
     explicit Polygon(const std::size_t&);
