@@ -1,16 +1,14 @@
 #include "Polygon.h"
 
-Polygon::Polygon() :
-    Speed(1.f), MaxPosX(-1.f), MaxPosY(-1.f), MinPosX(-1.f), MinPosY(-1.f) {
-}
+Polygon::Polygon() : Speed(1.f), MaxPosX(-1.f), MaxPosY(-1.f), MinPosX(-1.f), MinPosY(-1.f) {}
 
-Polygon::Polygon(const std::size_t& point_count) :
-    Speed(1.f), MaxPosX(-1.f), MaxPosY(-1.f), MinPosX(-1.f), MinPosY(-1.f) {
+Polygon::Polygon(const std::size_t& point_count)
+    : Speed(1.f), MaxPosX(-1.f), MaxPosY(-1.f), MinPosX(-1.f), MinPosY(-1.f) {
     CVX.setPointCount(point_count);
 }
 
-Polygon::Polygon(const std::size_t& point_count, const float& speed) :
-    Speed(1.f), MaxPosX(-1.f), MaxPosY(-1.f), MinPosX(-1.f), MinPosY(-1.f) {
+Polygon::Polygon(const std::size_t& point_count, const float& speed)
+    : Speed(1.f), MaxPosX(-1.f), MaxPosY(-1.f), MinPosX(-1.f), MinPosY(-1.f) {
     CVX.setPointCount(point_count);
     Speed = speed;
 }
@@ -67,7 +65,7 @@ void Polygon::MoveUp() {
     if (CanMoveUp()) {
         const std::size_t& PointCount = CVX.getPointCount();
         for (std::size_t point = 0; point < PointCount; ++point) {
-            CVX.setPoint(point, { CVX.getPoint(point).x, CVX.getPoint(point).y - this->Speed });
+            CVX.setPoint(point, {CVX.getPoint(point).x, CVX.getPoint(point).y - this->Speed});
         }
     }
 }
@@ -76,7 +74,7 @@ void Polygon::MoveDown() {
     if (CanMoveDown()) {
         const std::size_t& PointCount = CVX.getPointCount();
         for (std::size_t point = 0; point < PointCount; ++point) {
-            CVX.setPoint(point, { CVX.getPoint(point).x, CVX.getPoint(point).y + this->Speed });
+            CVX.setPoint(point, {CVX.getPoint(point).x, CVX.getPoint(point).y + this->Speed});
         }
     }
 }
@@ -85,7 +83,7 @@ void Polygon::MoveLeft() {
     if (CanMoveLeft()) {
         const std::size_t& PointCount = CVX.getPointCount();
         for (std::size_t point = 0; point < PointCount; ++point) {
-            CVX.setPoint(point, { CVX.getPoint(point).x - this->Speed, CVX.getPoint(point).y });
+            CVX.setPoint(point, {CVX.getPoint(point).x - this->Speed, CVX.getPoint(point).y});
         }
     }
 }
@@ -94,7 +92,22 @@ void Polygon::MoveRight() {
     if (CanMoveRight()) {
         const std::size_t& PointCount = CVX.getPointCount();
         for (std::size_t point = 0; point < PointCount; ++point) {
-            CVX.setPoint(point, { CVX.getPoint(point).x + this->Speed, CVX.getPoint(point).y });
+            CVX.setPoint(point, {CVX.getPoint(point).x + this->Speed, CVX.getPoint(point).y});
         }
     }
+}
+void Polygon::SetPointCount(const std::size_t& point_count) {
+    CVX.setPointCount(point_count);
+}
+
+Polygon::li Polygon::GetPointCount() const {
+    return static_cast<li>(CVX.getPointCount());
+}
+
+void Polygon::SetPoint(const std::size_t& point_number, const sf::Vector2f& position) {
+    CVX.setPoint(point_number, position);
+}
+
+VecPos Polygon::GetPoint(const std::size_t& point_number) const {
+    return {CVX.getPoint(point_number).x, CVX.getPoint(point_number).y};
 }

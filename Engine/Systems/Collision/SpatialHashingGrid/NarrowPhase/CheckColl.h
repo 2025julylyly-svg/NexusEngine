@@ -16,10 +16,11 @@ private:
     };
 
 private: // functions
-    static Set<sf::Shape*> Cleaning(const Set<sf::Shape*>&, const Shape_Type&);
+    static Set<sf::Shape*> Filter(const Set<sf::Shape*>&, const Shape_Type&);
 
 public:
-    Set<sf::Shape*> CircleCircle(const sf::Shape*);
+    CheckColl();
+    Set<sf::Shape*> CircleCircle(sf::Shape*);
     Set<sf::Shape*> CircleRectangle(sf::Shape*);
     Set<sf::Shape*> CirclePolygon(sf::Shape*);
     Set<sf::Shape*> RectangleRectangle(Rectangle*);

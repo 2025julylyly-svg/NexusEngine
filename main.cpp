@@ -10,6 +10,7 @@
 #include <set>
 #include <thread>
 #include <vector>
+#include "Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckColl.h"
 #include "Engine/Actors/Shapes/CircleShape/Circle.h"
 #include "Engine/Actors/Shapes/RectangleShape/Rectangle.h"
 #include "Engine/Systems/Collision/SpatialHashingGrid/BoardPhase/GridWindow.h"

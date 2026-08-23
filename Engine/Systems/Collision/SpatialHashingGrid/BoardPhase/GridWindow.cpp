@@ -95,7 +95,7 @@ void CreateGridWindow::AddShape(sf::Shape* shape) {
         return;
     this->SetToCells(MinCol, MaxCol, MinRow, MaxRow, shape);
 }
-Set<sf::Shape*> CreateGridWindow::GetShapesInThisSection(const int& min_x, const int& max_x, const int& min_y, const int& max_y) {
+Set<sf::Shape*> CreateGridWindow::GetShapesInThisSection(const int& min_x, const int& max_x, const int& min_y, const int& max_y) const {
     Set<sf::Shape*> result;
     for (int row = min_y; row <= max_y; ++row) {
         for (int col = min_x; col <= max_x; ++col) {

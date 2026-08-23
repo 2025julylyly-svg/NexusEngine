@@ -17,7 +17,14 @@ Circle::Circle(const float& x, const float& y, const float& max_pos_x, const flo
     this->SetMinPosX(min_pos_x);
     this->SetMinPosY(min_pos_y);
 }
-
+Circle::Circle(const Circle* target_circle) : Radius( 5 ) {
+    this->Speed = target_circle->Speed;
+    this->SetRadius( target_circle->GetRadius() );
+    this->MaxPosX = target_circle->MaxPosX;
+    this->MaxPosY = target_circle->MaxPosY;
+    this->MinPosX = target_circle->MinPosX;
+    this->MinPosY = target_circle->MinPosY;
+}
 void Circle::SetRadius(const float& r) {
     Radius = r;
     circle.setRadius(r);
@@ -106,7 +113,6 @@ void Circle::MoveRight() {
         this->circle.setPosition({ this->circle.getPosition().x + this->Speed, this->circle.getPosition().y });
     }
 }
-
 bool Circle::operator==(sf::Shape* shape) const {
     if (!shape || typeid(*shape) != typeid(Circle)) {
         return false;
