@@ -11,6 +11,7 @@
 #include <thread>
 #include <vector>
 #include "Engine/Actors/Shapes/CircleShape/Circle.h"
+#include "Engine/Actors/Shapes/RectangleShape/Rectangle.h"
 #include "Engine/Systems/Collision/SpatialHashingGrid/BoardPhase/GridWindow.h"
 #include "Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h"
 #include "Library/HashSet/Hash_Set.h"

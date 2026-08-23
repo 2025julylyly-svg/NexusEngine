@@ -8,23 +8,9 @@ Rectangle::Rectangle(
     MaxPosX( Max_X ), MaxPosY( Max_Y ),
     MinPosX( Min_X ), MinPosY( Min_Y ) {
 
-    WidthRectShape = Width; HeightRectShape = Height;
     shape.setPosition( { x, y } );
     shape.setSize( { Width, Height } );
     shape.setFillColor( sf::Color::White );
-}
-
-void Rectangle::SetPointPositions() {
-    const float X_posShape = shape.getPosition().x;
-    const float Y_posShape = shape.getPosition().y;
-    PointPositions.Append( {X_posShape, Y_posShape} );
-    PointPositions.Append( {X_posShape + WidthRectShape, Y_posShape} );
-    PointPositions.Append( {X_posShape, Y_posShape + HeightRectShape} );
-    PointPositions.Append( {X_posShape + WidthRectShape, Y_posShape + HeightRectShape} );
-}
-
-const Vector<Rectangle::pos>& Rectangle::GetPointPositions() const {
-    return PointPositions;
 }
 void Rectangle::SetSpeed(const float speed) {
     Speed = speed;
@@ -36,7 +22,7 @@ void Rectangle::MoveUp() {
 }
 
 void Rectangle::MoveDown() {
-    if (shape.getPosition().y + this->Speed <= this->MaxPosY) {
+    if (shape.getSize().y + shape.getPosition().y + this->Speed <= this->MaxPosY) {
         shape.setPosition( { shape.getPosition().x, shape.getPosition().y + this->Speed } );
     }
 }
@@ -48,13 +34,7 @@ void Rectangle::MoveLeft() {
 }
 
 void Rectangle::MoveRight() {
-    if (shape.getPosition().x + this->Speed <= this->MaxPosX) {
+    if (shape.getSize().x + shape.getPosition().x + this->Speed <= this->MaxPosX) {
         shape.setPosition( { shape.getPosition().x + this->Speed, shape.getPosition().y } );
     }
-}
-bool Rectangle::operator==(ABS_SHAPE* abs_shape) const {
-    if (!abs_shape) {
-        return false;
-    }
-    return this == abs_shape;
 }

@@ -3,8 +3,6 @@
 #include <cstddef>
 #include <initializer_list>
 #include <typeinfo>
-
-#include "../../Engine/Actors/Shapes/Shape/Shape.h"
 template<typename elem> // elem : Element
 class Set
 {

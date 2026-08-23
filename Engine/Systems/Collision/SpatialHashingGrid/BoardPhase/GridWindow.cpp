@@ -30,19 +30,19 @@ void CreateGridWindow::SetGlobalBounds(float& MI_X, float& MA_X, float& MI_Y, fl
     MI_Y = bound.position.y;
     MA_Y = bound.position.y + bound.size.y;
 }
-void CreateGridWindow::SetToGrid(Vector<Vector<cell>>& GRID, const int& MinCol, const int& MaxCol, const int& MinRow, const int& MaxRow, ABS_SHAPE* shape) {
+void CreateGridWindow::SetToGrid(Vector<Vector<cell>>& GRID, const int& MinCol, const int& MaxCol, const int& MinRow, const int& MaxRow, sf::Shape* shape) {
     for (int row = MinRow; row <= MaxRow; ++row) {
         for (int col = MinCol; col <= MaxCol; ++col) {
             GRID[row][col].shapes.Append({ shape });
         }
     }
 }
-Vector<Vector<CreateGridWindow::cell>> CreateGridWindow::CreateGrid(const Vector<ABS_SHAPE*>& shapes) {
+Vector<Vector<CreateGridWindow::cell>> CreateGridWindow::CreateGrid(const Vector<sf::Shape*>& shapes) {
     Vector<Vector<cell>> GRID;
     init(GRID);
     const int MaxColIndex = (WidthScreen / CELL_SIZE) - 1;
     const int MaxRowIndex = (HeightScreen / CELL_SIZE) - 1;
-    for (ABS_SHAPE* shape : shapes) {
+    for (sf::Shape* shape : shapes) {
         if (!shape)
             continue;
         const sf::FloatRect& Bounds = shape->getGlobalBounds();
@@ -65,14 +65,14 @@ Vector<Vector<CreateGridWindow::cell>> CreateGridWindow::CreateGrid(const Vector
     }
     return GRID;
 }
-void CreateGridWindow::SetToCells(const int& MIN_COL, const int& MAX_COL, const int& MIN_ROW, const int& MAX_ROW, ABS_SHAPE* shape) {
+void CreateGridWindow::SetToCells(const int& MIN_COL, const int& MAX_COL, const int& MIN_ROW, const int& MAX_ROW, sf::Shape* shape) {
     for (int row = MIN_ROW; row <= MAX_ROW; ++row) {
         for (int col = MIN_COL; col <= MAX_COL; ++col) {
             this->cells[row][col].shapes.Append({ shape });
         }
     }
 }
-void CreateGridWindow::AddShape(ABS_SHAPE* shape) {
+void CreateGridWindow::AddShape(sf::Shape* shape) {
     if (!shape)
         return;
     const int MaxColIndex = (WidthScreen / CELL_SIZE) - 1;
@@ -95,11 +95,11 @@ void CreateGridWindow::AddShape(ABS_SHAPE* shape) {
         return;
     this->SetToCells(MinCol, MaxCol, MinRow, MaxRow, shape);
 }
-Set<ABS_SHAPE*> CreateGridWindow::GetShapesInThisSection(const int& min_x, const int& max_x, const int& min_y, const int& max_y) {
-    Set<ABS_SHAPE*> result;
+Set<sf::Shape*> CreateGridWindow::GetShapesInThisSection(const int& min_x, const int& max_x, const int& min_y, const int& max_y) {
+    Set<sf::Shape*> result;
     for (int row = min_y; row <= max_y; ++row) {
         for (int col = min_x; col <= max_x; ++col) {
-            for (ABS_SHAPE* const SHAPE : cells[row][col].shapes) {
+            for (sf::Shape* const SHAPE : cells[row][col].shapes) {
                 result.Add(SHAPE);
             }
         }
@@ -107,7 +107,7 @@ Set<ABS_SHAPE*> CreateGridWindow::GetShapesInThisSection(const int& min_x, const
     return result;
 }
 
-Set<ABS_SHAPE*> CreateGridWindow::Query(const ABS_SHAPE* shape) {
+Set<sf::Shape*> CreateGridWindow::Query(const sf::Shape* shape) {
     const int MaxWidthIndex = (WidthScreen / CELL_SIZE) - 1;
     const int MaxHeightIndex = (HeightScreen / CELL_SIZE) - 1;
     const sf::FloatRect& bounds = shape->getGlobalBounds();
@@ -125,6 +125,6 @@ Set<ABS_SHAPE*> CreateGridWindow::Query(const ABS_SHAPE* shape) {
     MaxRow = std::min(MaxRow, MaxHeightIndex);
     return this->GetShapesInThisSection(MinCol, MaxCol, MinRow, MaxRow);
 }
-void CreateGridWindow::Update(const Vector<ABS_SHAPE*>& shapes) {
+void CreateGridWindow::Update(const Vector<sf::Shape*>& shapes) {
     cells = CreateGrid(shapes);
 }
