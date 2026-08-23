@@ -34,7 +34,7 @@ float Circle::GetSpeed() const {
 
 void Circle::MoveUp() {
     if (MinPosY != -1) {
-        if (circle.getRadius() - circle.getPosition().y <= MinPosY) {
+        if (circle.getRadius() - circle.getPosition().y >= MinPosY) {
             this->circle.setPosition({ this->circle.getPosition().x, this->circle.getPosition().y - this->Speed });
         }
     } else {
@@ -44,7 +44,7 @@ void Circle::MoveUp() {
 
 void Circle::MoveDown() {
     if (MaxPosY != -1) {
-        if (circle.getRadius() + circle.getPosition().x >= MaxPosY) {
+        if (circle.getRadius() + circle.getPosition().x <= MaxPosY) {
             this->circle.setPosition({ this->circle.getPosition().x, this->circle.getPosition().y + this->Speed });
         }
     } else {
