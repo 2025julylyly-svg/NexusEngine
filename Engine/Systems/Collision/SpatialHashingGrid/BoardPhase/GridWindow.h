@@ -37,7 +37,7 @@ private: // private functions
     static void SetGlobalBounds(float&, float&, float&, float&, const sf::FloatRect&);
     static void SetToGrid(Vector<Vector<cell>>&,const int&, const int&, const int&, const int&, sf::Shape*);
     void SetToCells(const int&, const int&, const int&, const int&, sf::Shape*);
-    Set<sf::Shape*> GetShapesInThisSection(const int&, const int&, const int&, const int&) const;
+    [[nodiscard]] Set<sf::Shape*> GetShapesInThisSection(const int&, const int&, const int&, const int&, const sf::Shape*) const;
 public:
     explicit CreateGridWindow(int, int);
     void AddShape(sf::Shape*);
