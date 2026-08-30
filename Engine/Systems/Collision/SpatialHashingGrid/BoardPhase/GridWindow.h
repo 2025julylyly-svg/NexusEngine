@@ -41,6 +41,6 @@ private: // private functions
 public:
     explicit CreateGridWindow(int, int);
     void AddShape(sf::Shape*);
-    Set<sf::Shape*> Query(const sf::Shape* );
+    Set<sf::Shape*> Query(const sf::Shape* ) const;
     void Update(const Vector<sf::Shape*>&);
 };

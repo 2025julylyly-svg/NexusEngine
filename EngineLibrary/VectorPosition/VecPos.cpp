@@ -28,9 +28,17 @@ void VecPos::Set_XY(const float new_x, const float new_y) {
 }
 
 void VecPos::Set_Null() {
-}
-
-VecPos::~VecPos() {
     delete x;
     delete y;
+    x = nullptr;
+    y = nullptr;
+}
+VecPos VecPos::operator-(const VecPos& other) const {
+    return {*x - *other.x, *y - *other.y};
+}
+VecPos VecPos::operator+(const VecPos& other) const {
+    return {*x + *other.x, *y + *other.y};
+}
+VecPos::~VecPos() {
+    this->Set_Null();
 }

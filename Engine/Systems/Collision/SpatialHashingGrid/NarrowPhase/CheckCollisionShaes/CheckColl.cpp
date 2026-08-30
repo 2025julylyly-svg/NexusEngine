@@ -1,6 +1,6 @@
 #include "CheckColl.h"
-CheckColl::CheckColl() : CGW( 900,900 ) {
-    assert( false );
+CheckColl::CheckColl() : CGW(900, 900) {
+    assert(false);
 }
 
 CheckColl::CheckColl(const int& WIDTH, const int& HEIGHT) : CGW(WIDTH, HEIGHT) {}
@@ -22,10 +22,13 @@ Set<sf::Shape*> CheckColl::Filter(const Set<sf::Shape*>& shapes, const CheckColl
     return clean;
 }
 
-Set<sf::Shape*> CheckColl::CircleCircle(sf::Shape* target_shape) {
+Set<sf::Shape*> CheckColl::CircleCircle(sf::Shape* target_shape /* circle */) const {
     const Set<sf::Shape*> CirclesAsideCircle = CheckColl::Filter(CGW.Query(target_shape), Shape_Type::Circle);
     Set<sf::Shape*> ShapeCollide;
     for (auto& SHAPE : CirclesAsideCircle) {
+        if (SHAPE == target_shape) {
+            continue;
+        };
         const float distance_x = std::abs(
             dynamic_cast<Circle*>(target_shape)->getPosition().x - dynamic_cast<Circle*>(SHAPE)->getPosition().x);
         const float distance_y = std::abs(
@@ -36,6 +39,13 @@ Set<sf::Shape*> CheckColl::CircleCircle(sf::Shape* target_shape) {
         if (const float R_SUM = (R1 + R2) * (R1 + R2); DISTANCE <= R_SUM) {
             ShapeCollide.Add(SHAPE);
         }
+    }
+    return ShapeCollide;
+}
+Set<sf::Shape*> CheckColl::CircleRectangle(sf::Shape* target_shape /* circle */) {
+    const Set<sf::Shape*> RectanglesAsideCircle = CheckColl::Filter(CGW.Query(target_shape), Shape_Type::Rectangle);
+    Set<sf::Shape*> ShapeCollide;
+    for (const sf::Shape* SHAPE : RectanglesAsideCircle) {
     }
     return ShapeCollide;
 }

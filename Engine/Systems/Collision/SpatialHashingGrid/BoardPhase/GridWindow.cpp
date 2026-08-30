@@ -117,7 +117,7 @@ Set<sf::Shape*> CreateGridWindow::GetShapesInThisSection(
     return result;
 }
 
-Set<sf::Shape*> CreateGridWindow::Query(const sf::Shape* shape) {
+Set<sf::Shape*> CreateGridWindow::Query(const sf::Shape* shape) const {
     const int MaxWidthIndex     = (WidthScreen / CELL_SIZE) - 1;
     const int MaxHeightIndex    = (HeightScreen / CELL_SIZE) - 1;
     const sf::FloatRect& bounds = shape->getGlobalBounds();

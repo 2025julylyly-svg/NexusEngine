@@ -1,25 +1,27 @@
 /*********************
  * Nexus Game Engine *
  *********************/
-#include <SFML/Graphics/CircleShape.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Graphics/Shape.hpp>
-#include <SFML/Window/VideoMode.hpp>
-#include <iostream>
-#include <set>
-#include <thread>
-#include <vector>
-#include "Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckColl.h"
 #include "Engine/Actors/Shapes/CircleShape/Circle.h"
 #include "Engine/Actors/Shapes/RectangleShape/Rectangle.h"
 #include "Engine/Systems/Collision/SpatialHashingGrid/BoardPhase/GridWindow.h"
+#include "Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckCollisionShaes/CheckColl.h"
 #include "Engine/Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h"
 #include "Library/HashSet/Hash_Set.h"
 #include "Library/MapWithoutHashData/MAIN/Map.h"
 #include "Set.h"
 #include "VecPos.h"
-#define NE() std::cout << R"(
+#include <iostream>
+#include <set>
+#include <thread>
+#include <vector>
+
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Shape.hpp>
+#include <SFML/Window/VideoMode.hpp>
+#define NE() \
+    std::cout << R"(
  /$$   /$$|
 | $$$ | $$|
 | $$$$| $$|   /$$$$$$   /$$   /$$|  /$$   /$$   /$$$$$$$
@@ -29,7 +31,6 @@
 | $$ \  $$| |  $$$$$$$  /$$/\  $$| |  $$$$$$/  /$$$$$$$/
 |__/  \__/   \_______/ |__/  \__/   \______/  |_______/
 )" << std::endl;
-
 int main() {
     NE();
     return 0;

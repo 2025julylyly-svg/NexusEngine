@@ -91,6 +91,16 @@ public:
     [[nodiscard]] bool IsEmpty() const {
         return size == 0;
     }
+    [[nodiscard]] bool found(const elem& target) {
+        bool FOUND = false;
+        for (std::size_t i = 0; i < size; ++ i) {
+            if (set[i] == target) {
+                FOUND = true;
+                break;
+            }
+        }
+        return FOUND;
+    }
     void Resize() {
         capacity *= 2;
         elem* AuxiliarySet = new elem[capacity];

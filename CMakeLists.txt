@@ -31,11 +31,13 @@ add_executable(
         EngineLibrary/VectorPosition/VecPos.h
         Library/MapWithoutHashData/MAIN/Map.h
         Library/Set/Set.h
-        Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckColl.cpp
-        Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckColl.h
+        Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckCollisionShaes/CheckColl.cpp
+        Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckCollisionShaes/CheckColl.h
         Library/HashSet/Hash_Set.h
         Engine/Actors/Shapes/PolygonShape/Polygon.cpp
         Engine/Actors/Shapes/PolygonShape/Polygon.h
+        Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/shape_is/__shapes_is__.cpp
+        Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/shape_is/__shapes_is__.h
 )
 
 target_include_directories(NexusEngine PRIVATE

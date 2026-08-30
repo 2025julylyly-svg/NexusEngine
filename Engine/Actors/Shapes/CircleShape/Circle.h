@@ -5,8 +5,6 @@
 
 class Circle final : public sf::CircleShape {
 private:
-    using ULI = long int;
-    sf::CircleShape circle;
     float Radius;
     float Speed{};
     float MaxPosX{}, MaxPosY{};

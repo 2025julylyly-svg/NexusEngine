@@ -9,7 +9,6 @@ private:
         float x;
         float y;
     };
-    sf::RectangleShape shape;
     float Speed{};
     float MaxPosX{}, MaxPosY{};
     float MinPosX{}, MinPosY{};
@@ -17,6 +16,8 @@ private:
 public:
     explicit Rectangle();
     explicit Rectangle(float, float, float, float, float, float, float, float);
+    explicit Rectangle(const Rectangle&);
+    explicit Rectangle(Rectangle&&) noexcept;
     void SetSpeed(float);
     void MoveUp();
     void MoveDown();
