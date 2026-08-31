@@ -14,7 +14,6 @@
 #include <set>
 #include <thread>
 #include <vector>
-
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -31,6 +30,7 @@
 | $$ \  $$| |  $$$$$$$  /$$/\  $$| |  $$$$$$/  /$$$$$$$/
 |__/  \__/   \_______/ |__/  \__/   \______/  |_______/
 )" << std::endl;
+
 int main() {
     NE();
     return 0;

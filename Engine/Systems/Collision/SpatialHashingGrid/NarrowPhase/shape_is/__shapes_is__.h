@@ -3,6 +3,7 @@
 class ShapeIs {
 public:
     class Rotate {
-        static bool RectIsRotated(Rectangle*);
+    public:
+        static int RectIsRotated(Rectangle*);
     };
 };
