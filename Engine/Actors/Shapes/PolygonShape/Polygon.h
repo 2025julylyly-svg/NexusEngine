@@ -6,7 +6,6 @@ class Polygon final : public sf::ConvexShape
 {
 private:
     using li = long int;
-    sf::ConvexShape CVX;
     float Speed{};
     float MaxPosX, MaxPosY;
     float MinPosX, MinPosY;
