@@ -1,5 +1,55 @@
 #include "CheckColl.h"
 
+Vector<VecPos> CheckColl::Point::GetClosestPointsOnSidesOfSqToCircle(
+    const Rectangle* rectangle, const Circle* circle) {
+    Vector<VecPos> points;
+    for (std::size_t point = 0; point < rectangle->getPointCount(); ++point) {
+        sf::Vector2f StartLinePoint = rectangle->getTransform().
+                                                 transformPoint( rectangle->getPoint( point ) );
+
+        sf::Vector2f EndLinePoint = rectangle->getTransform().transformPoint(
+            rectangle->getPoint( (point + 1) % rectangle->getPointCount() ) );
+
+        // distance in start line point and end line point
+        sf::Vector2f DA = EndLinePoint - StartLinePoint;
+        // distance in center on circle and start line point
+        sf::Vector2f DP = circle->getPosition() - StartLinePoint;
+        float PositionOnSide = DP.dot( DA ) / DA.dot( DA );
+        PositionOnSide = std::clamp( PositionOnSide, 0.0f, 1.0f );
+        sf::Vector2f Closest = StartLinePoint + DA * PositionOnSide;
+        points.Append( { Closest.x, Closest.y } );
+    }
+    return points;
+}
+
+
+VecPos CheckColl::Point::GetClosestPointOnSqToCircle(
+    const Vector<VecPos>& points,
+    const Circle* target_circle) {
+    sf::Vector2f closestPoint = { points[0].get_x(), points[0].get_y() };
+
+    float closestDistance =
+        (closestPoint - target_circle->getPosition()).lengthSquared();
+
+    for (std::size_t point = 1; point < points.Size(); ++point) {
+        float currentDistance =
+            (sf::Vector2f { points[point].get_x(), points[point].get_y() } - target_circle->getPosition()).
+            lengthSquared();
+
+        if (currentDistance < closestDistance) {
+            closestDistance = currentDistance;
+            closestPoint = { points[point].get_x(), points[point].get_y() };
+        }
+    }
+
+    return { closestPoint.x, closestPoint.y };
+}
+
+void CheckColl::set(sf::Shape* t1, sf::Shape* t2) {
+    CGW.AddShape( t1 );
+    CGW.AddShape( t2 );
+}
+
 CheckColl::CheckColl() : CGW( 900, 900 ) {
     assert( false );
 }
@@ -58,10 +108,28 @@ Set<sf::Shape*> CheckColl::CircleCircle(sf::Shape* target_shape /* circle */) co
     return ShapeCollide;
 }
 
-Set<sf::Shape*> CheckColl::CircleRectangle(sf::Shape* target_shape /* circle */) {
+Set<sf::Shape*> CheckColl::CircleRectangle(sf::Shape* target_shape /* circle */) const {
     const Set<sf::Shape*> RectanglesAsideCircle = CheckColl::Filter(
         CGW.Query( target_shape ), Shape_Type::Rectangle );
+
     Set<sf::Shape*> ShapeCollide;
-    for (auto& SHAPE : RectanglesAsideCircle) {}
+    for (sf::Shape* SHAPE : RectanglesAsideCircle) {
+        const Rectangle* rect = dynamic_cast<Rectangle*>(SHAPE);
+
+        VecPos ClosestPoint = CheckColl::Point::GetClosestPointOnSqToCircle(
+            CheckColl::Point::GetClosestPointsOnSidesOfSqToCircle(
+                rect, dynamic_cast<Circle*>(target_shape) ), dynamic_cast<Circle*>(target_shape) );
+
+        const VecPos& Differance = {
+            ClosestPoint.get_x() - target_shape->getPosition().x,
+            ClosestPoint.get_y() - target_shape->getPosition().y };
+
+        const float& Distance = Differance.get_x() * Differance.get_x() + Differance.get_y() * Differance.
+            get_y();
+        if (const float& RadiusOfCircle = dynamic_cast<Circle*>(target_shape)->getRadius();
+            Distance <= RadiusOfCircle * RadiusOfCircle) {
+            ShapeCollide.Add( SHAPE );
+        }
+    }
     return ShapeCollide;
 }

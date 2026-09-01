@@ -12,12 +12,19 @@ private:
 
 private: // static functions
     static Set<sf::Shape*> Filter(const Set<sf::Shape*>&, const Shape_Type&);
-
+private: // private classes
+    class Point
+    {
+    public:
+        static Vector<VecPos> GetClosestPointsOnSidesOfSqToCircle(const Rectangle*, const Circle*);
+        static VecPos GetClosestPointOnSqToCircle(const Vector<VecPos>&, const Circle*);
+    };
 public:
     explicit CheckColl();
     explicit CheckColl(const int&, const int&);
+    void set(sf::Shape*, sf::Shape*);
     Set<sf::Shape*> CircleCircle(sf::Shape*) const;
-    Set<sf::Shape*> CircleRectangle(sf::Shape*);
+    Set<sf::Shape*> CircleRectangle(sf::Shape*) const;
     Set<sf::Shape*> CirclePolygon(sf::Shape*);
     Set<sf::Shape*> RectangleRectangle(Rectangle*);
     Set<sf::Shape*> RectanglePolygon(Rectangle*);

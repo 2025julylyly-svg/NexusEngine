@@ -1,7 +1,7 @@
 #include "ReadInputKey.h"
 
 ReadInput::ReadInput() {
-    FileEventKey = open( "/dev/input/event4", O_RDONLY | O_NONBLOCK );
+    FileEventKey = open( "/dev/input/by-id/usb-SEMICO_USB_Keyboard-event-kbd", O_RDONLY | O_NONBLOCK );
     if (FileEventKey == -1) {
         std::cout << "Error: can not open '/dev/input/event7'" << std::endl;
         perror( "open" );

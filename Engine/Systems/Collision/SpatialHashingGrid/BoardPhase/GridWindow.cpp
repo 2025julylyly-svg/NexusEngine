@@ -19,8 +19,8 @@ void CreateGridWindow::init(Vector<Vector<cell>>& other) {
     }
 }
 bool CreateGridWindow::IsPointOutOfBounds(const VecPos& point) const {
-    if (*point.x < 0 || *point.x > static_cast<float>(WidthScreen) || *point.y < 0
-        || *point.y > static_cast<float>(HeightScreen)) {
+    if (point.get_x() < 0 || point.get_x() > static_cast<float>(WidthScreen) || point.get_y() < 0
+        || point.get_y() > static_cast<float>(HeightScreen)) {
         return true;
     }
     return false;

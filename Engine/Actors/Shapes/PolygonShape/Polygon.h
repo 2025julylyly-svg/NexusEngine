@@ -25,8 +25,8 @@ public:
     void MoveDown();
     void MoveRight();
     void MoveLeft();
-    void SetPointCount(const std::size_t&);
-    li GetPointCount() const;
-    void SetPoint(const std::size_t&, const sf::Vector2f&);
-    VecPos GetPoint(const std::size_t&) const;
+    void SetMinPosY(const float&);
+    void SetMinPosX(const float&);
+    void SetMaxPosY(const float&);
+    void SetMaxPosX(const float&);
 };
