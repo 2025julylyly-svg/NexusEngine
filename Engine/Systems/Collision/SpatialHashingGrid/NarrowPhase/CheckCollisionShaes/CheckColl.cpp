@@ -22,6 +22,13 @@ Vector<VecPos> CheckColl::Point::GetClosestPointsOnSidesOfSqToCircle(
     return points;
 }
 
+Vector<VecPos> CheckColl::Extract::ExtractPointFromShape(const sf::Shape* shape) {
+    Vector<VecPos> DataExtracted;
+    for (std::size_t point = 0; point < shape->getPointCount(); ++point) {
+        DataExtracted.Append( { shape->getPoint( point ).x, shape->getPoint( point ).y } );
+    }
+    return DataExtracted;
+}
 
 VecPos CheckColl::Point::GetClosestPointOnSqToCircle(
     const Vector<VecPos>& points,
@@ -43,6 +50,32 @@ VecPos CheckColl::Point::GetClosestPointOnSqToCircle(
     }
 
     return { closestPoint.x, closestPoint.y };
+}
+
+bool CheckColl::Point::PointIsInShape(const VecPos& target_point, const sf::Shape* target_shape) {
+    bool is_inside = false;
+    const Vector<VecPos>& PointsOfShape = CheckColl::Extract::ExtractPointFromShape( target_shape );
+    const std::size_t& point_count = PointsOfShape.Size();
+    for (std::size_t current_point_index = 0; current_point_index < point_count; ++current_point_index) {
+        const std::size_t Previous_Index = (current_point_index != 0) ? current_point_index - 1 :
+                                               point_count - 1;
+        const VecPos& CurrentShapePoint = PointsOfShape[current_point_index];
+        const VecPos& PreviousShapePoint = PointsOfShape[Previous_Index];
+        const bool LineIsOutOfRange = (CurrentShapePoint.get_y() > target_point.get_y()) !=
+            (PreviousShapePoint.get_y() > target_point.get_y());
+        if (!LineIsOutOfRange) {
+            continue;
+        }
+        const float intersection_x =
+            PreviousShapePoint.get_x() +
+            (CurrentShapePoint.get_x() - PreviousShapePoint.get_x()) *
+            (target_point.get_y() - PreviousShapePoint.get_y()) /
+            (CurrentShapePoint.get_y() - PreviousShapePoint.get_y());
+        if (target_point.get_x() > intersection_x) {
+            is_inside = !is_inside;
+        }
+    }
+    return is_inside;
 }
 
 void CheckColl::set(sf::Shape* shape) {
@@ -114,10 +147,8 @@ Set<sf::Shape*> CheckColl::CircleRectangle(sf::Shape* target_shape /* circle */)
     Set<sf::Shape*> ShapeCollide;
     for (sf::Shape* SHAPE : RectanglesAsideCircle) {
         const Rectangle* rect = dynamic_cast<Rectangle*>(SHAPE);
-        if ((target_shape->getPosition().x > rect->getPosition().x)
-            && (target_shape->getPosition().x < (rect->getPosition().x + rect->getSize().x))
-            && (target_shape->getPosition().y > rect->getPosition().y)
-            && (target_shape->getPosition().y < (rect->getPosition().y + rect->getSize().y))) {
+        if (CheckColl::Point::PointIsInShape(
+            { target_shape->getPosition().x, target_shape->getPosition().y }, SHAPE )) {
             ShapeCollide.Add( SHAPE );
             continue;
         }
@@ -145,6 +176,11 @@ Set<sf::Shape*> CheckColl::CirclePolygon(sf::Shape* target_shape) const {
         CGW.Query( target_shape ), Shape_Type::Polygon );
     Set<sf::Shape*> ShapeCollide;
     for (sf::Shape* SHAPE : PolygonsAsideCircle) {
+        if (CheckColl::Point::PointIsInShape(
+            { target_shape->getPosition().x, target_shape->getPosition().y }, SHAPE )) {
+            ShapeCollide.Add( SHAPE );
+            continue;
+        }
         VecPos ClosestPoint = CheckColl::Point::GetClosestPointOnSqToCircle(
             CheckColl::Point::GetClosestPointsOnSidesOfSqToCircle(
                 SHAPE, dynamic_cast<Circle*>(target_shape) ), dynamic_cast<Circle*>(target_shape) );
@@ -158,5 +194,13 @@ Set<sf::Shape*> CheckColl::CirclePolygon(sf::Shape* target_shape) const {
             ShapeCollide.Add( SHAPE );
         }
     }
+    return ShapeCollide;
+}
+
+Set<sf::Shape*> CheckColl::RectanglePolygon(sf::Shape* target_shape) const {
+    const Set<sf::Shape*> PolygonAsideRectangle = CheckColl::Filter(
+        CGW.Query( target_shape ), Shape_Type::Polygon );
+    Set<sf::Shape*> ShapeCollide;
+    for (sf::Shape* SHAPE : PolygonAsideRectangle) {}
     return ShapeCollide;
 }

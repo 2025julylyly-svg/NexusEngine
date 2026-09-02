@@ -139,7 +139,6 @@
     <inspection_tool class="CppUnmatchedPragmaEndRegionDirective" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="CppUnmatchedPragmaRegionDirective" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="CppUnnamedNamespaceInHeaderFile" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="CppUnnecessaryWhitespace" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="CppUnsignedZeroComparison" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="CppUnusedIncludeDirective" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="CppUsingResultOfAssignmentAsCondition" enabled="false" level="WARNING" enabled_by_default="false" />
