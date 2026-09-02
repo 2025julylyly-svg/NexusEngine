@@ -19,8 +19,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Shape.hpp>
 #include <SFML/Window/VideoMode.hpp>
-
-#include "Engine/Systems/Window/WindowSystem.h"
 #define NE() \
     std::cout << R"(
  /$$   /$$|
