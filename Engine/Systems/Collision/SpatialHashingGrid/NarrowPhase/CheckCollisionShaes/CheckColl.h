@@ -26,6 +26,7 @@ private: // private classes
     public:
         static Vector<VecPos> ExtractPointFromShape(const sf::Shape*);
     };
+
     class Point
     {
     public:
