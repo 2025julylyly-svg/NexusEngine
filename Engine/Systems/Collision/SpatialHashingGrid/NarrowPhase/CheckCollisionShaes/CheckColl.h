@@ -3,7 +3,6 @@
 #include "../../Engine/Actors/Shapes/CircleShape/Circle.h"
 #include "../../Engine/Actors/Shapes/PolygonShape/Polygon.h"
 #include "../../Engine/Actors/Shapes/RectangleShape/Rectangle.h"
-#include "../shape_is/__shapes_is__.h"
 
 class CheckColl {
 private:

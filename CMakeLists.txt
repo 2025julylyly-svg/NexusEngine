@@ -36,8 +36,6 @@ add_executable(
         Library/HashSet/Hash_Set.h
         Engine/Actors/Shapes/PolygonShape/Polygon.cpp
         Engine/Actors/Shapes/PolygonShape/Polygon.h
-        Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/shape_is/__shapes_is__.cpp
-        Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/shape_is/__shapes_is__.h
 )
 
 target_include_directories(NexusEngine PRIVATE

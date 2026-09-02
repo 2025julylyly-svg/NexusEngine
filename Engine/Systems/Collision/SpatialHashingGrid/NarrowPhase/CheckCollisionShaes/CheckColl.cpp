@@ -115,6 +115,13 @@ Set<sf::Shape*> CheckColl::CircleRectangle(sf::Shape* target_shape /* circle */)
     Set<sf::Shape*> ShapeCollide;
     for (sf::Shape* SHAPE : RectanglesAsideCircle) {
         const Rectangle* rect = dynamic_cast<Rectangle*>(SHAPE);
+        if ((target_shape->getPosition().x > rect->getPosition().x)
+            && (target_shape->getPosition().x < (rect->getPosition().x + rect->getSize().x))
+            && (target_shape->getPosition().y > rect->getPosition().y)
+            && (target_shape->getPosition().y < (rect->getPosition().y + rect->getSize().y))) {
+            ShapeCollide.Add( SHAPE );
+            continue;
+        }
 
         VecPos ClosestPoint = CheckColl::Point::GetClosestPointOnSqToCircle(
             CheckColl::Point::GetClosestPointsOnSidesOfSqToCircle(
