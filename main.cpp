@@ -35,5 +35,17 @@
 
 int main() {
     NexusEngine()
+    ReadInput input;
+    while (true) {
+        input.GetKeyInputEvent();
+        const unsigned short int& key = input.GetKeyPressed();
+        if (key == 1) {
+            break;
+        }
+        if (key != 0) {
+            std::cout << key << std::endl;
+        }
+        input.Reset();
+    }
     return 0;
 }
