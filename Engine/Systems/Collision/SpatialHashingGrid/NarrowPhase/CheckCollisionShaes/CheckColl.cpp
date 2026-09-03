@@ -189,8 +189,8 @@ Set<sf::Shape*> CheckColl::CirclePolygon(sf::Shape* target_shape) const {
             ClosestPoint.get_y() - target_shape->getPosition().y };
         const float& Distance = Differance.get_x() * Differance.get_x() +
             Differance.get_y() * Differance.get_y();
-        if (const float& RadiusOfCircle = dynamic_cast<Circle*>(target_shape)->getRadius(); Distance <=
-            RadiusOfCircle * RadiusOfCircle) {
+        if (const float& RadiusOfCircle = dynamic_cast<Circle*>(target_shape)->getRadius();
+            (Distance <= RadiusOfCircle * RadiusOfCircle)) {
             ShapeCollide.Add( SHAPE );
         }
     }
