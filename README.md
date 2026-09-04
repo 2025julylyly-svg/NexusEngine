@@ -1,4 +1,3 @@
-![Uploading blue-abstract-3840x2160-24798.png…]()
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 !!!! This project only runs on Linux !!!!
