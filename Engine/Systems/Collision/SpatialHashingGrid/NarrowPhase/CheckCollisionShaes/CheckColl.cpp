@@ -368,12 +368,12 @@ Set<sf::Shape*> CheckColl::RectanglePolygon(const sf::Shape* target_shape) const
     return ShapeCollide;
 }
 
-Set<sf::Shape*> CheckColl::PolygonPolygon(sf::Shape* target_shape) const {
+Set<sf::Shape*> CheckColl::PolygonPolygon(const sf::Shape* target_shape) const {
     const Set<sf::Shape*> PolygonAsidePolygon = CheckColl::Filter(
         CGW.Query( target_shape ), Shape_Type::Polygon );
     Set<sf::Shape*> ShapeCollide;
     const std::size_t& TargetShapePointCount = target_shape->getPointCount();
-        for (sf::Shape* SHAPE : PolygonAsidePolygon) {
+    for (sf::Shape* SHAPE : PolygonAsidePolygon) {
         bool Collide = true;
         for (std::size_t point = 0; point < TargetShapePointCount; ++point) {
             const std::size_t CurrentPointIndex = point;

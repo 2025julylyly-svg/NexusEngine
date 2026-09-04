@@ -56,5 +56,5 @@ public:
     Set<sf::Shape*> CirclePolygon(sf::Shape*) const;
     Set<sf::Shape*> RectangleRectangle(const Rectangle*) const;
     Set<sf::Shape*> RectanglePolygon(const sf::Shape*) const;
-    Set<sf::Shape*> PolygonPolygon(sf::Shape*) const;
+    Set<sf::Shape*> PolygonPolygon(const sf::Shape*) const;
 };
