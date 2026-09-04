@@ -151,9 +151,6 @@ CheckColl::CheckColl(const int& WIDTH, const int& HEIGHT)
 Set<sf::Shape*> CheckColl::Filter(
     const Set<sf::Shape*>& shapes, const CheckColl::Shape_Type& target_shape_enum) {
     Set<sf::Shape*> clean;
-    if (target_shape_enum == Shape_Type::Shape) {
-        return clean;
-    }
     if (target_shape_enum == Shape_Type::Circle) {
         for (sf::Shape* shape : shapes) {
             if (typeid( *shape ) == typeid( Circle )) {
@@ -261,8 +258,58 @@ Set<sf::Shape*> CheckColl::CirclePolygon(sf::Shape* target_shape) const {
     return ShapeCollide;
 }
 
-Set<sf::Shape*> CheckColl::RectangleRectangle(Rectangle*) const {
-
+Set<sf::Shape*> CheckColl::RectangleRectangle(const Rectangle* target_shape) const {
+    const Set<sf::Shape*> RectanglesAsideRectangle = CheckColl::Filter(
+        CGW.Query( target_shape ), Shape_Type::Rectangle );
+    Set<sf::Shape*> ShapeCollide;
+    const std::size_t& TargetShapePointCount = target_shape->getPointCount();
+    for (sf::Shape* SHAPE : RectanglesAsideRectangle) {
+        bool Collide = true;
+        for (std::size_t point = 0; point < TargetShapePointCount; ++point) {
+            const std::size_t CurrentPointIndex = point;
+            const std::size_t PreviousPointIndex = CurrentPointIndex != 0 ? CurrentPointIndex - 1 :
+                                                       TargetShapePointCount - 1;
+            const VecPos normal = CheckColl::SAT::GetNormalLine(
+                CheckColl::Point::GetPoint( target_shape->getPoint( CurrentPointIndex ), target_shape ),
+                CheckColl::Point::GetPoint( target_shape->getPoint( PreviousPointIndex ), target_shape ) );
+            Vector<float> PointsOnNormalFromTargetShape = CheckColl::SAT::GetMinAndMaxValue(
+                CheckColl::SAT::GetPointsOfShapeOnNormalLine( target_shape, normal ) );
+            Vector<float> PointsOnNormalFromSHAPE = CheckColl::SAT::GetMinAndMaxValue(
+                CheckColl::SAT::GetPointsOfShapeOnNormalLine( SHAPE, normal ) );
+            if (PointsOnNormalFromTargetShape[1] < PointsOnNormalFromSHAPE[0] ||
+                PointsOnNormalFromSHAPE[1] < PointsOnNormalFromTargetShape[0]) {
+                Collide = false;
+                break;
+            }
+        }
+        if (!Collide) {
+            continue;
+        }
+        const std::size_t& ShapePointCount = SHAPE->getPointCount();
+        for (std::size_t point = 0; point < ShapePointCount; ++point) {
+            const std::size_t CurrentPointIndex = point;
+            const std::size_t PreviousPointIndex = CurrentPointIndex != 0
+                                                       ? CurrentPointIndex - 1
+                                                       : ShapePointCount - 1;
+            const VecPos normal = CheckColl::SAT::GetNormalLine(
+                CheckColl::Point::GetPoint( SHAPE->getPoint( CurrentPointIndex ), SHAPE ),
+                CheckColl::Point::GetPoint( SHAPE->getPoint( PreviousPointIndex ), SHAPE ) );
+            Vector<float> PointsOnNormalFromTargetShape = CheckColl::SAT::GetMinAndMaxValue(
+                CheckColl::SAT::GetPointsOfShapeOnNormalLine( target_shape, normal ) );
+            Vector<float> PointsOnNormalFromSHAPE = CheckColl::SAT::GetMinAndMaxValue(
+                CheckColl::SAT::GetPointsOfShapeOnNormalLine( SHAPE, normal ) );
+            if (PointsOnNormalFromTargetShape[1] < PointsOnNormalFromSHAPE[0] ||
+                PointsOnNormalFromSHAPE[1] < PointsOnNormalFromTargetShape[0]) {
+                Collide = false;
+                break;
+            }
+        }
+        if (!Collide) {
+            continue;
+        }
+        ShapeCollide.Add( SHAPE );
+    }
+    return ShapeCollide;
 }
 
 Set<sf::Shape*> CheckColl::RectanglePolygon(const sf::Shape* target_shape) const {
@@ -271,6 +318,62 @@ Set<sf::Shape*> CheckColl::RectanglePolygon(const sf::Shape* target_shape) const
     Set<sf::Shape*> ShapeCollide;
     const std::size_t& TargetShapePointCount = target_shape->getPointCount();
     for (sf::Shape* SHAPE : PolygonAsideRectangle) {
+        bool Collide = true;
+        for (std::size_t point = 0; point < TargetShapePointCount; ++point) {
+            const std::size_t CurrentPointIndex = point;
+            const std::size_t PreviousPointIndex = CurrentPointIndex != 0
+                                                       ? CurrentPointIndex - 1
+                                                       : TargetShapePointCount - 1;
+            const VecPos normal = CheckColl::SAT::GetNormalLine(
+                CheckColl::Point::GetPoint( target_shape->getPoint( CurrentPointIndex ), target_shape ),
+                CheckColl::Point::GetPoint( target_shape->getPoint( PreviousPointIndex ), target_shape ) );
+            Vector<float> PointsOnNormalFromTargetShape = CheckColl::SAT::GetMinAndMaxValue(
+                CheckColl::SAT::GetPointsOfShapeOnNormalLine( target_shape, normal ) );
+            Vector<float> PointsOnNormalFromSHAPE = CheckColl::SAT::GetMinAndMaxValue(
+                CheckColl::SAT::GetPointsOfShapeOnNormalLine( SHAPE, normal ) );
+
+            if (PointsOnNormalFromTargetShape[1] < PointsOnNormalFromSHAPE[0] ||
+                PointsOnNormalFromSHAPE[1] < PointsOnNormalFromTargetShape[0]) {
+                Collide = false;
+                break;
+            }
+        }
+        if (!Collide) {
+            continue;
+        }
+        const std::size_t& ShapePointCount = SHAPE->getPointCount();
+        for (std::size_t point = 0; point < ShapePointCount; ++point) {
+            const std::size_t CurrentPointIndex = point;
+            const std::size_t PreviousPointIndex = CurrentPointIndex != 0
+                                                       ? CurrentPointIndex - 1
+                                                       : ShapePointCount - 1;
+            const VecPos normal = CheckColl::SAT::GetNormalLine(
+                CheckColl::Point::GetPoint( SHAPE->getPoint( CurrentPointIndex ), SHAPE ),
+                CheckColl::Point::GetPoint( SHAPE->getPoint( PreviousPointIndex ), SHAPE ) );
+            Vector<float> PointsOnNormalFromTargetShape = CheckColl::SAT::GetMinAndMaxValue(
+                CheckColl::SAT::GetPointsOfShapeOnNormalLine( target_shape, normal ) );
+            Vector<float> PointsOnNormalFromSHAPE = CheckColl::SAT::GetMinAndMaxValue(
+                CheckColl::SAT::GetPointsOfShapeOnNormalLine( SHAPE, normal ) );
+            if (PointsOnNormalFromTargetShape[1] < PointsOnNormalFromSHAPE[0] ||
+                PointsOnNormalFromSHAPE[1] < PointsOnNormalFromTargetShape[0]) {
+                Collide = false;
+                break;
+            }
+        }
+        if (!Collide) {
+            continue;
+        }
+        ShapeCollide.Add( SHAPE );
+    }
+    return ShapeCollide;
+}
+
+Set<sf::Shape*> CheckColl::PolygonPolygon(sf::Shape* target_shape) const {
+    const Set<sf::Shape*> PolygonAsidePolygon = CheckColl::Filter(
+        CGW.Query( target_shape ), Shape_Type::Polygon );
+    Set<sf::Shape*> ShapeCollide;
+    const std::size_t& TargetShapePointCount = target_shape->getPointCount();
+        for (sf::Shape* SHAPE : PolygonAsidePolygon) {
         bool Collide = true;
         for (std::size_t point = 0; point < TargetShapePointCount; ++point) {
             const std::size_t CurrentPointIndex = point;
