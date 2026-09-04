@@ -35,16 +35,44 @@
 
 int main() {
     NexusEngine()
-    ReadInput input;
-    while (true) {
-        input.GetKeyInputEvent();
-        if (input.IsKeyPressed( 30 )) {
-            std::cout << "A is Pressed" << std::endl;
+    WindowSystem window;
+    window.create( sf::VideoMode( { 900, 900 } ), "Nexus Engine" );
+    Rectangle rt1;
+    rt1.setSize( { 40, 40 } );
+    rt1.setPosition( { 100, 100 } );
+    rt1.setFillColor( sf::Color::Blue );
+    rt1.SetSpeed( 5 );
+    Rectangle rt2;
+    rt2.setSize( { 80, 80 } );
+    rt2.setPosition( { 400, 100 } );
+    rt2.setFillColor( sf::Color::Red );
+    CheckColl coll(900,900);
+    coll.set( &rt1 );
+    coll.set( &rt2 );
+    unsigned long long int n = 0;
+    while (window.isOpen()) {
+        while (const auto& event = window.pollEvent()) {
+            if (event->is<sf::Event::Closed>()) {
+                window.close();
+            } else if (event->is<sf::Event::KeyPressed>()) {
+                if (sf::Keyboard::isKeyPressed( sf::Keyboard::Key::A )) {
+                    rt1.MoveLeft();
+                } else if (sf::Keyboard::isKeyPressed( sf::Keyboard::Key::D )) {
+                    rt1.MoveRight();
+                } else if (sf::Keyboard::isKeyPressed( sf::Keyboard::Key::W )) {
+                    rt1.MoveUp();
+                } else if (sf::Keyboard::isKeyPressed( sf::Keyboard::Key::S )) {
+                    rt1.MoveDown();
+                }
+            }
         }
-        else if (input.IsKeyPressed( 1 )) {
-            break;
+        if (coll.RectanglePolygon( &rt1 ).found( &rt2 )) {
+            std::cout << ++n << std::endl;
         }
-        input.Reset();
+        window.clear();
+        window.draw( rt1 );
+        window.draw( rt2 );
+        window.display();
     }
     return 0;
 }
