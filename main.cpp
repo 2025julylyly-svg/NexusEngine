@@ -42,13 +42,17 @@ int main() {
     rt1.setPosition( { 100, 100 } );
     rt1.setFillColor( sf::Color::Blue );
     rt1.SetSpeed( 5 );
-    Rectangle rt2;
-    rt2.setSize( { 80, 80 } );
-    rt2.setPosition( { 400, 100 } );
-    rt2.setFillColor( sf::Color::Red );
+    Polygon pn;
+    pn.setPointCount( 5 );
+    pn.setPoint(0, {250.0f, 50.0f});
+    pn.setPoint(1, {550.0f, 150.0f});
+    pn.setPoint(2, {500.0f, 500.0f});
+    pn.setPoint(3, {200.0f, 550.0f});
+    pn.setPoint(4, {100.0f, 250.0f});
+    pn.setFillColor( sf::Color::Red );
     CheckColl coll(900,900);
     coll.set( &rt1 );
-    coll.set( &rt2 );
+    coll.set( &pn );
     unsigned long long int n = 0;
     while (window.isOpen()) {
         while (const auto& event = window.pollEvent()) {
@@ -66,12 +70,12 @@ int main() {
                 }
             }
         }
-        if (coll.RectanglePolygon( &rt1 ).found( &rt2 )) {
+        if (coll.RectanglePolygon( &rt1 ).found( &pn )) {
             std::cout << ++n << std::endl;
         }
         window.clear();
         window.draw( rt1 );
-        window.draw( rt2 );
+        window.draw( pn );
         window.display();
     }
     return 0;

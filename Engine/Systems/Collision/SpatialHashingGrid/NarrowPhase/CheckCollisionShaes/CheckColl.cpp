@@ -261,7 +261,11 @@ Set<sf::Shape*> CheckColl::CirclePolygon(sf::Shape* target_shape) const {
     return ShapeCollide;
 }
 
-Set<sf::Shape*> CheckColl::RectanglePolygon(sf::Shape* target_shape) const {
+Set<sf::Shape*> CheckColl::RectangleRectangle(Rectangle*) const {
+
+}
+
+Set<sf::Shape*> CheckColl::RectanglePolygon(const sf::Shape* target_shape) const {
     const Set<sf::Shape*> PolygonAsideRectangle
         = CheckColl::Filter( CGW.Query( target_shape ), Shape_Type::Polygon );
     Set<sf::Shape*> ShapeCollide;
@@ -308,6 +312,9 @@ Set<sf::Shape*> CheckColl::RectanglePolygon(sf::Shape* target_shape) const {
                 Collide = false;
                 break;
             }
+        }
+        if (!Collide) {
+            continue;
         }
         ShapeCollide.Add( SHAPE );
     }
