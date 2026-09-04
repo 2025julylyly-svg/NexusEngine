@@ -1,13 +1,13 @@
 #include "ReadInputKey.h"
 
 ReadInput::ReadInput() {
-    FileEventKey = open( "/dev/input/event4", O_RDONLY | O_NONBLOCK );
+    FileEventKey = open( "/dev/input/by-id/usb-SEMICO_USB_Keyboard-event-kbd", O_RDONLY | O_NONBLOCK );
     if (FileEventKey == -1) {
         std::cout << "Error: can not open '/dev/input/event7'" << std::endl;
         perror( "open" );
         exit( 0 );
     }
-    for (unsigned int i = 1; i <= 240; ++i) {
+    for (unsigned int i = 1; i <= 125; ++i) {
         KeyPressed[i] = false;
         KeyHeld[i] = false;
         KeyReleased[i] = false;
@@ -19,6 +19,7 @@ void ReadInput::GetKeyInputEvent() {
     if (read( FileEventKey, &key, sizeof(key) ) != sizeof(key)) {
         return;
     }
+    NeedToChangeValueTOFalse.push_back( key.code );
     if (key.value == 0) {
         KeyPressed[key.code] = false;
         KeyHeld[key.code] = false;
@@ -47,7 +48,7 @@ bool ReadInput::IsKeyReleased(const unsigned short int KeyCode) {
 }
 
 unsigned short int ReadInput::GetKeyPressed() {
-    for (unsigned short int i = 1; i <= 240; ++i) {
+    for (unsigned short int i = 1; i <= 125; ++i) {
         if (KeyPressed[i]) {
             return i;
         }
@@ -56,7 +57,7 @@ unsigned short int ReadInput::GetKeyPressed() {
 }
 
 unsigned short int ReadInput::GetKeyHeld() {
-    for (unsigned short int i = 1; i <= 240; ++i) {
+    for (unsigned short int i = 1; i <= 125; ++i) {
         if (KeyHeld[i]) {
             return i;
         }
@@ -65,7 +66,7 @@ unsigned short int ReadInput::GetKeyHeld() {
 }
 
 unsigned short int ReadInput::GetKeyReleased() {
-    for (unsigned short int i = 1; i <= 240; ++i) {
+    for (unsigned short int i = 0; i <= 125; ++i) {
         if (KeyReleased[i]) {
             return i;
         }
@@ -74,11 +75,12 @@ unsigned short int ReadInput::GetKeyReleased() {
 }
 
 void ReadInput::Reset() {
-    for (unsigned int i = 1; i <= 240; ++i) {
-        KeyPressed[i] = false;
-        KeyHeld[i] = false;
-        KeyReleased[i] = false;
+    for (const auto& KeyNumber : NeedToChangeValueTOFalse) {
+        KeyPressed[KeyNumber] = false;
+        KeyHeld[KeyNumber] = false;
+        KeyReleased[KeyNumber] = false;
     }
+    NeedToChangeValueTOFalse.clear();
 }
 
 ReadInput::~ReadInput() {

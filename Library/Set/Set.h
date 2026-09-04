@@ -3,8 +3,6 @@
 #include <cstddef>
 #include <initializer_list>
 #include <typeinfo>
-
-#include "../../Engine/Actors/Shapes/Shape/Shape.h"
 template<typename elem> // elem : Element
 class Set
 {
@@ -66,6 +64,7 @@ public:
     explicit Set(const Set& other) {
         this->Copy(other);
     }
+    // move
     Set(Set&& other) noexcept {
         size = other.size;
         capacity = other.capacity;
@@ -75,23 +74,40 @@ public:
         other.capacity = 0;
         other.set = nullptr;
     }
+    // get begin of set
     elem* begin() {
         return set + 0;
     }
+    // get const begin of set
     const elem* begin() const {
         return set + 0;
     }
+    // get end of set
     elem* end() {
         return set + size;
     }
+    // get const end of set
     const elem* end() const {
         return set + size;
     }
+    // check is set
     [[nodiscard]] bool IsFull() const {
         return size >= capacity;
     }
+    // check no element in set
     [[nodiscard]] bool IsEmpty() const {
         return size == 0;
+    }
+    // find target element and return boolean value
+    [[nodiscard]] bool found(const elem& target) {
+        bool FOUND = false;
+        for (std::size_t i = 0; i < size; ++ i) {
+            if (set[i] == target) {
+                FOUND = true;
+                break;
+            }
+        }
+        return FOUND;
     }
     void Resize() {
         capacity *= 2;
@@ -100,9 +116,11 @@ public:
         delete[] set;
         set = AuxiliarySet;
     }
+    // Get element Number Of Set
     [[nodiscard]] std::size_t Size() const {
         return size;
     }
+    // Get Capacity of Set
     [[nodiscard]] std::size_t Capacity() const {
         return capacity;
     }
@@ -116,11 +134,13 @@ public:
             std::sort(set, set + size);
         }
     }
+    // Pop from last element
     void PopBack() {
         if (!this->IsEmpty()) {
             --size;
         }
     }
+    // Pop from first element
     void PopFront() {
         if (this->IsEmpty()) {
             return;
@@ -131,6 +151,7 @@ public:
         set = AuxiliarySet;
         --size;
     }
+    // remove with element target
     void Remove(const elem& target) {
         if (this->IsEmpty()) {
             return;
@@ -146,6 +167,7 @@ public:
             }
         }
     }
+    // copy from other set to this set
     void Copy(const Set& other) {
         delete[] set;
         size = other.size;
@@ -155,6 +177,7 @@ public:
             set[i] = other.set[i];
         }
     }
+    // free allocated storage from heap for set
     ~Set() {
         delete[] set;
         set = nullptr;

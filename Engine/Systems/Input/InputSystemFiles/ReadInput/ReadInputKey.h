@@ -1,10 +1,9 @@
 #pragma once
 #include <HashMap.h>
-#include <Vector.h>
+#include <vector>
 #include <cstdio>
 #include <cstdlib>
 #include <fcntl.h>
-#include <iostream>
 #include <linux/input.h>
 #include <optional>
 #include <unistd.h>
@@ -17,6 +16,7 @@ private:
     Mapping::HashMap<unsigned short int, bool> KeyPressed;
     Mapping::HashMap<unsigned short int, bool> KeyHeld;
     Mapping::HashMap<unsigned short int, bool> KeyReleased;
+    std::vector<unsigned short int> NeedToChangeValueTOFalse;
 
 public:
     ReadInput();

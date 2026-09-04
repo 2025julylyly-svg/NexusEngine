@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.3)
 project(NexusEngine)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(
@@ -29,13 +29,13 @@ add_executable(
         Engine/Systems/Collision/SpatialHashingGrid/BoardPhase/GridWindow.h
         EngineLibrary/VectorPosition/VecPos.cpp
         EngineLibrary/VectorPosition/VecPos.h
-        Engine/Actors/Shapes/Shape/Shape.cpp
-        Engine/Actors/Shapes/Shape/Shape.h
         Library/MapWithoutHashData/MAIN/Map.h
         Library/Set/Set.h
-        Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckColl.cpp
-        Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckColl.h
+        Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckCollisionShaes/CheckColl.cpp
+        Engine/Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckCollisionShaes/CheckColl.h
         Library/HashSet/Hash_Set.h
+        Engine/Actors/Shapes/PolygonShape/Polygon.cpp
+        Engine/Actors/Shapes/PolygonShape/Polygon.h
 )
 
 target_include_directories(NexusEngine PRIVATE
