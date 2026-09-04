@@ -25,6 +25,7 @@ private: // private classes
     {
     public:
         static Vector<VecPos> ExtractPointFromShape(const sf::Shape*);
+        static VecPos ExtractVector2fToVecPos(const sf::Vector2f&);
     };
 
     class Point
@@ -33,6 +34,14 @@ private: // private classes
         static Vector<VecPos> GetClosestPointsOnSidesOfSqToCircle(const sf::Shape*, const Circle*);
         static VecPos GetClosestPointOnSqToCircle(const Vector<VecPos>&, const Circle*);
         static bool PointIsInShape(const VecPos&, const sf::Shape*);
+    };
+
+    class SAT
+    {
+    public:
+        static float DotProduct(const VecPos&, const VecPos&);
+        static VecPos Normalize(const VecPos&);
+        static VecPos GetNormalLine(const VecPos&, const VecPos&);
     };
 
 public:

@@ -38,12 +38,11 @@ int main() {
     ReadInput input;
     while (true) {
         input.GetKeyInputEvent();
-        const unsigned short int& key = input.GetKeyPressed();
-        if (key == 1) {
-            break;
+        if (input.IsKeyPressed( 30 )) {
+            std::cout << "A is Pressed" << std::endl;
         }
-        if (key != 0) {
-            std::cout << key << std::endl;
+        else if (input.IsKeyPressed( 1 )) {
+            break;
         }
         input.Reset();
     }

@@ -1,5 +1,7 @@
 #include "CheckColl.h"
 
+#include <cmath>
+
 Vector<VecPos> CheckColl::Point::GetClosestPointsOnSidesOfSqToCircle(
     const sf::Shape* rectangle, const Circle* circle) {
     Vector<VecPos> points;
@@ -30,6 +32,10 @@ Vector<VecPos> CheckColl::Extract::ExtractPointFromShape(const sf::Shape* shape)
     return DataExtracted;
 }
 
+VecPos CheckColl::Extract::ExtractVector2fToVecPos(const sf::Vector2f& VECTOR2F) {
+    return VecPos { VECTOR2F.x, VECTOR2F.y };
+}
+
 VecPos CheckColl::Point::GetClosestPointOnSqToCircle(
     const Vector<VecPos>& points,
     const Circle* target_circle) {
@@ -50,6 +56,10 @@ VecPos CheckColl::Point::GetClosestPointOnSqToCircle(
     }
 
     return { closestPoint.x, closestPoint.y };
+}
+
+float CheckColl::SAT::DotProduct(const VecPos& FirstPoint, const VecPos& SecondPoint) {
+    return FirstPoint.get_x() * SecondPoint.get_x() + FirstPoint.get_y() * SecondPoint.get_y();
 }
 
 bool CheckColl::Point::PointIsInShape(const VecPos& target_point, const sf::Shape* target_shape) {
@@ -76,6 +86,21 @@ bool CheckColl::Point::PointIsInShape(const VecPos& target_point, const sf::Shap
         }
     }
     return is_inside;
+}
+
+VecPos CheckColl::SAT::Normalize(const VecPos& point) {
+    VecPos NormalizedPoint = { point.get_x(), point.get_y() };
+    const float length = std::sqrt(
+        NormalizedPoint.get_x() * NormalizedPoint.get_x() + NormalizedPoint.get_y() * NormalizedPoint.
+        get_y() );
+    NormalizedPoint.Set_XY( NormalizedPoint.get_x() / length, NormalizedPoint.get_y() / length );
+    return NormalizedPoint;
+}
+
+VecPos CheckColl::SAT::GetNormalLine(const VecPos& FirstPoint, const VecPos& SecondPoint) {
+    VecPos edge = FirstPoint - SecondPoint;
+    edge = {edge.get_x(), -edge.get_y()};
+    return Normalize( edge );
 }
 
 void CheckColl::set(sf::Shape* shape) {
