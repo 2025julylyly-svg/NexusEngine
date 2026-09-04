@@ -19,6 +19,7 @@ void ReadInput::GetKeyInputEvent() {
     if (read( FileEventKey, &key, sizeof(key) ) != sizeof(key)) {
         return;
     }
+    NeedToChangeValueTOFalse.push_back( key.code );
     if (key.value == 0) {
         KeyPressed[key.code] = false;
         KeyHeld[key.code] = false;
@@ -74,11 +75,12 @@ unsigned short int ReadInput::GetKeyReleased() {
 }
 
 void ReadInput::Reset() {
-    for (unsigned int i = 1; i <= 125; ++i) {
-        KeyPressed[i] = false;
-        KeyHeld[i] = false;
-        KeyReleased[i] = false;
+    for (const auto& KeyNumber : NeedToChangeValueTOFalse) {
+        KeyPressed[KeyNumber] = false;
+        KeyHeld[KeyNumber] = false;
+        KeyReleased[KeyNumber] = false;
     }
+    NeedToChangeValueTOFalse.clear();
 }
 
 ReadInput::~ReadInput() {
