@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.3)
 project(NexusEngine)
 
-set(CMAKE_CXX_STANDARD 26)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(
@@ -37,6 +37,10 @@ add_executable(
         Engine/Actors/Shapes/PolygonShape/Polygon.cpp
         Engine/Actors/Shapes/PolygonShape/Polygon.h
         Library/HashSet/Hash_Set.cpp
+        Engine/MainEngine/Engine.cpp
+        Engine/MainEngine/Engine.h
+        Engine/UserGameLogic/GameLogic.cpp
+        Engine/UserGameLogic/GameLogic.h
 )
 
 target_include_directories(NexusEngine PRIVATE
@@ -48,4 +52,4 @@ target_include_directories(NexusEngine PRIVATE
         Library/MapWithoutHashData/MAIN
         Library/Set)
 
-target_link_libraries(NexusEngine PRIVATE sfml-graphics sfml-window sfml-system)
+target_link_libraries(NexusEngine PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)
