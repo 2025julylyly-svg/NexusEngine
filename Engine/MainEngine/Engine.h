@@ -7,7 +7,10 @@ class Engine
 private:
     WS window;
     CheckColl collision;
-    Vector<sf::Shape*> shapes;
+    void UpdateGameState();
 public:
     explicit Engine();
+    void CreateWindow(const VecPos&);
+    void Run();
+    ~Engine();
 };
