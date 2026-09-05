@@ -20,7 +20,7 @@ namespace {
         int index = 0;
         if constexpr (std::is_integral_v<data> || std::is_floating_point_v<data>) {
             HashNumber result = 0;
-            const int LoopNumber = static_cast<int>(sqrt( Data ));
+            const int LoopNumber = static_cast<int>(std::sqrt( static_cast<unsigned int>(Data) ));
             for (int i = 0; i < LoopNumber; ++i) {
                 result += prime[index] + Data + 7;
                 index = (index + 1) % len;
@@ -61,6 +61,10 @@ private: // Classes
 
         bool operator==(const FindTarget& other) {
             return prev == other.prev && current == other.current;
+        }
+
+        bool operator!=(const FindTarget& other) {
+            return prev != other.prev && current != other.current;
         }
     };
 
@@ -232,6 +236,9 @@ public:
     }
 
     void Add(const elem& target) {
+        if (this->Found( target ) != FindTarget { .prev = nullptr, .current = nullptr }) {
+            return;
+        }
         if (NeedToHash()) {
             this->ReHashing();
         }
@@ -249,6 +256,7 @@ public:
             if (result.prev == nullptr) {
                 set[result.BCK_NUM] = result.current->next;
                 delete result.current;
+                --size;
                 return;
             }
             result.prev->next = result.current->next;

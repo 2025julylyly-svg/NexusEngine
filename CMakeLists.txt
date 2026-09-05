@@ -36,6 +36,7 @@ add_executable(
         Library/HashSet/Hash_Set.h
         Engine/Actors/Shapes/PolygonShape/Polygon.cpp
         Engine/Actors/Shapes/PolygonShape/Polygon.h
+        Library/HashSet/Hash_Set.cpp
 )
 
 target_include_directories(NexusEngine PRIVATE
