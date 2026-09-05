@@ -52,5 +52,6 @@ int main() {
     Engine engine;
     engine.CreateWindow( { 900, 900 }, 60 );
     engine.Run( &logic );
+
     return 0;
 }
