@@ -7,10 +7,12 @@
 #include <string>
 #include <typeinfo>
 #define PRIME_NUMBER 7691
+
 namespace {
     using HashNumber = long long int;
     using USize = unsigned long int;
     using BuckNumber = int;
+
     template<typename data>
     HashNumber hash(const data& Data) {
         constexpr int prime[10] = { 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 };
@@ -18,7 +20,7 @@ namespace {
         int index = 0;
         if constexpr (std::is_integral_v<data> || std::is_floating_point_v<data>) {
             HashNumber result = 0;
-            const int LoopNumber = static_cast<int>(sqrt(Data));
+            const int LoopNumber = static_cast<int>(sqrt( Data ));
             for (int i = 0; i < LoopNumber; ++i) {
                 result += prime[index] + Data + 7;
                 index = (index + 1) % len;
@@ -38,6 +40,7 @@ namespace {
 } // namespace
 template<typename V>
 class Iterator;
+
 template<typename elem>
 class HashSet
 {
@@ -48,12 +51,14 @@ private: // Classes
         elem Val;
         Bucket* next;
     };
+
     class FindTarget
     {
     public:
         Bucket* prev;
         Bucket* current;
         HashNumber BCK_NUM;
+
         bool operator==(const FindTarget& other) {
             return prev == other.prev && current == other.current;
         }
@@ -61,8 +66,8 @@ private: // Classes
 
 private: // data
     Bucket** set = nullptr;
-    USize size{};
-    USize BucketCounter{};
+    USize size {};
+    USize BucketCounter {};
     bool SetIsNull = true;
     friend class Iterator<elem>;
 
@@ -72,11 +77,13 @@ private: // functions
             target[i] = nullptr;
         }
     }
+
     void init_set() {
         for (USize i = 0; i < BucketCounter; ++i) {
             set[i] = nullptr;
         }
     }
+
     void FreeSet() {
         for (USize i = 0; i < BucketCounter; ++i) {
             Bucket* temp = set[i];
@@ -90,30 +97,33 @@ private: // functions
         set = nullptr;
         SetIsNull = true;
     }
+
     void CopyToSet(const std::initializer_list<elem>& list) {
         for (const elem& it : list) {
-            auto* New = new Bucket{ .Val = it, .next = nullptr };
-            const HashNumber& hash_number = hash<elem>(it) % BucketCounter;
+            auto* New = new Bucket { .Val = it, .next = nullptr };
+            const HashNumber& hash_number = hash<elem>( it ) % BucketCounter;
             if (hash_number == -1) {
                 continue;
             }
-            this->InsertToSet(set, hash_number, New);
+            this->InsertToSet( set, hash_number, New );
         }
     }
+
     void CopyToSet(Bucket** NewSet) {
         for (USize buck = 0; buck < BucketCounter; ++buck) {
             Bucket* temp = NewSet[buck];
             while (temp != nullptr) {
-                auto* New = new Bucket{ .Val = temp->Val, .next = temp->next };
-                const HashNumber& BCK_NMB = hash<elem>(New->Val) % BucketCounter;
+                auto* New = new Bucket { .Val = temp->Val, .next = temp->next };
+                const HashNumber& BCK_NMB = hash<elem>( New->Val ) % BucketCounter;
                 if (BCK_NMB == -1) {
                     continue;
                 }
-                this->InsertToSet(set, BCK_NMB, New);
+                this->InsertToSet( set, BCK_NMB, New );
                 temp = temp->next;
             }
         }
     }
+
     void InsertToSet(Bucket** target_set, const USize& bucket_number, Bucket* New) {
         Bucket* temp = target_set[bucket_number];
         if (temp == nullptr) {
@@ -125,19 +135,22 @@ private: // functions
         }
         temp->next = New;
     }
+
     void MoveTo(Bucket** target) {
         for (USize buck = 0; buck < BucketCounter; ++buck) {
             Bucket* temp = set[buck];
             while (temp != nullptr) {
-                const HashNumber Buc_Num = hash<elem>(temp->Val) % (BucketCounter * 2);
-                InsertToSet(target, Buc_Num, temp);
+                const HashNumber Buc_Num = hash<elem>( temp->Val ) % (BucketCounter * 2);
+                InsertToSet( target, Buc_Num, temp );
                 temp = temp->next;
             }
         }
     }
+
     [[nodiscard]] bool Empty() const {
         return size == 0;
     }
+
     [[nodiscard]] bool NeedToHash() const {
         return size >= BucketCounter;
     }
@@ -149,18 +162,23 @@ public:
         set = new Bucket*[BucketCounter];
         this->init_set();
     }
+
     explicit HashSet(const std::initializer_list<elem>& list) {
         size = list.size();
         BucketCounter = size <= 1 ? 5 : size * 2;
         set = new Bucket*[BucketCounter];
         init_set();
-        this->CopyToSet(list);
+        this->CopyToSet( list );
     }
+
     explicit HashSet(const HashSet& other) {
         size = other.size;
         BucketCounter = other.BucketCounter;
-        this->CopyToSet(other.set);
+        set = new Bucket*[BucketCounter];
+        init_set();
+        this->CopyToSet( other.set );
     }
+
     explicit HashSet(HashSet&& other) noexcept {
         size = other.size;
         BucketCounter = other.BucketCounter;
@@ -170,55 +188,64 @@ public:
         other.BucketCounter = 2;
         other.FreeSet();
     }
+
     Iterator<elem> begin() {
-        return Iterator<elem>(this, static_cast<USize>(0));
+        return Iterator<elem>( this, static_cast<USize>(0) );
     }
+
     Iterator<elem> end() {
-        return Iterator<elem>(this, true);
+        return Iterator<elem>( this, true );
     }
+
     FindTarget Found(const elem& target) {
-        const BuckNumber& hash_number = hash<elem>(target) % BucketCounter;
+        const BuckNumber& hash_number = hash<elem>( target ) % BucketCounter;
         Bucket* temp = set[hash_number];
         if (temp == nullptr) {
-            return FindTarget{ .prev = nullptr, .current = nullptr, .BCK_NUM = -1 };
+            return FindTarget { .prev = nullptr, .current = nullptr, .BCK_NUM = -1 };
         }
         if (temp->Val == target) {
-            return FindTarget{ .prev = nullptr, .current = temp, .BCK_NUM = hash_number };
+            return FindTarget { .prev = nullptr, .current = temp, .BCK_NUM = hash_number };
         }
         while (temp->next->next != nullptr) {
             if (temp->next->Val == target) {
-                return FindTarget{ .prev = temp, .current = temp->next, .BCK_NUM = hash_number };
+                return FindTarget { .prev = temp, .current = temp->next, .BCK_NUM = hash_number };
             }
             temp = temp->next;
         }
-        return FindTarget{ .prev = nullptr, .current = nullptr, .BCK_NUM = -1 };
+        if (temp->next->Val == target) {
+            return FindTarget { .prev = temp, .current = temp->next, .BCK_NUM = hash_number };
+        }
+        return FindTarget { .prev = nullptr, .current = nullptr, .BCK_NUM = -1 };
     }
+
     void ReHashing() {
         if (Empty()) {
             return;
         }
         const USize NewBucketCounter = BucketCounter * 2;
         auto** AuxiliarySet = new Bucket*[NewBucketCounter];
-        init(AuxiliarySet, NewBucketCounter);
-        for (USize i = 0; i < BucketCounter; ++i) {
-            MoveTo(AuxiliarySet);
-        }
+        init( AuxiliarySet, NewBucketCounter );
+        MoveTo( AuxiliarySet );
         this->FreeSet();
         set = AuxiliarySet;
         BucketCounter = NewBucketCounter;
     }
+
     void Add(const elem& target) {
         if (NeedToHash()) {
             this->ReHashing();
         }
-        const BuckNumber BCK_NMB = hash<elem>(target) % BucketCounter;
-        auto* New = new Bucket(target, nullptr);
-        this->InsertToSet(set, BCK_NMB, New);
+        const BuckNumber BCK_NMB = hash<elem>( target ) % BucketCounter;
+        auto* New = new Bucket( target, nullptr );
+        this->InsertToSet( set, BCK_NMB, New );
         SetIsNull = false;
         ++size;
     }
+
     void Remove(const elem& target) {
-        if (FindTarget result = this->Found(target); !(result == FindTarget{ .prev = nullptr, .current = nullptr })) {
+        if (FindTarget result = this->Found( target ); !(result == FindTarget {
+            .prev = nullptr,
+            .current = nullptr })) {
             if (result.prev == nullptr) {
                 set[result.BCK_NUM] = result.current->next;
                 delete result.current;
@@ -229,6 +256,7 @@ public:
             --size;
         }
     }
+
     HashSet& operator=(const std::initializer_list<elem>& list) {
         size = list.size();
         BucketCounter = size <= 1 ? 5 : size * 2;
@@ -238,9 +266,10 @@ public:
         set = new Bucket*[BucketCounter];
         this->init_set();
         for (const elem& item : list) {
-            this->Add(item);
+            this->Add( item );
         }
     }
+
     ~HashSet() {
         this->FreeSet();
     }
@@ -284,24 +313,30 @@ public:
             ++CurrentBuckNumber;
         }
     }
+
     Iterator(HashSet<V>* sh_set, bool /*isEnd*/) noexcept {
         BuckNumber = sh_set->BucketCounter;
         CurrentBuckNumber = BuckNumber;
         Buckets = sh_set->set;
         CurrentNode = nullptr;
     }
+
     Reference operator*() noexcept {
         return CurrentNode->Val;
     }
+
     Pointer operator->() const noexcept {
         return &(CurrentNode->Val);
     }
+
     bool operator==(Iterator& other) const {
         return this->CurrentNode == other.CurrentNode;
     }
+
     bool operator!=(Iterator& other) const {
         return this->CurrentNode != other.CurrentNode;
     }
+
     Iterator& operator=(const Iterator& other) {
         if (&other == this)
             return *this;
@@ -311,6 +346,7 @@ public:
         this->CurrentBuckNumber = other.CurrentBuckNumber;
         return *this;
     }
+
     Iterator& operator++() {
         if (CurrentNode->next != nullptr) {
             CurrentNode = CurrentNode->next;
