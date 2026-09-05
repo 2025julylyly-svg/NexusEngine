@@ -29,6 +29,5 @@
 )" << std::endl;
 int main() {
     NE();
-    std::cout << std::endl;
     return 0;
 }
