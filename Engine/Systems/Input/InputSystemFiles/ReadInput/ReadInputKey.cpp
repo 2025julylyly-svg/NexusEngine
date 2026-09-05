@@ -16,21 +16,24 @@ ReadInput::ReadInput() {
 
 void ReadInput::GetKeyInputEvent() {
     input_event key {};
-    if (read( FileEventKey, &key, sizeof(key) ) != sizeof(key)) {
-        return;
-    }
-    NeedToChangeValueTOFalse.push_back( key.code );
-    if (key.value == 0) {
-        KeyPressed[key.code] = false;
-        KeyHeld[key.code] = false;
-        KeyReleased[key.code] = true;
-        return;
-    } else if (key.value == 1) {
-        KeyPressed[key.code] = true;
-        return;
-    } else if (key.value == 2) {
-        KeyHeld[key.code] = true;
-        return;
+    while (true) {
+        if (const ssize_t result = read( FileEventKey, &key, sizeof(key) ); result == sizeof(key)) {
+            NeedToChangeValueTOFalse.push_back( key.code );
+            if (key.value == 0) {
+                KeyPressed[key.code] = false;
+                KeyHeld[key.code] = false;
+                KeyReleased[key.code] = true;
+                return;
+            } else if (key.value == 1) {
+                KeyPressed[key.code] = true;
+                return;
+            } else if (key.value == 2) {
+                KeyHeld[key.code] = true;
+                return;
+            }
+        } else {
+            break;
+        }
     }
 }
 
