@@ -7,7 +7,7 @@ ReadInput::ReadInput() {
         perror( "open" );
         exit( 0 );
     }
-    for (unsigned int i = 1; i <= 125; ++i) {
+    for (unsigned int i = 0; i <= 125; ++i) {
         KeyPressed[i] = false;
         KeyHeld[i] = false;
         KeyReleased[i] = false;
@@ -48,7 +48,7 @@ bool ReadInput::IsKeyReleased(const unsigned short int KeyCode) {
 }
 
 unsigned short int ReadInput::GetKeyPressed() {
-    for (unsigned short int i = 1; i <= 125; ++i) {
+    for (unsigned short int i = 0; i <= 125; ++i) {
         if (KeyPressed[i]) {
             return i;
         }
@@ -57,7 +57,7 @@ unsigned short int ReadInput::GetKeyPressed() {
 }
 
 unsigned short int ReadInput::GetKeyHeld() {
-    for (unsigned short int i = 1; i <= 125; ++i) {
+    for (unsigned short int i = 0; i <= 125; ++i) {
         if (KeyHeld[i]) {
             return i;
         }

@@ -17,6 +17,8 @@
 #include "Library/MapWithoutHashData/MAIN/Map.h"
 #include "Set.h"
 #include "VecPos.h"
+#include "Engine/MainEngine/Engine.h"
+#include "Engine/Systems/Input/InputSystemFiles/InputManager/inputManager.h"
 #define NE() std::cout << R"(
  /$$   /$$|
 | $$$ | $$|
@@ -27,10 +29,8 @@
 | $$ \  $$| |  $$$$$$$  /$$/\  $$| |  $$$$$$/  /$$$$$$$/
 |__/  \__/   \_______/ |__/  \__/   \______/  |_______/
 )" << std::endl;
+
 int main() {
     NE();
-    std::cout << "Welcome To My Project!" << std::endl;
-    std::cout << "this is a 2D Game Engine" << std::endl;
-    std::cout << "With SFML Graphic API" << std::endl;
     return 0;
 }
