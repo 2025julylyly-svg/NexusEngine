@@ -12,6 +12,7 @@ private:
 
 public:
     explicit Circle();
+    explicit Circle(const float&);
     explicit Circle(const float& /* X : position */, const float& /* Y : position */, const float&);
     explicit Circle(const float& /* X */, const float& /* Y */, const float& /* max pos x*/,
         const float& /* max pos y */, const float& /* min pos x */, const float& /* min pos y*/);

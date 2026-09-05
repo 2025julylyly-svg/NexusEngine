@@ -34,3 +34,7 @@ void VecCol::ResetColor() {
     this->G = 0;
     this->B = 0;
 }
+
+sf::Color VecCol::GetColor() const {
+    return {this->R, this->G, this->B};
+}

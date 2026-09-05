@@ -1,4 +1,6 @@
 #pragma once
+#include <SFML/Graphics/Color.hpp>
+
 class VecCol
 {
 public:
@@ -12,4 +14,5 @@ public:
     void SetGreen(unsigned char g);
     void SetBlue(unsigned char g);
     void ResetColor();
+    [[nodiscard]] sf::Color GetColor() const;
 };
