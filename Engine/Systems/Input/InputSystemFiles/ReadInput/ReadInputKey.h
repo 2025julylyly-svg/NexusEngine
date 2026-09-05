@@ -7,7 +7,15 @@
 #include <SFML/Graphics.hpp>
 #include "VecPos.h"
 #include "../../../Engine/Systems/Input/InputSystemFiles/InputError/CantReadKeyError.h"
-
+/**
+ * @class ReadInputKeyboard
+ * @brief Manages and provides information about keyboard input events and states.
+ *
+ * This class is designed to handle keyboard input events, track the states of individual keys,
+ * and provide functions to check the current state of each key (pressed, held, released).
+ * It also includes methods to retrieve the most recently pressed, held, and released keys.
+ * Additionally, it provides a function to reset all keyboard input events.
+ */
 class ReadInputKeyboard
 {
 private:
