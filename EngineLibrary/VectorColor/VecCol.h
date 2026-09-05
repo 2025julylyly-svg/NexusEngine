@@ -2,13 +2,14 @@
 class VecCol
 {
 public:
-    float R{};
-    float G{};
-    float B{};
+    unsigned char R {};
+    unsigned char G {};
+    unsigned char B {};
     explicit VecCol();
-    void SetColor(float r, float g, float b);
-    void SetRed(float r);
-    void SetGreen(float g);
-    void SetBlue(float g);
+    VecCol(unsigned char r, unsigned char g, unsigned char b);
+    void SetColor(unsigned char r, unsigned char g, unsigned char b);
+    void SetRed(unsigned char r);
+    void SetGreen(unsigned char g);
+    void SetBlue(unsigned char g);
     void ResetColor();
 };

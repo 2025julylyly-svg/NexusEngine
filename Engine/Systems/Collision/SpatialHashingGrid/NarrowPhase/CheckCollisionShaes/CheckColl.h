@@ -51,6 +51,7 @@ public:
     explicit CheckColl();
     explicit CheckColl(const int&, const int&);
     void set(sf::Shape*);
+    void INIT_CGW(const int&, const int&);
     Set<sf::Shape*> CircleCircle(sf::Shape*) const;
     Set<sf::Shape*> CircleRectangle(sf::Shape*) const;
     Set<sf::Shape*> CirclePolygon(sf::Shape*) const;

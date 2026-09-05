@@ -43,6 +43,8 @@ add_executable(
         Engine/UserGameLogic/GameLogic.h
         EngineLibrary/VectorColor/VecCol.cpp
         EngineLibrary/VectorColor/VecCol.h
+        Engine/Systems/Input/InputSystemFiles/InputManager/inputManager.cpp
+        Engine/Systems/Input/InputSystemFiles/InputManager/inputManager.h
 )
 
 target_include_directories(NexusEngine PRIVATE

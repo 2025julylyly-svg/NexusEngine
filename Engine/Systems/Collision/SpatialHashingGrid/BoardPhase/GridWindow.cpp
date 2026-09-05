@@ -1,10 +1,15 @@
 #include "GridWindow.h"
 
-CreateGridWindow::CreateGridWindow(const int WS /* width screen */, const int HS /* height screen */) {
+void CreateGridWindow::InitData(const int WS, const int HS) {
     WidthScreen  = WS;
     HeightScreen = HS;
     this->init(cells);
 }
+
+CreateGridWindow::CreateGridWindow(const int WS /* width screen */, const int HS /* height screen */) {
+    InitData( WS, HS );
+}
+
 void CreateGridWindow::init(Vector<Vector<cell>>& other) {
     if (other.Size() != 0) {
         return;

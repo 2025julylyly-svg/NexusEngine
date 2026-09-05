@@ -140,10 +140,7 @@ void CheckColl::set(sf::Shape* shape) {
     CGW.AddShape( shape );
 }
 
-CheckColl::CheckColl()
-    : CGW( 900, 900 ) {
-    assert( false );
-}
+CheckColl::CheckColl() : CGW( 900, 900 ) {}
 
 CheckColl::CheckColl(const int& WIDTH, const int& HEIGHT)
     : CGW( WIDTH, HEIGHT ) {}
@@ -171,6 +168,10 @@ Set<sf::Shape*> CheckColl::Filter(
         }
     }
     return clean;
+}
+
+void CheckColl::INIT_CGW(const int& WIDTH_SCREEN, const int& HEIGHT_SCREEN) {
+    CGW.InitData( WIDTH_SCREEN, HEIGHT_SCREEN );
 }
 
 Set<sf::Shape*> CheckColl::CircleCircle(sf::Shape* target_shape /* circle */) const {
