@@ -1,8 +1,8 @@
 #include "ReadInputKey.h"
 
 ReadInput::ReadInput() {
-    FileEventKey = open( "/dev/input/by-id/usb-SEMICO_USB_Keyboard-event-kbd", O_RDONLY | O_NONBLOCK );
-    if (FileEventKey == CANT_OPEN_FILE) {
+    FileEventKeyboard = open( "/dev/input/by-id/usb-SEMICO_USB_Keyboard-event-kbd", O_RDONLY | O_NONBLOCK );
+    if (FileEventKeyboard == CANT_OPEN_FILE) {
         std::cout << "Error: can not open '/dev/input/event7'" << std::endl;
         perror( "open" );
         exit( 0 );
@@ -17,19 +17,24 @@ ReadInput::ReadInput() {
 void ReadInput::GetKeyInputEvent() {
     input_event key {};
     while (true) {
-        if (const ssize_t result = read( FileEventKey, &key, sizeof(key) ); result != NOT_AVAILABLE_EVENT_FOR_READ) {
-            NeedToChangeValueTOFalse.push_back( key.code );
-            if (key.value == 0) {
-                KeyPressed[key.code] = false;
-                KeyHeld[key.code] = false;
-                KeyReleased[key.code] = true;
-                return;
-            } else if (key.value == 1) {
-                KeyPressed[key.code] = true;
-                return;
-            } else if (key.value == 2) {
-                KeyHeld[key.code] = true;
-                return;
+        if (const ssize_t result = read( FileEventKeyboard, &key, sizeof(key) );
+            result != NOT_AVAILABLE_EVENT_FOR_READ) {
+            NeedToChangeValueToFalse.push_back( key.code );
+            if (key.type == EV_KEY) {
+                ///// Keyboard input event //////
+                if (key.value == 0) {
+                    KeyPressed[key.code] = false;
+                    KeyHeld[key.code] = false;
+                    KeyReleased[key.code] = true;
+                    return;
+                } else if (key.value == 1) {
+                    KeyPressed[key.code] = true;
+                    return;
+                } else if (key.value == 2) {
+                    KeyHeld[key.code] = true;
+                    return;
+                }
+                ///// Mouse input event
             }
         } else {
             break;
@@ -77,17 +82,21 @@ unsigned short int ReadInput::GetKeyReleased() {
     return 0;
 }
 
+VecPos ReadInput::GetMousePosition() {
+    return { static_cast<float>(sf::Mouse::getPosition().x), static_cast<float>(sf::Mouse::getPosition().y) };
+}
+
 void ReadInput::Reset() {
-    for (const auto& KeyNumber : NeedToChangeValueTOFalse) {
+    for (const auto& KeyNumber : NeedToChangeValueToFalse) {
         KeyPressed[KeyNumber] = false;
         KeyHeld[KeyNumber] = false;
         KeyReleased[KeyNumber] = false;
     }
-    NeedToChangeValueTOFalse.clear();
+    NeedToChangeValueToFalse.clear();
 }
 
 ReadInput::~ReadInput() {
-    if (FileEventKey != -1) {
-        close( FileEventKey );
+    if (FileEventKeyboard != -1) {
+        close( FileEventKeyboard );
     }
 }
