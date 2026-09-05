@@ -29,5 +29,8 @@
 )" << std::endl;
 int main() {
     NE();
+    std::cout << "Welcome To My Project!" << std::endl;
+    std::cout << "this is a 2D Game Engine" << std::endl;
+    std::cout << "With SFML Graphic API" << std::endl;
     return 0;
 }

@@ -41,6 +41,8 @@ add_executable(
         Engine/MainEngine/Engine.h
         Engine/UserGameLogic/GameLogic.cpp
         Engine/UserGameLogic/GameLogic.h
+        EngineLibrary/VectorColor/VecCol.cpp
+        EngineLibrary/VectorColor/VecCol.h
 )
 
 target_include_directories(NexusEngine PRIVATE
