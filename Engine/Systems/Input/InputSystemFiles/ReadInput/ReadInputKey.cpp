@@ -111,12 +111,103 @@ ReadInputMouse::ReadInputMouse() {
         perror( "open" );
         exit( 0 );
     }
-    MouseState[ReadInputMouse::STATE::Before] = false;
-    MouseState[ReadInputMouse::STATE::Current] = false;
+    LeftButtonState[ReadInputMouse::STATE::Before] = false;
+    LeftButtonState[ReadInputMouse::STATE::Current] = false;
+
+    RightButtonState[ReadInputMouse::STATE::Before] = false;
+    RightButtonState[ReadInputMouse::STATE::Current] = false;
+
+    MiddleButtonState[ReadInputMouse::STATE::Before] = false;
+    MiddleButtonState[ReadInputMouse::STATE::Current] = false;
 }
 
 VecPos ReadInputMouse::GetMousePosition() {
     return { static_cast<float>(sf::Mouse::getPosition().x), static_cast<float>(sf::Mouse::getPosition().y) };
+}
+
+void ReadInputMouse::GetMouseInputEvent() {
+    input_event event {};
+    while (true) {
+        if (const ssize_t result = read( FileEventMouse, &event, sizeof(event) );
+            result != NOT_AVAILABLE_EVENT_FOR_READ) {
+            if (event.type == EV_KEY) {
+                if (event.code == BTN_LEFT) {
+                    if (event.value == 1)
+                        LeftButtonState[Current] = true;
+                    else if (event.value == 0)
+                        LeftButtonState[Current] = false;
+                } else if (event.code == BTN_RIGHT) {
+                    if (event.value == 1)
+                        RightButtonState[Current] = true;
+                    else if (event.value == 0)
+                        RightButtonState[Current] = false;
+                } else if (event.code == BTN_MIDDLE) {
+                    if (event.value == 1)
+                        MiddleButtonState[Current] = true;
+                    else if (event.value == 0)
+                        MiddleButtonState[Current] = false;
+                }
+            }
+        } else {
+            break;
+        }
+    }
+}
+
+bool ReadInputMouse::IsLeftButtonPressed() {
+    return (LeftButtonState[Current] == true) &&
+        (LeftButtonState[Before] == false);
+}
+
+bool ReadInputMouse::IsLeftButtonHeld() {
+    return (LeftButtonState[Current] == true) &&
+        (LeftButtonState[Before] == true);
+}
+
+bool ReadInputMouse::IsLeftButtonReleased() {
+    return (LeftButtonState[Current] == false) &&
+        (LeftButtonState[Before] == true);
+}
+
+bool ReadInputMouse::IsRightButtonPressed() {
+    return (RightButtonState[Current] == true) &&
+        (RightButtonState[Before] == false);
+}
+
+bool ReadInputMouse::IsRightButtonHeld() {
+    return (RightButtonState[Current] == true) &&
+        (RightButtonState[Before] == true);
+}
+
+bool ReadInputMouse::IsRightButtonReleased() {
+    return (RightButtonState[Current] == false) &&
+        (RightButtonState[Before] == true);
+}
+
+bool ReadInputMouse::IsMiddleButtonPressed() {
+    return (MiddleButtonState[Current] == true) &&
+        (MiddleButtonState[Before] == false);
+}
+
+bool ReadInputMouse::IsMiddleButtonHeld() {
+    return (MiddleButtonState[Current] == true) &&
+        (MiddleButtonState[Before] == true);
+}
+
+bool ReadInputMouse::IsMiddleButtonReleased() {
+    return (MiddleButtonState[Current] == false) &&
+        (MiddleButtonState[Before] == true);
+}
+
+void ReadInputMouse::Update() {
+    LeftButtonState[Before] = LeftButtonState[Current];
+    LeftButtonState[Current] = LeftButtonState[Before] ? true : false;
+
+    RightButtonState[Before] = RightButtonState[Current];
+    RightButtonState[Current] = RightButtonState[Before] ? true : false;
+
+    MiddleButtonState[Before] = MiddleButtonState[Current];
+    MiddleButtonState[Current] = MiddleButtonState[Before] ? true : false;
 }
 
 ReadInputMouse::~ReadInputMouse() {

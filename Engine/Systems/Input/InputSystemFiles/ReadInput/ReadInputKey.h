@@ -36,19 +36,50 @@ public:
     ~ReadInputKeyboard();
 };
 
+/**
+ * @class ReadInputMouse
+ * @brief Manages and provides information about mouse input events and states.
+ *
+ * This class is designed to handle mouse input events, track the states of mouse buttons,
+ * and provide functions to check the current state of each mouse button (left, right, middle).
+ * It also includes a function to retrieve the current mouse position.
+ */
 class ReadInputMouse
 {
 private:
     enum STATE : unsigned short int
     {
-        Before,
-        Current
+        Before, Current
     };
+
 private:
     int FileEventMouse;
-    Mapping::HashMap<unsigned short int, bool> MouseState;
+    Mapping::HashMap<unsigned short int, bool> LeftButtonState;
+    Mapping::HashMap<unsigned short int, bool> RightButtonState;
+    Mapping::HashMap<unsigned short int, bool> MiddleButtonState;
+
 public:
     explicit ReadInputMouse();
+    void GetMouseInputEvent();
     static VecPos GetMousePosition();
+    ///////////////////////
+    ///// Left Button /////
+    ///////////////////////
+    bool IsLeftButtonPressed();
+    bool IsLeftButtonHeld();
+    bool IsLeftButtonReleased();
+    ////////////////////////
+    ///// Right Button /////
+    ////////////////////////
+    bool IsRightButtonPressed();
+    bool IsRightButtonHeld();
+    bool IsRightButtonReleased();
+    /////////////////////////
+    ///// Middle Button /////
+    /////////////////////////
+    bool IsMiddleButtonPressed();
+    bool IsMiddleButtonHeld();
+    bool IsMiddleButtonReleased();
+    void Update();
     ~ReadInputMouse();
 };
