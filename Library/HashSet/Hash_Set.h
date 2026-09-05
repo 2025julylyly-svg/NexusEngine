@@ -145,7 +145,8 @@ private: // functions
             Bucket* temp = set[buck];
             while (temp != nullptr) {
                 const HashNumber Buc_Num = hash<elem>( temp->Val ) % (BucketCounter * 2);
-                InsertToSet( target, Buc_Num, temp );
+                auto* New = new Bucket { .Val = temp->Val, .next = nullptr };
+                InsertToSet( target, Buc_Num, New );
                 temp = temp->next;
             }
         }
