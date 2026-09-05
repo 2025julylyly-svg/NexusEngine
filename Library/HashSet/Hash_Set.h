@@ -64,7 +64,7 @@ private: // Classes
         }
 
         bool operator!=(const FindTarget& other) {
-            return prev != other.prev && current != other.current;
+            return prev != other.prev || current != other.current;
         }
     };
 
@@ -217,7 +217,7 @@ public:
             }
             temp = temp->next;
         }
-        if (temp->next->Val == target) {
+        if (temp->next != nullptr && temp->next->Val == target) {
             return FindTarget { .prev = temp, .current = temp->next, .BCK_NUM = hash_number };
         }
         return FindTarget { .prev = nullptr, .current = nullptr, .BCK_NUM = -1 };
