@@ -8,7 +8,7 @@
 #include "VecPos.h"
 #include "../../../Engine/Systems/Input/InputSystemFiles/InputError/CantReadKeyError.h"
 
-class ReadInput
+class ReadInputKeyboard
 {
 private:
     int FileEventKeyboard;
@@ -18,7 +18,7 @@ private:
     std::vector<unsigned short int> NeedToChangeValueToFalse;
 
 public:
-    ReadInput();
+    ReadInputKeyboard();
     void GetKeyInputEvent();
     bool IsKeyPressed(unsigned short int);
     bool IsKeyHeld(unsigned short int);
@@ -33,6 +33,22 @@ public:
      * It also clears the list of keys that need to change their values.
      */
     void Reset();
-    ~ReadInput();
+    ~ReadInputKeyboard();
 };
 
+class ReadInputMouse
+{
+private:
+    enum STATE : unsigned short int
+    {
+        Before,
+        Current
+    };
+private:
+    int FileEventMouse;
+    Mapping::HashMap<unsigned short int, bool> MouseState;
+public:
+    explicit ReadInputMouse();
+    static VecPos GetMousePosition();
+    ~ReadInputMouse();
+};

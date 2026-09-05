@@ -1,9 +1,9 @@
 #include "ReadInputKey.h"
 
-ReadInput::ReadInput() {
+ReadInputKeyboard::ReadInputKeyboard() {
     FileEventKeyboard = open( "/dev/input/by-id/usb-SEMICO_USB_Keyboard-event-kbd", O_RDONLY | O_NONBLOCK );
     if (FileEventKeyboard == CANT_OPEN_FILE) {
-        std::cout << "Error: can not open '/dev/input/event7'" << std::endl;
+        std::cout << "Error: can not open '/dev/input/by-id/usb-SEMICO_USB_Keyboard-event-kbd'" << std::endl;
         perror( "open" );
         exit( 0 );
     }
@@ -14,7 +14,7 @@ ReadInput::ReadInput() {
     }
 }
 
-void ReadInput::GetKeyInputEvent() {
+void ReadInputKeyboard::GetKeyInputEvent() {
     input_event key {};
     while (true) {
         if (const ssize_t result = read( FileEventKeyboard, &key, sizeof(key) );
@@ -43,19 +43,19 @@ void ReadInput::GetKeyInputEvent() {
 }
 
 
-bool ReadInput::IsKeyPressed(const unsigned short int KeyCode) {
+bool ReadInputKeyboard::IsKeyPressed(const unsigned short int KeyCode) {
     return KeyPressed[KeyCode];
 }
 
-bool ReadInput::IsKeyHeld(const unsigned short int KeyCode) {
+bool ReadInputKeyboard::IsKeyHeld(const unsigned short int KeyCode) {
     return KeyHeld[KeyCode];
 }
 
-bool ReadInput::IsKeyReleased(const unsigned short int KeyCode) {
+bool ReadInputKeyboard::IsKeyReleased(const unsigned short int KeyCode) {
     return KeyReleased[KeyCode];
 }
 
-unsigned short int ReadInput::GetKeyPressed() {
+unsigned short int ReadInputKeyboard::GetKeyPressed() {
     for (unsigned short int i = 0; i <= 125; ++i) {
         if (KeyPressed[i]) {
             return i;
@@ -64,7 +64,7 @@ unsigned short int ReadInput::GetKeyPressed() {
     return 0;
 }
 
-unsigned short int ReadInput::GetKeyHeld() {
+unsigned short int ReadInputKeyboard::GetKeyHeld() {
     for (unsigned short int i = 0; i <= 125; ++i) {
         if (KeyHeld[i]) {
             return i;
@@ -73,7 +73,7 @@ unsigned short int ReadInput::GetKeyHeld() {
     return 0;
 }
 
-unsigned short int ReadInput::GetKeyReleased() {
+unsigned short int ReadInputKeyboard::GetKeyReleased() {
     for (unsigned short int i = 0; i <= 125; ++i) {
         if (KeyReleased[i]) {
             return i;
@@ -82,11 +82,7 @@ unsigned short int ReadInput::GetKeyReleased() {
     return 0;
 }
 
-VecPos ReadInput::GetMousePosition() {
-    return { static_cast<float>(sf::Mouse::getPosition().x), static_cast<float>(sf::Mouse::getPosition().y) };
-}
-
-void ReadInput::Reset() {
+void ReadInputKeyboard::Reset() {
     for (const auto& KeyNumber : NeedToChangeValueToFalse) {
         KeyPressed[KeyNumber] = false;
         KeyHeld[KeyNumber] = false;
@@ -95,8 +91,36 @@ void ReadInput::Reset() {
     NeedToChangeValueToFalse.clear();
 }
 
-ReadInput::~ReadInput() {
+ReadInputKeyboard::~ReadInputKeyboard() {
     if (FileEventKeyboard != -1) {
         close( FileEventKeyboard );
+    }
+}
+
+/**
+ * Constructor for the ReadInputMouse class.
+ * Initializes the MouseState map with two states, Before and Current, both set to false.
+ */
+
+ReadInputMouse::ReadInputMouse() {
+    FileEventMouse = open( "/dev/input/by-id/usb-INSTANT_USB_GAMING_MOUSE-event-mouse",
+                           O_RDONLY | O_NONBLOCK );
+    if (FileEventMouse == CANT_OPEN_FILE) {
+        std::cout << "Error: can not open '/dev/input/by-id/usb-INSTANT_USB_GAMING_MOUSE-event-mouse'" <<
+            std::endl;
+        perror( "open" );
+        exit( 0 );
+    }
+    MouseState[ReadInputMouse::STATE::Before] = false;
+    MouseState[ReadInputMouse::STATE::Current] = false;
+}
+
+VecPos ReadInputMouse::GetMousePosition() {
+    return { static_cast<float>(sf::Mouse::getPosition().x), static_cast<float>(sf::Mouse::getPosition().y) };
+}
+
+ReadInputMouse::~ReadInputMouse() {
+    if (FileEventMouse != -1) {
+        close( FileEventMouse );
     }
 }

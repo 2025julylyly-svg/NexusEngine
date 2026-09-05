@@ -10,7 +10,7 @@ private:
     unsigned int fps = 60.0f;
     Vector<sf::Shape*> Shapes;
     WS window;
-    ReadInput input;
+    ReadInputKeyboard input;
     CheckColl collision;
 private: // private functions
     void UpdateGameState();

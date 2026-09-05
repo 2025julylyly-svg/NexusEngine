@@ -9,10 +9,10 @@ class GameLogic
 protected:
     CheckColl* CollisionChecker {};
     WS* Window {};
-    ReadInput* Input {};
+    ReadInputKeyboard* Input {};
 
 public:
     explicit GameLogic();
-    void Set(CheckColl* CollisionCheckerPTR, WS* WindowPTR, ReadInput* InputPTR);
+    void Set(CheckColl* CollisionCheckerPTR, WS* WindowPTR, ReadInputKeyboard* InputPTR);
     virtual void Main() const = 0;
 };

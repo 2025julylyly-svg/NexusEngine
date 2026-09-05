@@ -2,7 +2,7 @@
 
 GameLogic::GameLogic() = default;
 
-void GameLogic::Set(CheckColl* CollisionCheckerPTR, WS* WindowPTR, ReadInput* InputPTR) {
+void GameLogic::Set(CheckColl* CollisionCheckerPTR, WS* WindowPTR, ReadInputKeyboard* InputPTR) {
     CollisionChecker = CollisionCheckerPTR;
     Window = WindowPTR;
     Input = InputPTR;

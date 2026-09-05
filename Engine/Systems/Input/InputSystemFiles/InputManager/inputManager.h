@@ -2,7 +2,7 @@
 class KEYBOARD
 {
 public:
-    enum KEY
+    enum class KEY : unsigned short int
     {
         Key_RESERVED,
         Key_ESC,
