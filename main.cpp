@@ -30,7 +30,27 @@
 |__/  \__/   \_______/ |__/  \__/   \______/  |_______/
 )" << std::endl;
 
+
+namespace {
+    class Logic final : public GameLogic
+    {
+    public:
+        void CollisionCheckingManaging() const override {}
+
+        void InputManaging() const override {}
+
+        void Main() const override {
+            this->InputManaging();
+        }
+    };
+}
+
+
 int main() {
     NE();
+    Logic logic;
+    Engine engine;
+    engine.CreateWindow( { 900, 900 }, 60 );
+    engine.Run( &logic );
     return 0;
 }

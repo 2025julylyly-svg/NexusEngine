@@ -27,7 +27,7 @@ private: // structures
 
 private: // data
     const int CELL_SIZE = 10;
-    int WidthScreen, HeightScreen;
+    int WidthScreen{}, HeightScreen{};
     Vector<Vector<cell>> cells;
 
 private: // private functions
@@ -39,6 +39,7 @@ private: // private functions
     void SetToCells(const int&, const int&, const int&, const int&, sf::Shape*);
     [[nodiscard]] Set<sf::Shape*> GetShapesInThisSection(const int&, const int&, const int&, const int&, const sf::Shape*) const;
 public:
+    void InitData(int WS = 900, int HS = 900);
     explicit CreateGridWindow(int, int);
     void AddShape(sf::Shape*);
     Set<sf::Shape*> Query(const sf::Shape* ) const;
