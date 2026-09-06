@@ -1,6 +1,7 @@
 #pragma once
 #include "../Systems/Collision/SpatialHashingGrid/NarrowPhase/CheckCollisionShaes/CheckColl.h"
 #include "../Systems/Input/InputSystemFiles/ReadInput/ReadInputKey.h"
+#include "../Systems/Input/InputSystemFiles/InputManager/inputManager.h"
 #include "../Systems/Window/WindowSystem.h"
 #include "../UserGameLogic/GameLogic.h"
 
